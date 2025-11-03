@@ -8,19 +8,45 @@ export interface SchemaConfig {
   description: string;
   url: string;
   price?: string;
+  areaServed?: {
+    name: string;
+    description?: string;
+    coordinates?: {
+      latitude: string;
+      longitude: string;
+    };
+  };
+  serviceType?: string[];
+  serviceArea?: {
+    name: string;
+    type: 'City' | 'State' | 'Country';
+  }[];
+  hasOfferCatalog?: {
+    name: string;
+    description: string;
+    price: string;
+  }[];
 }
 
 // Local Business Schema
 export const generateLocalBusinessSchema = (config: SchemaConfig) => {
-  return {
+  const schema: any = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     "@id": config.url,
     "name": config.businessName,
     "description": config.description,
     "url": config.url,
     "telephone": BUSINESS_CONFIG.phone,
     "email": BUSINESS_CONFIG.email,
+    "priceRange": "$$",
+    "image": "https://www.cctvinstallationdelhi.in/images/logo.png",
+    "sameAs": [
+      BUSINESS_CONFIG.social?.facebook,
+      BUSINESS_CONFIG.social?.twitter,
+      BUSINESS_CONFIG.social?.instagram,
+      BUSINESS_CONFIG.social?.linkedin
+    ].filter(Boolean),
     "address": {
       "@type": "PostalAddress",
       "streetAddress": BUSINESS_CONFIG.address,
@@ -48,9 +74,48 @@ export const generateLocalBusinessSchema = (config: SchemaConfig) => {
         "closes": "18:00"
       }
     ],
-    "priceRange": "₹₹",
-    "image": config.url + "/logo.png",
-    "sameAs": Object.values(BUSINESS_CONFIG.social).filter(link => link)
+    "areaServed": {
+      "@type": "City",
+      "name": config.areaServed?.name || "Delhi",
+      "description": config.areaServed?.description || `Professional ${config.serviceName} services in ${config.location}`,
+      ...(config.areaServed?.coordinates && {
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": config.areaServed.coordinates.latitude,
+          "longitude": config.areaServed.coordinates.longitude
+        }
+      })
+    },
+    "serviceArea": (config.serviceArea || []).map(area => ({
+      "@type": "AdministrativeArea",
+      "name": area.name,
+      "containedInPlace": {
+        "@type": "Country",
+        "name": "India"
+      }
+    })),
+    "hasOfferCatalog": config.hasOfferCatalog ? {
+      "@type": "OfferCatalog",
+      "name": "Our Services",
+      "itemListElement": config.hasOfferCatalog.map((offer, index) => ({
+        "@type": "OfferCatalog",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": offer.name,
+              "description": offer.description
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": offer.price,
+              "priceCurrency": "INR"
+            }
+          }
+        ]
+      }))
+    } : undefined
   };
 };
 

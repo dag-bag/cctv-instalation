@@ -8,6 +8,21 @@ export interface Service {
   description: string;
   features: string[];
   priceRange?: string;
+  // SEO fields
+  seoTitle?: string;
+  seoDescription?: string;
+  keywords?: string[];
+  // Additional fields for rich snippets
+  faqs?: Array<{ question: string; answer: string }>;
+  rating?: {
+    value: number;
+    count: number;
+  };
+  serviceArea?: string[];
+  serviceTypes?: string[];
+  // New fields for location-based services
+  availableLocations?: string[]; // Array of location slugs where this service is available
+  isLocationSpecific?: boolean; // Whether this service should have location-specific pages
 }
 
 export const SERVICE_CATEGORIES = {
@@ -16,7 +31,8 @@ export const SERVICE_CATEGORIES = {
   SECURITY: "security",
   SMART_HOME: "smart-home",
   NETWORKING: "networking",
-};
+  HOME: "home" // For home services that are location-specific
+} as const;
 
 export const SERVICES: Service[] = [
   // CCTV Services
@@ -26,6 +42,20 @@ export const SERVICES: Service[] = [
     category: SERVICE_CATEGORIES.CCTV,
     icon: "🎥",
     description: "Professional CCTV camera installation with expert setup and configuration",
+    seoTitle: "Best CCTV Installation Services in Delhi NCR | Affordable & Professional",
+    seoDescription: "Get expert CCTV camera installation services in Delhi NCR. We offer HD/4K camera setup, DVR/NVR configuration, and mobile app access. Free site survey & 1-year warranty.",
+    keywords: [
+      "cctv installation",
+      "cctv camera installation",
+      "best cctv installation company",
+      "cctv installation near me",
+      "professional cctv setup",
+      "home cctv installation",
+      "office cctv installation",
+      "hd cctv cameras",
+      "4k security cameras",
+      "cctv installation cost"
+    ],
     features: [
       "HD/4K Camera Installation",
       "DVR/NVR Setup",
@@ -35,6 +65,26 @@ export const SERVICES: Service[] = [
       "1 Year Warranty",
     ],
     priceRange: "₹5,000 - ₹50,000",
+    rating: {
+      value: 4.8,
+      count: 247
+    },
+    serviceArea: ["Delhi", "Noida", "Gurgaon", "Faridabad", "Ghaziabad"],
+    serviceTypes: ["Home Security", "Office Security", "Commercial CCTV", "IP Cameras", "Wireless CCTV"],
+    faqs: [
+      {
+        question: "How much does CCTV installation cost in Delhi?",
+        answer: "The cost of CCTV installation in Delhi typically ranges from ₹5,000 to ₹50,000 depending on the number of cameras, camera type (analog, HD, IP), and additional features like night vision, motion detection, and remote viewing."
+      },
+      {
+        question: "How long does it take to install CCTV cameras?",
+        answer: "A standard CCTV installation for a home or small business with 4-8 cameras typically takes 4-8 hours. Larger commercial installations may take 1-3 days depending on the complexity and number of cameras."
+      },
+      {
+        question: "Do you provide maintenance after installation?",
+        answer: "Yes, we offer comprehensive maintenance packages that include regular camera cleaning, system checks, software updates, and 24/7 technical support. Our standard installation comes with a 1-year warranty on parts and labor."
+      }
+    ]
   },
   {
     slug: "repair-services",

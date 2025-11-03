@@ -141,13 +141,13 @@ export default async function ServicePage({
   return (
     <>
       {/* JSON-LD Schemas */}
-      {schemas.map((schema, index) => (
+      {/* {schemas.map((schema, index) => (
         <script
           key={index}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-      ))}
+      ))} */}
 
       <div className={styles.container}>
         {/* Breadcrumb */}

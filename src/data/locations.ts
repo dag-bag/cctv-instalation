@@ -5,7 +5,19 @@ export interface Location {
   slug: string;
   name: string;
   district: string;
+  description?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  landmarks?: string[];
   localities: string[];
+  coordinates?: {
+    latitude: string;
+    longitude: string;
+  };
+  population?: number;
+  establishmentYear?: number;
+  nearbyAreas?: string[];
+  popularFor?: string[];
 }
 
 export const DELHI_DISTRICTS = [
@@ -28,6 +40,24 @@ export const LOCATIONS: Location[] = [
     slug: "central-delhi",
     name: "Central Delhi",
     district: "Central Delhi",
+    description: "Professional CCTV installation services in Central Delhi. We provide high-quality security camera solutions for homes and businesses in Connaught Place, Karol Bagh, and surrounding areas.",
+    seoTitle: "Best CCTV Installation in Central Delhi | Affordable Security Cameras",
+    seoDescription: "Get expert CCTV installation services in Central Delhi. We offer HD security cameras, IP cameras, and complete surveillance solutions for homes and businesses in CP, Karol Bagh, and nearby areas.",
+    coordinates: {
+      latitude: "28.6519",
+      longitude: "77.2315"
+    },
+    population: 582320,
+    establishmentYear: 1911,
+    nearbyAreas: ["New Delhi", "North Delhi", "South Delhi"],
+    popularFor: ["Connaught Place", "Parliament House", "India Gate", "Rashtrapati Bhavan"],
+    landmarks: [
+      "Connaught Place",
+      "India Gate",
+      "Rashtrapati Bhavan",
+      "Parliament House",
+      "Jantar Mantar"
+    ],
     localities: [
       "connaught-place",
       "karol-bagh",
