@@ -5,9 +5,10 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { service: string };
+  params: Promise<{ service: string }>;
 }): Promise<Metadata> {
-  const service = getServiceBySlug(params.service);
+  const { service: serviceSlug } = await params;
+  const service = getServiceBySlug(serviceSlug);
   
   if (!service) {
     return {};
@@ -27,12 +28,13 @@ export async function generateMetadata({
   };
 }
 
-export default function ServicePage({
+export default async function ServicePage({
   params,
 }: {
-  params: { service: string };
+  params: Promise<{ service: string }>;
 }) {
-  const service = getServiceBySlug(params.service);
+  const { service: serviceSlug } = await params;
+  const service = getServiceBySlug(serviceSlug);
 
   if (!service) {
     notFound();

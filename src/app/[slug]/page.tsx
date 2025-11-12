@@ -26,17 +26,19 @@ function parseRoute(slug: string): {
   location?: string;
   service?: string;
 } {
-  // Priority 1: Check if it's an SEO route with hyphens (e.g., "cctv-installation-in-rohini-delhi")
-  if (slug.includes('-in-') || slug.endsWith('-delhi')) {
-    return { type: 'seo-route', location: slug, service: slug };
-  }
-  
-  // Priority 2: Check if it's a valid location (district or locality)
+  // Priority 1: Check if it's a valid location (district or locality) FIRST
+  // This prevents valid locations like "north-west-delhi" from being treated as SEO routes
   const location = getLocationBySlug(slug);
   const locality = getLocalityDetails(slug);
   
   if (location || locality) {
     return { type: 'location', location: slug };
+  }
+  
+  // Priority 2: Check if it's an SEO route with hyphens (e.g., "cctv-installation-in-rohini-delhi")
+  // Only treat as SEO route if it contains '-in-' or ends with '-delhi' AND is not a valid location
+  if (slug.includes('-in-') || (slug.endsWith('-delhi') && !location && !locality)) {
+    return { type: 'seo-route', location: slug, service: slug };
   }
   
   // Priority 3: Assume it's a location with hyphenated name
@@ -206,11 +208,170 @@ export default async function SlugPage({
       ? localityDetails.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
       : route.location.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 
+    const locationSlug = route.location;
+    const districtSlug = location ? location.slug : localityDetails?.district.slug || locationSlug;
+    
+    // Get all services available for this location
+    const locationServices = SERVICES.filter(service => 
+      !service.availableLocations || 
+      service.availableLocations.includes(locationSlug) ||
+      service.isLocationSpecific
+    );
+
+    // Group services by category
+    const servicesByCategory = locationServices.reduce((acc, service) => {
+      if (!acc[service.category]) {
+        acc[service.category] = [];
+      }
+      acc[service.category].push(service);
+      return acc;
+    }, {} as Record<string, typeof SERVICES>);
+
     return (
       <div className={styles.container}>
-        <h1>{displayName} - CCTV Services</h1>
-        <p>Services for {displayName} coming soon...</p>
-        <CTAButtons />
+        {/* Breadcrumb */}
+        <nav className={styles.breadcrumb}>
+          <Link href="/">Home</Link> / <span>{displayName}</span>
+        </nav>
+
+        {/* Hero Section */}
+        <section className={styles.hero}>
+          <div className={styles.heroContent}>
+            <div className={styles.serviceIcon}>🏠</div>
+            <h1 className={styles.mainHeading}>
+              CCTV & Security Services in {displayName}
+            </h1>
+            <p className={styles.subheading}>
+              Professional security solutions for homes and businesses in {displayName}. 
+              Get expert CCTV installation, repair, and maintenance services with free site surveys and competitive pricing.
+            </p>
+            <CTAButtons variant="horizontal" />
+          </div>
+        </section>
+
+        {/* About Location Section */}
+        <section className={styles.section}>
+          <div className={styles.content}>
+            <h2>Why Choose Us in {displayName}?</h2>
+            <div className={styles.featuresGrid}>
+              <div className={styles.featureCard}>
+                <span className={styles.featureIcon}>✓</span>
+                <h3>Local Experts</h3>
+                <p>Extensive experience serving {displayName} and surrounding areas</p>
+              </div>
+              <div className={styles.featureCard}>
+                <span className={styles.featureIcon}>✓</span>
+                <h3>Free Site Survey</h3>
+                <p>No-obligation assessment and detailed quote</p>
+              </div>
+              <div className={styles.featureCard}>
+                <span className={styles.featureIcon}>✓</span>
+                <h3>Professional Installation</h3>
+                <p>Certified technicians with quality workmanship</p>
+              </div>
+              <div className={styles.featureCard}>
+                <span className={styles.featureIcon}>✓</span>
+                <h3>24/7 Support</h3>
+                <p>Round-the-clock emergency support and maintenance</p>
+              </div>
+              <div className={styles.featureCard}>
+                <span className={styles.featureIcon}>✓</span>
+                <h3>Competitive Pricing</h3>
+                <p>Transparent pricing with no hidden charges</p>
+              </div>
+              <div className={styles.featureCard}>
+                <span className={styles.featureIcon}>✓</span>
+                <h3>Warranty Included</h3>
+                <p>1-year warranty on all installations</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* All Services Section */}
+        <section className={styles.section}>
+          <div className={styles.content}>
+            <h2>Our Services in {displayName}</h2>
+            <p className={styles.intro} style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              Explore our comprehensive range of CCTV and security services available in {displayName}. 
+              Click on any service to learn more and get a free quote.
+            </p>
+            
+            {Object.entries(servicesByCategory).map(([category, services]) => (
+              <div key={category} style={{ marginBottom: '4rem' }}>
+                <h3 style={{ 
+                  fontSize: '1.75rem', 
+                  fontWeight: 600, 
+                  color: '#1e3c72', 
+                  marginBottom: '2rem',
+                  textTransform: 'capitalize'
+                }}>
+                  {category.replace(/-/g, ' ')}
+                </h3>
+                <div className={styles.featuresGrid}>
+                  {services.map((service) => (
+                    <Link
+                      key={service.slug}
+                      href={`/${locationSlug}/${service.slug}`}
+                      style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+                    >
+                      <div className={styles.featureCard} style={{ cursor: 'pointer' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{service.icon}</div>
+                        <h3 style={{ marginBottom: '0.75rem' }}>{service.name}</h3>
+                        <p style={{ 
+                          color: '#666', 
+                          fontSize: '0.95rem', 
+                          lineHeight: '1.6',
+                          marginBottom: '1rem',
+                          flexGrow: 1
+                        }}>
+                          {service.description}
+                        </p>
+                        {service.priceRange && (
+                          <div style={{ 
+                            color: '#2a5298', 
+                            fontWeight: 600, 
+                            fontSize: '0.9rem',
+                            marginBottom: '0.75rem'
+                          }}>
+                            {service.priceRange}
+                          </div>
+                        )}
+                        <div style={{ 
+                          color: '#2a5298', 
+                          fontWeight: 600, 
+                          marginTop: 'auto',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.5rem',
+                          paddingTop: '0.5rem'
+                        }}>
+                          Learn More <span>→</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className={styles.ctaSection}>
+          <div className={styles.content}>
+            <h2>Ready to Secure Your Property in {displayName}?</h2>
+            <p style={{ fontSize: '1.25rem', marginBottom: '2rem', opacity: 0.95 }}>
+              Contact us today for a free consultation and quote. Our expert team is ready to help!
+            </p>
+            <CTAButtons variant="horizontal" />
+            <p style={{ marginTop: '2rem', fontSize: '1rem', opacity: 0.9 }}>
+              Call/WhatsApp: <a href={`tel:${BUSINESS_CONFIG.phone}`} style={{ color: '#ffd700', fontWeight: 600 }}>{BUSINESS_CONFIG.phone}</a>
+            </p>
+          </div>
+        </section>
+
         <FloatingCTA />
       </div>
     );

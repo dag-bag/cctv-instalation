@@ -3,13 +3,18 @@ import { getLocationBySlug, getLocalityDetails } from '@/data/locations';
 import { SERVICES, SERVICE_CATEGORIES } from '@/data/services';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import CTAButtons from '@/components/CTAButtons';
+import FloatingCTA from '@/components/FloatingCTA';
+import { BUSINESS_CONFIG } from '@/config/business';
+import styles from './location.module.css';
 
 export async function generateMetadata({
   params,
 }: {
-  params: { location: string };
+  params: Promise<{ location: string }>;
 }): Promise<Metadata> {
-  const location = getLocationBySlug(params.location) || getLocalityDetails(params.location);
+  const { location: locationSlug } = await params;
+  const location = getLocationBySlug(locationSlug) || getLocalityDetails(locationSlug);
   
   if (!location) {
     return {};
@@ -30,17 +35,18 @@ export async function generateMetadata({
       `CCTV services near me`,
     ],
     alternates: {
-      canonical: `/locations/${params.location}`,
+      canonical: `/locations/${locationSlug}`,
     },
   };
 }
 
-export default function LocationPage({
+export default async function LocationPage({
   params,
 }: {
-  params: { location: string };
+  params: Promise<{ location: string }>;
 }) {
-  const location = getLocationBySlug(params.location) || getLocalityDetails(params.location);
+  const { location: locationSlug } = await params;
+  const location = getLocationBySlug(locationSlug) || getLocalityDetails(locationSlug);
 
   if (!location) {
     notFound();
@@ -49,62 +55,137 @@ export default function LocationPage({
   const locationName = 'name' in location ? location.name : location.locality;
   const locationServices = SERVICES.filter(service => 
     !service.availableLocations || 
-    service.availableLocations.includes(params.location) ||
+    service.availableLocations.includes(locationSlug) ||
     service.isLocationSpecific
   );
 
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Security & CCTV Services in {locationName}</h1>
-      
-      <div className="prose max-w-none mb-12">
-        <p className="text-lg mb-6">
-          Professional security and CCTV installation services in {locationName}. We provide comprehensive security solutions for homes and businesses, including CCTV cameras, alarm systems, and access control.
-        </p>
-      </div>
+  // Group services by category
+  const servicesByCategory = locationServices.reduce((acc, service) => {
+    if (!acc[service.category]) {
+      acc[service.category] = [];
+    }
+    acc[service.category].push(service);
+    return acc;
+  }, {} as Record<string, typeof SERVICES>);
 
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-6">Our Services in {locationName}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {locationServices.map((service) => (
-            <Link 
-              key={service.slug}
-              href={`/services/${service.slug}/${params.location}`}
-              className="block p-6 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
-            >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
-              <p className="text-gray-600">{service.description}</p>
-              <div className="mt-4 text-blue-600 font-medium">Learn more →</div>
-            </Link>
+  return (
+    <div className={styles.container}>
+      {/* Breadcrumb */}
+      <nav className={styles.breadcrumb}>
+        <Link href="/">Home</Link> / <Link href="/locations">Locations</Link> / <span>{locationName}</span>
+      </nav>
+
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <div className={styles.serviceIcon}>🏠</div>
+          <h1 className={styles.mainHeading}>
+            CCTV & Security Services in {locationName}
+          </h1>
+          <p className={styles.subheading}>
+            Professional security solutions for homes and businesses in {locationName}. 
+            Get expert CCTV installation, repair, and maintenance services with free site surveys and competitive pricing.
+          </p>
+          <CTAButtons variant="horizontal" />
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className={styles.section}>
+        <div className={styles.content}>
+          <h2>Why Choose Us in {locationName}?</h2>
+          <div className={styles.featuresGrid}>
+            <div className={styles.featureCard}>
+              <span className={styles.featureIcon}>✓</span>
+              <h3>Local Experts</h3>
+              <p>Extensive experience serving {locationName} and surrounding areas</p>
+            </div>
+            <div className={styles.featureCard}>
+              <span className={styles.featureIcon}>✓</span>
+              <h3>Free Site Survey</h3>
+              <p>No-obligation assessment and detailed quote</p>
+            </div>
+            <div className={styles.featureCard}>
+              <span className={styles.featureIcon}>✓</span>
+              <h3>Professional Installation</h3>
+              <p>Certified technicians with quality workmanship</p>
+            </div>
+            <div className={styles.featureCard}>
+              <span className={styles.featureIcon}>✓</span>
+              <h3>24/7 Support</h3>
+              <p>Round-the-clock emergency support and maintenance</p>
+            </div>
+            <div className={styles.featureCard}>
+              <span className={styles.featureIcon}>✓</span>
+              <h3>Competitive Pricing</h3>
+              <p>Transparent pricing with no hidden charges</p>
+            </div>
+            <div className={styles.featureCard}>
+              <span className={styles.featureIcon}>✓</span>
+              <h3>Warranty Included</h3>
+              <p>1-year warranty on all installations</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* All Services Section */}
+      <section className={styles.section}>
+        <div className={styles.content}>
+          <h2>Our Services in {locationName}</h2>
+          <p className={styles.intro} style={{ marginBottom: '3rem' }}>
+            Explore our comprehensive range of CCTV and security services available in {locationName}. 
+            Click on any service to learn more and get a free quote.
+          </p>
+          
+          {Object.entries(servicesByCategory).map(([category, services]) => (
+            <div key={category} className={styles.categorySection}>
+              <h3 className={styles.categoryTitle}>
+                {category.replace(/-/g, ' ')}
+              </h3>
+              <div className={styles.featuresGrid}>
+                {services.map((service) => (
+                  <Link
+                    key={service.slug}
+                    href={`/services/${service.slug}/${locationSlug}`}
+                    style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+                  >
+                    <div className={styles.featureCard}>
+                      <div className={styles.serviceIconLarge}>{service.icon}</div>
+                      <h3>{service.name}</h3>
+                      <p>{service.description}</p>
+                      {service.priceRange && (
+                        <div className={styles.priceRange}>
+                          {service.priceRange}
+                        </div>
+                      )}
+                      <div className={styles.learnMore}>
+                        Learn More <span>→</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      <div className="bg-blue-50 p-8 rounded-lg">
-        <h2 className="text-2xl font-semibold mb-4">Why Choose Us in {locationName}?</h2>
-        <ul className="space-y-3 mb-6">
-          <li className="flex items-start">
-            <span className="text-green-500 mr-2">✓</span>
-            <span>Local experts with extensive experience in {locationName}</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-500 mr-2">✓</span>
-            <span>Free, no-obligation quotes and site surveys</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-500 mr-2">✓</span>
-            <span>Professional installation by certified technicians</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-500 mr-2">✓</span>
-            <span>24/7 emergency support and maintenance</span>
-          </li>
-        </ul>
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-          Get a Free Quote for {locationName}
-        </button>
-      </div>
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <div className={styles.content}>
+          <h2>Ready to Secure Your Property in {locationName}?</h2>
+          <p className={styles.ctaText}>
+            Contact us today for a free consultation and quote. Our expert team is ready to help!
+          </p>
+          <CTAButtons variant="horizontal" />
+          <p className={styles.contactInfo}>
+            Call/WhatsApp: <a href={`tel:${BUSINESS_CONFIG.phone}`}>{BUSINESS_CONFIG.phone}</a>
+          </p>
+        </div>
+      </section>
+
+      <FloatingCTA />
     </div>
   );
 }

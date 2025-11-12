@@ -6,10 +6,11 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { service: string; location: string };
+  params: Promise<{ service: string; location: string }>;
 }): Promise<Metadata> {
-  const service = getServiceBySlug(params.service);
-  const location = getLocationBySlug(params.location) || getLocalityDetails(params.location);
+  const { service: serviceSlug, location: locationSlug } = await params;
+  const service = getServiceBySlug(serviceSlug);
+  const location = getLocationBySlug(locationSlug) || getLocalityDetails(locationSlug);
   
   if (!service || !location) {
     return {};
@@ -31,18 +32,19 @@ export async function generateMetadata({
     description,
     keywords,
     alternates: {
-      canonical: `/services/${service.slug}/${params.location}`,
+      canonical: `/services/${service.slug}/${locationSlug}`,
     },
   };
 }
 
-export default function ServiceLocationPage({
+export default async function ServiceLocationPage({
   params,
 }: {
-  params: { service: string; location: string };
+  params: Promise<{ service: string; location: string }>;
 }) {
-  const service = getServiceBySlug(params.service);
-  const location = getLocationBySlug(params.location) || getLocalityDetails(params.location);
+  const { service: serviceSlug, location: locationSlug } = await params;
+  const service = getServiceBySlug(serviceSlug);
+  const location = getLocationBySlug(locationSlug) || getLocalityDetails(locationSlug);
 
   if (!service || !location) {
     notFound();

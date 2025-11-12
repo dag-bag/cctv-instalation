@@ -61,28 +61,6 @@
   margin-right: auto;
 }
 
-.priceTag {
-  display: inline-flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  margin: 1.5rem 0 2rem;
-  backdrop-filter: blur(10px);
-}
-
-.priceLabel {
-  font-size: 0.875rem;
-  opacity: 0.9;
-  margin-bottom: 0.25rem;
-}
-
-.price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffd700;
-}
-
 .section {
   padding: 4rem 2rem;
 }
@@ -105,6 +83,7 @@
   line-height: 1.8;
   color: #333;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .featuresGrid {
@@ -124,6 +103,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #e9ecef;
+  cursor: pointer;
 }
 
 .featureCard:hover {
@@ -144,12 +124,38 @@
   font-size: 1.125rem;
   font-weight: 600;
   color: #1e3c72;
-  margin: 0;
+  margin: 0 0 0.75rem 0;
 }
 
 .featureCard p {
   flex-grow: 1;
-  margin: 0;
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.serviceIconLarge {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.priceRange {
+  color: #2a5298;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.learnMore {
+  color: #2a5298;
+  font-weight: 600;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 .ctaSection {
@@ -165,36 +171,38 @@
   margin-bottom: 1rem;
 }
 
-.faqList {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.faqItem {
-  background: white;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.faqItem:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.faqQuestion {
+.ctaText {
   font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.contactInfo {
+  margin-top: 2rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.contactInfo a {
+  color: #ffd700;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contactInfo a:hover {
+  text-decoration: underline;
+}
+
+.categoryTitle {
+  font-size: 1.75rem;
   font-weight: 600;
   color: #1e3c72;
-  margin: 0 0 1rem 0;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
 }
 
-.faqAnswer {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #555;
-  margin: 0;
+.categorySection {
+  margin-bottom: 4rem;
 }
 
 @media (max-width: 768px) {
@@ -214,11 +222,12 @@
     padding: 2rem 1rem;
   }
 
-  .faqQuestion {
-    font-size: 1.1rem;
+  .content h2 {
+    font-size: 2rem;
   }
 
-  .faqItem {
-    padding: 1.5rem;
+  .featuresGrid {
+    grid-template-columns: 1fr;
   }
 }
+
