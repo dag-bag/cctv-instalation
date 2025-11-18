@@ -1,116 +1,31 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import {
-  getAllLocationsWithLocalities,
-  getLocationBySlug,
-  getLocalityDetails,
-} from "@/data/locations";
+import { getLocationBySlug, getLocalityDetails } from "@/data/locations";
 import { SERVICES, getServiceBySlug } from "@/data/services";
 import { BUSINESS_CONFIG } from "@/config/business";
-import {
-  generatePageTitle,
-  generateMetaDescription,
-  generateHeadline,
-  generateServicePageContent,
-  generateTestimonials,
-  generateKeywords,
-} from "@/utils/content-generator";
-import { generateAllSchemas } from "@/utils/schema-generator";
-import CTAButtons from "@/components/CTAButtons";
-import FloatingCTA from "@/components/FloatingCTA";
-import styles from "./service.module.css";
-import { CITY_CONFIG, CITY_SLUGS, isValidCity } from "@/data/cities";
-
-const getDisplayName = (localitySlug: string) => {
-  const location = getLocationBySlug(localitySlug);
-  const localityDetails = getLocalityDetails(localitySlug);
-
-  if (location) {
-    return location.name;
-  }
-
-  if (localityDetails) {
-    return localityDetails.locality
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-  }
-
-  return localitySlug
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-};
-
-const doesLocalityExist = (localitySlug: string) => {
-  return Boolean(getLocationBySlug(localitySlug) || getLocalityDetails(localitySlug));
-};
-
-export async function generateStaticParams() {
-  const allLocations = getAllLocationsWithLocalities();
-  const params: { city: string; locality: string; service: string }[] = [];
-
-  CITY_SLUGS.forEach((city) => {
-    allLocations.forEach((location) => {
-      SERVICES.forEach((service) => {
-        params.push({
-          city,
-          locality: location.slug,
-          service: service.slug,
-        });
-      });
-    });
-  });
-
-  return params;
-}
+import { generatePageTitle, generateMetaDescription } from "@/utils/content-generator";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ city: string; locality: string; service: string }>;
+  params: { city: string; locality: string; service: string };
 }): Promise<Metadata> {
-  const { city, locality, service: serviceSlug } = await params;
-
-  if (!isValidCity(city)) {
-    return { title: "City Not Found" };
-  }
-
-  if (!doesLocalityExist(locality)) {
-    return { title: "Location Not Found" };
-  }
-
-  const service = getServiceBySlug(serviceSlug);
-
-  if (!service) {
-    return { title: "Service Not Found" };
-  }
-
-  const locationName = getDisplayName(locality);
-  const cityName = CITY_CONFIG[city].name;
-
-  const title = generatePageTitle(service.name, `${locationName}, ${cityName}`);
-  const description = generateMetaDescription(service.name, `${locationName}, ${cityName}`);
-  const keywords = generateKeywords(service.name, `${locationName}, ${cityName}`);
-
+  const location = getLocationBySlug(params.city);
+  const service = getServiceBySlug(params.service);
+  
+  if (!location || !service) notFound();
+  
+  const title = generatePageTitle(service.name, params.locality, params.city);
+  const description = generateMetaDescription(service.name, params.locality, params.city);
+  
   return {
     title,
     description,
-    keywords,
     openGraph: {
       title,
       description,
-      type: "website",
-      locale: "en_IN",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-    alternates: {
-      canonical: `/services/${city}/${locality}/${serviceSlug}`,
+      url: `${BUSINESS_CONFIG.websiteUrl}/services/${params.city}/${params.locality}/${params.service}`,
+      type: 'website',
     },
   };
 }
@@ -118,296 +33,395 @@ export async function generateMetadata({
 export default async function ServicePage({
   params,
 }: {
-  params: Promise<{ city: string; locality: string; service: string }>;
+  params: { city: string; locality: string; service: string };
 }) {
-  const { city, locality: localitySlug, service: serviceSlug } = await params;
+  const location = getLocationBySlug(params.city);
+  const service = getServiceBySlug(params.service);
+  const localityDetails = getLocalityDetails(params.locality);
+  
+  if (!location || !service || !localityDetails) notFound();
 
-  if (!isValidCity(city)) {
-    notFound();
-  }
-
-  const service = getServiceBySlug(serviceSlug);
-  const location = getLocationBySlug(localitySlug);
-  const localityDetails = getLocalityDetails(localitySlug);
-
-  if (!service || (!location && !localityDetails)) {
-    notFound();
-  }
-
-  const displayName = getDisplayName(localitySlug);
-  const cityName = CITY_CONFIG[city].name;
-
-  const districtName = location?.district || localityDetails?.district.name;
-  const landmarks = location?.landmarks || localityDetails?.district.landmarks || [];
-  const nearbyLocalities =
-    (location?.localities || localityDetails?.district.localities || []).filter(
-      (slug) => slug !== localitySlug
-    );
-
-  const dynamicContent = generateServicePageContent({
-    serviceName: service.name,
-    serviceSlug,
-    serviceCategory: service.category,
-    serviceFeatures: service.features,
-    cityName,
-    citySlug: city,
-    localityName: displayName,
-    localitySlug,
-    districtName,
-    landmarks,
-    nearbyLocalities,
-  });
-
-  const testimonials = generateTestimonials(displayName, service.name);
-
-  const canonicalPath = `/services/${city}/${localitySlug}/${serviceSlug}`;
-
-  const breadcrumbs = [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: cityName, url: `/services/${city}` },
-    { name: displayName, url: `/services/${city}/${localitySlug}` },
-    { name: service.name, url: canonicalPath },
+  const features = [
+    `Professional ${service.name} in ${params.locality}`,
+    `24/7 Emergency ${service.name} Services`,
+    `Certified ${service.name} Experts`,
+    `Affordable ${service.name} Solutions`,
+    `Free Consultation & Quote`
   ];
 
-  const schemas = generateAllSchemas(
-    {
-      businessName: BUSINESS_CONFIG.name,
-      serviceName: service.name,
-      location: `${displayName}, ${cityName}`,
-      description: generateMetaDescription(service.name, `${displayName}, ${cityName}`),
-      url: canonicalPath,
-      price: service.priceRange,
-    },
-    { breadcrumbs, faqs: dynamicContent.faqs }
-  );
-
-  const relatedServices = SERVICES.filter(
-    (s) => s.category === service.category && s.slug !== service.slug
-  ).slice(0, 3);
-
   return (
-    <>
-      {/* JSON-LD Schemas */}
-      {/* {schemas.map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))} */}
+    <div style={{
+      minHeight: '100vh',
+      backgroundColor: '#f9fafb',
+      fontFamily: 'sans-serif',
+      lineHeight: '1.5'
+    }}>
+      {/* Hero Section */}
+      <div style={{
+        background: 'linear-gradient(to right, #2563eb, #1d4ed8)',
+        color: 'white',
+        padding: '4rem 0',
+        textAlign: 'center'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 1rem'
+        }}>
+          <h1 style={{
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            marginBottom: '1rem',
+            lineHeight: '1.2'
+          }}>
+            {service.name} Services in {params.locality}, {params.city}
+          </h1>
+          <p style={{
+            fontSize: '1.25rem',
+            marginBottom: '2rem',
+            maxWidth: '800px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            Professional and reliable {service.name.toLowerCase()} services for {params.locality} and surrounding areas.
+          </p>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            justifyContent: 'center'
+          }}>
+            <a href={`tel:${BUSINESS_CONFIG.phone.replace(/\D/g, '')}`} style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              color: '#1d4ed8',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '0.375rem',
+              textDecoration: 'none',
+              fontWeight: '500',
+              transition: 'background-color 0.2s',
+              cursor: 'pointer'
+            }}>
+              Call Now
+            </a>
+            <a href={`tel:${BUSINESS_CONFIG.phone.replace(/\D/g, '')}`} style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              border: '1px solid white',
+              color: 'white',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '0.375rem',
+              textDecoration: 'none',
+              fontWeight: '500',
+              transition: 'background-color 0.2s',
+              cursor: 'pointer'
+            }}>
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+      </div>
 
-      <div className={styles.container}>
-        {/* Breadcrumb */}
-        <nav className={styles.breadcrumb}>
-          <Link href="/">Home</Link> / <Link href="/services">Services</Link> /{" "}
-          <Link href={`/services/${city}`}>{cityName}</Link> /{" "}
-          <Link href={`/services/${city}/${localitySlug}`}>{displayName}</Link> / <span>{service.name}</span>
-        </nav>
+      {/* Main Content */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '3rem 1rem',
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gap: '2rem'
+      }}>
+        {/* Left Column */}
+        <div style={{
+          display: 'grid',
+          gap: '2rem',
+          gridColumn: '1 / -1'
+        }}>
+          {/* About Section */}
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '0.5rem',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              padding: '1.5rem',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              <h2 style={{
+                fontSize: '1.5rem',
+                fontWeight: '600',
+                margin: 0
+              }}>About Our {service.name} Services</h2>
+            </div>
+            <div style={{ padding: '1.5rem' }}>
+              <p style={{
+                margin: '0 0 1rem 0',
+                lineHeight: '1.625'
+              }}>
+                Welcome to our premium {service.name.toLowerCase()} services in {params.locality}, {params.city}. 
+                We specialize in providing top-quality {service.name.toLowerCase()} solutions for both residential and commercial properties.
+              </p>
+              <p style={{
+                margin: '1rem 0 0 0',
+                lineHeight: '1.625'
+              }}>
+                Our team of certified professionals is committed to delivering exceptional service with a focus on quality, 
+                reliability, and customer satisfaction. We use only the highest quality materials and the latest techniques 
+                to ensure your complete peace of mind.
+              </p>
+            </div>
+          </div>
 
-        {/* Hero Section */}
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <div className={styles.serviceIcon}>{service.icon}</div>
-            <h1 className={styles.mainHeading}>
-              {generateHeadline(service.name, `${displayName}, ${cityName}`)}
-            </h1>
-            <p className={styles.heroKicker}>{dynamicContent.heroSubtitle}</p>
-            <p className={styles.subheading}>{service.description}</p>
-            {service.priceRange && (
-              <div className={styles.priceTag}>
-                <span className={styles.priceLabel}>Starting from</span>
-                <span className={styles.price}>{service.priceRange}</span>
+          {/* Process Section */}
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '0.5rem',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              padding: '1.5rem',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              <h2 style={{
+                fontSize: '1.5rem',
+                fontWeight: '600',
+                margin: 0
+              }}>Our {service.name} Process</h2>
+            </div>
+            <div style={{ padding: '1.5rem' }}>
+              {[
+                'Initial Consultation & Assessment',
+                'Customized Solution Design',
+                'Professional Installation',
+                'Thorough Testing',
+                'Customer Walkthrough'
+              ].map((step, index) => (
+                <div key={index} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  marginBottom: '1rem',
+                  paddingBottom: '1rem',
+                  borderBottom: index < 4 ? '1px solid #e5e7eb' : 'none'
+                }}>
+                  <div style={{
+                    backgroundColor: '#dbeafe',
+                    borderRadius: '9999px',
+                    padding: '0.25rem',
+                    marginRight: '1rem',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '24px',
+                    height: '24px'
+                  }}>
+                    <span style={{
+                      color: '#2563eb',
+                      fontWeight: 'bold'
+                    }}>✓</span>
+                  </div>
+                  <div>
+                    <h3 style={{
+                      margin: '0 0 0.25rem 0',
+                      fontWeight: '500'
+                    }}>{step}</h3>
+                    <p style={{
+                      margin: 0,
+                      fontSize: '0.875rem',
+                      color: '#4b5563'
+                    }}>
+                      Our team will guide you through each step of the process.
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div style={{
+          display: 'grid',
+          gap: '1.5rem',
+          gridColumn: '1 / -1'
+        }}>
+          {/* Service Area */}
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '0.5rem',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              padding: '1rem 1.5rem',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              <h3 style={{
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                margin: 0
+              }}>Service Area</h3>
+            </div>
+            <div style={{
+              padding: '1.5rem',
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '2.5rem',
+                height: '2.5rem',
+                borderRadius: '9999px',
+                backgroundColor: '#dbeafe',
+                color: '#2563eb',
+                marginRight: '1rem',
+                flexShrink: 0
+              }}>
+                📍
+              </span>
+              <div>
+                <p style={{
+                  margin: '0 0 0.25rem 0',
+                  fontWeight: '500'
+                }}>Serving {params.locality} and surrounding areas</p>
+                <p style={{
+                  margin: 0,
+                  fontSize: '0.875rem',
+                  color: '#4b5563'
+                }}>Including nearby neighborhoods in {params.city}</p>
               </div>
-            )}
-            <CTAButtons variant="horizontal" />
-            <div className={styles.heroStats}>
-              {dynamicContent.heroStats.map((stat) => (
-                <div key={stat.label} className={styles.stat}>
-                  <span className={styles.statNumber}>{stat.value}</span>
-                  <span className={styles.statLabel}>{stat.label}</span>
-                </div>
-              ))}
             </div>
           </div>
-        </section>
 
-        {/* Introduction */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>About {service.name} in {displayName}</h2>
-            <p className={styles.intro}>{dynamicContent.introParagraph}</p>
-            <p>{dynamicContent.locationSnippet}</p>
-          </div>
-        </section>
-
-        {/* Service Features */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>What's Included in Our {service.name}</h2>
-            <div className={styles.featuresGrid}>
-              {service.features.map((feature, index) => (
-                <div key={index} className={styles.featureCard}>
-                  <span className={styles.featureIcon}>✓</span>
-                  <h3>{feature}</h3>
-                </div>
-              ))}
+          {/* Service Features */}
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '0.5rem',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              padding: '1rem 1.5rem',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              <h3 style={{
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                margin: 0
+              }}>Service Features</h3>
             </div>
-            {dynamicContent.serviceHighlights.length > 0 && (
-              <ul className={styles.highlightList}>
-                {dynamicContent.serviceHighlights.map((highlight, index) => (
-                  <li key={index}>{highlight}</li>
+            <div style={{ padding: '1.5rem' }}>
+              <ul style={{
+                listStyle: 'none',
+                margin: 0,
+                padding: 0,
+                display: 'grid',
+                gap: '0.75rem'
+              }}>
+                {features.map((feature, index) => (
+                  <li key={index} style={{
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}>
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '1.25rem',
+                      height: '1.25rem',
+                      borderRadius: '9999px',
+                      backgroundColor: '#dcfce7',
+                      color: '#16a34a',
+                      marginRight: '0.75rem',
+                      flexShrink: 0,
+                      fontSize: '0.75rem'
+                    }}>
+                      ✓
+                    </span>
+                    <span>{feature}</span>
+                  </li>
                 ))}
               </ul>
-            )}
+            </div>
           </div>
-        </section>
 
-        {/* Service Benefits */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>Why Choose Our {service.name}?</h2>
-            <div className={styles.benefitsList}>
-              {dynamicContent.whyChoose.map((benefit, index) => (
-                <div key={index} className={styles.benefitItem}>
-                  <span className={styles.checkmark}>✓</span>
-                  <p>{benefit}</p>
+          {/* Emergency Service */}
+          <div style={{
+            backgroundColor: '#eff6ff',
+            borderRadius: '0.5rem',
+            border: '1px solid #bfdbfe',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              padding: '1rem 1.5rem',
+              borderBottom: '1px solid #bfdbfe'
+            }}>
+              <h3 style={{
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                margin: 0,
+                color: '#1e40af'
+              }}>24/7 Emergency Service</h3>
+            </div>
+            <div style={{ padding: '1.5rem' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '1.5rem'
+              }}>
+                <div style={{
+                  backgroundColor: '#dbeafe',
+                  borderRadius: '9999px',
+                  padding: '0.75rem',
+                  marginRight: '1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '3rem',
+                  height: '3rem'
+                }}>
+                  <span style={{
+                    color: '#2563eb',
+                    fontSize: '1.5rem'
+                  }}>⏰</span>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Service Process */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>Our Service Process</h2>
-            <div className={styles.processGrid}>
-              <div className={styles.processStep}>
-                <div className={styles.stepNumber}>1</div>
-                <h3>Contact Us</h3>
-                <p>Call or WhatsApp us for a free consultation. We'll understand your requirements.</p>
-              </div>
-              <div className={styles.processStep}>
-                <div className={styles.stepNumber}>2</div>
-                <h3>Free Site Survey</h3>
-                <p>Our expert technician visits your location for assessment and planning.</p>
-              </div>
-              <div className={styles.processStep}>
-                <div className={styles.stepNumber}>3</div>
-                <h3>Get Quote</h3>
-                <p>Receive a detailed, transparent quote with no hidden charges.</p>
-              </div>
-              <div className={styles.processStep}>
-                <div className={styles.stepNumber}>4</div>
-                <h3>Professional Installation</h3>
-                <p>Our certified technicians complete the installation with precision.</p>
-              </div>
-              <div className={styles.processStep}>
-                <div className={styles.stepNumber}>5</div>
-                <h3>Testing & Training</h3>
-                <p>We test the system thoroughly and train you on how to use it.</p>
-              </div>
-              <div className={styles.processStep}>
-                <div className={styles.stepNumber}>6</div>
-                <h3>Ongoing Support</h3>
-                <p>Get 24/7 support and optional AMC for regular maintenance.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>What Our Customers Say</h2>
-            <div className={styles.testimonialsGrid}>
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className={styles.testimonialCard}>
-                  <div className={styles.rating}>
-                    {"⭐".repeat(testimonial.rating)}
-                  </div>
-                  <p className={styles.testimonialText}>"{testimonial.text}"</p>
-                  <p className={styles.testimonialAuthor}>
-                    <strong>{testimonial.name}</strong>
-                    <br />
-                    <span className={styles.testimonialLocation}>{testimonial.location}</span>
-                  </p>
+                <div>
+                  <p style={{
+                    margin: '0 0 0.25rem 0',
+                    fontWeight: '500',
+                    color: '#1e40af'
+                  }}>Available 24/7</p>
+                  <p style={{
+                    margin: 0,
+                    fontSize: '0.875rem',
+                    color: '#3b82f6'
+                  }}>Immediate response for urgent situations</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQs */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>Frequently Asked Questions</h2>
-            <div className={styles.faqList}>
-              {dynamicContent.faqs.map((faq, index) => (
-                <details key={index} className={styles.faqItem}>
-                  <summary className={styles.faqQuestion}>{faq.question}</summary>
-                  <p className={styles.faqAnswer}>{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Related Services */}
-        {relatedServices.length > 0 && (
-          <section className={styles.section}>
-            <div className={styles.content}>
-              <h2>Related Services in {displayName}</h2>
-              <div className={styles.relatedGrid}>
-                {relatedServices.map((relatedService) => (
-                  <Link
-                    key={relatedService.slug}
-                    href={`/services/${city}/${localitySlug}/${relatedService.slug}`}
-                    className={styles.relatedCard}
-                  >
-                    <div className={styles.relatedIcon}>{relatedService.icon}</div>
-                    <h3>{relatedService.name}</h3>
-                    <p>{relatedService.description}</p>
-                    <span className={styles.relatedLink}>Learn More →</span>
-                  </Link>
-                ))}
               </div>
-            </div>
-          </section>
-        )}
-
-        {/* All Services Link */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <div className={styles.allServicesCard}>
-              <h3>Looking for Other Services in {displayName}?</h3>
-              <p>Explore all our CCTV and security services</p>
-              <Link href={`/services/${city}/${localitySlug}`} className={styles.allServicesButton}>
-                View All Services
-              </Link>
+              <a href={`tel:${BUSINESS_CONFIG.phone.replace(/\D/g, '')}`} style={{
+                display: 'block',
+                width: '100%',
+                backgroundColor: '#2563eb',
+                color: 'white',
+                textAlign: 'center',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.375rem',
+                textDecoration: 'none',
+                fontWeight: '500',
+                transition: 'background-color 0.2s',
+                cursor: 'pointer'
+              }}>
+                Call for Emergency Service
+              </a>
             </div>
           </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className={styles.ctaSection}>
-          <div className={styles.content}>
-            <h2>Ready for {service.name} in {displayName}?</h2>
-            <p className={styles.ctaText}>
-              {dynamicContent.cta.body}
-            </p>
-            <CTAButtons variant="horizontal" />
-            <p className={styles.contactInfo}>
-              {dynamicContent.cta.phoneLine}{" "}
-              <a href={`tel:${BUSINESS_CONFIG.phone}`}>{BUSINESS_CONFIG.phone}</a>
-            </p>
-          </div>
-        </section>
-
-        <FloatingCTA />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
-

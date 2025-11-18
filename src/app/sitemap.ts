@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllLocationsWithLocalities } from '@/data/locations';
+import { getAllLocations } from '@/data/locations';
 import { SERVICES, SERVICE_CATEGORIES } from '@/data/services';
 import { CITY_SLUGS } from '@/data/cities';
 
@@ -47,7 +47,32 @@ export function generateSitemap(): SitemapEntry[] {
   addUrl('/terms-of-service', 0.3, 'yearly');
 
   // 2. Location pages
-  const allLocations = getAllLocationsWithLocalities();
+  const allLocations = getAllLocations();
+
+  // Generate all city-locality-service URLs
+  allLocations.forEach(location => {
+    // Add city page
+    addUrl(`/services/${location.slug}`, 0.8);
+
+    // Add locality pages
+    location.localities.forEach(locality => {
+      const localitySlug = typeof locality === 'string' 
+        ? locality.toLowerCase().replace(/\s+/g, '-') 
+        : locality.slug;
+      
+      // Add locality page
+      addUrl(`/services/${location.slug}/${localitySlug}`, 0.7);
+
+      // Add service pages for each locality
+      SERVICES.forEach(service => {
+        addUrl(
+          `/services/${location.slug}/${localitySlug}/${service.slug}`, 
+          0.9, 
+          'weekly'
+        );
+      });
+    });
+  });
   allLocations.forEach(location => {
     addUrl(`/locations/${location.slug}`, 0.8);
   });
