@@ -343,13 +343,36 @@ export const getLocationBySlug = (slug: string): Location | undefined => {
   return LOCATIONS.find(loc => loc.slug === slug);
 };
 
+interface LocalityDetails {
+  name: string;
+  slug: string;
+  parent: string;
+  isLocality: boolean;
+}
+
 // Function to get locality details
-export const getLocalityDetails = (localitySlug: string): { locality: string; district: Location } | undefined => {
+export const getLocalityDetails = (localitySlug: string): LocalityDetails | undefined => {
+  // First check if it's a district
+  const district = LOCATIONS.find(loc => loc.slug === localitySlug);
+  if (district) {
+    return {
+      name: district.name,
+      slug: district.slug,
+      parent: '',
+      isLocality: false
+    };
+  }
+
+  // Then check if it's a locality within a district
   for (const location of LOCATIONS) {
     if (location.localities.includes(localitySlug)) {
       return {
-        locality: localitySlug,
-        district: location,
+        name: localitySlug.split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' '),
+        slug: localitySlug,
+        parent: location.slug,
+        isLocality: true
       };
     }
   }

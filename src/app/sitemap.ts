@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllLocations } from '@/data/locations';
+import { getAllLocationsWithLocalities } from '@/data/locations';
 import { SERVICES, SERVICE_CATEGORIES } from '@/data/services';
 import { CITY_SLUGS } from '@/data/cities';
 
@@ -46,33 +46,43 @@ export function generateSitemap(): SitemapEntry[] {
   addUrl('/privacy-policy', 0.3, 'yearly');
   addUrl('/terms-of-service', 0.3, 'yearly');
 
-  // 2. Location pages
-  const allLocations = getAllLocations();
+  // 2. Get all locations and localities
+  const locationsData = getAllLocationsWithLocalities();
+  
+  // Group localities by their parent city
+  const localitiesByCity = locationsData.reduce((acc, item) => {
+    if (item.isLocality && item.parent) {
+      if (!acc[item.parent]) {
+        acc[item.parent] = [];
+      }
+      acc[item.parent].push(item);
+    }
+    return acc;
+  }, {} as Record<string, typeof locationsData>);
 
-  // Generate all city-locality-service URLs
-  allLocations.forEach(location => {
+  // Process each city
+  for (const city of locationsData.filter(item => !item.isLocality)) {
     // Add city page
-    addUrl(`/services/${location.slug}`, 0.8);
-
-    // Add locality pages
-    location.localities.forEach(locality => {
-      const localitySlug = typeof locality === 'string' 
-        ? locality.toLowerCase().replace(/\s+/g, '-') 
-        : locality.slug;
-      
+    addUrl(`/services/${city.slug}`, 0.8);
+    
+    // Get localities for this city
+    const localities = localitiesByCity[city.slug] || [];
+    
+    // Add locality pages and service combinations
+    for (const locality of localities) {
       // Add locality page
-      addUrl(`/services/${location.slug}/${localitySlug}`, 0.7);
-
-      // Add service pages for each locality
-      SERVICES.forEach(service => {
+      addUrl(`/services/${city.slug}/${locality.slug}`, 0.7);
+      
+      // Add service pages for this locality
+      for (const service of SERVICES) {
         addUrl(
-          `/services/${location.slug}/${localitySlug}/${service.slug}`, 
+          `/services/${city.slug}/${locality.slug}/${service.slug}`, 
           0.9, 
           'weekly'
         );
-      });
-    });
-  });
+      }
+    }
+  }
   allLocations.forEach(location => {
     addUrl(`/locations/${location.slug}`, 0.8);
   });

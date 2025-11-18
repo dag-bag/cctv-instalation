@@ -39,7 +39,17 @@ export default async function ServicePage({
   const service = getServiceBySlug(params.service);
   const localityDetails = getLocalityDetails(params.locality);
   
-  if (!location || !service || !localityDetails) notFound();
+  if (!location || !service || !localityDetails) {
+    console.log('Not found:', { 
+      city: params.city, 
+      locality: params.locality, 
+      service: params.service,
+      locationFound: !!location,
+      serviceFound: !!service,
+      localityDetailsFound: !!localityDetails
+    });
+    notFound();
+  }
 
   const features = [
     `Professional ${service.name} in ${params.locality}`,
