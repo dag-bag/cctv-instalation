@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
 import { getAllLocationsWithLocalities } from '@/data/locations';
 import { SERVICES, SERVICE_CATEGORIES } from '@/data/services';
+import { CITY_SLUGS } from '@/data/cities';
 
 // Helper to generate canonical URLs
 const getCanonicalUrl = (path: string): string => {
-  return `https://www.cctvinstallationdelhi.in${path}`.toLowerCase().replace(/\s+/g, '-');
+  return `${process.env.NEXT_PUBLIC_DOMAIN}${path}`.toLowerCase().replace(/\s+/g, '-');
 };
 
 type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly';
@@ -18,7 +19,6 @@ type SitemapEntry = {
 
 // Export as both default and named export for compatibility
 export function generateSitemap(): SitemapEntry[] {
-  const baseUrl = 'https://www.cctvinstallationdelhi.in';
   const routes: SitemapEntry[] = [];
   const urlSet = new Set<string>();
 
@@ -52,21 +52,28 @@ export function generateSitemap(): SitemapEntry[] {
     addUrl(`/locations/${location.slug}`, 0.8);
   });
 
+  // City and locality summary pages under /services
+  CITY_SLUGS.forEach(city => {
+    addUrl(`/services/${city}`, 0.8);
+    allLocations.forEach(location => {
+      addUrl(`/services/${city}/${location.slug}`, 0.75);
+    });
+  });
+
   // 3. Service pages
   SERVICES.forEach(service => {
     // Main service page
     addUrl(`/services/${service.slug}`, service.category === SERVICE_CATEGORIES.CCTV ? 0.9 : 0.8);
 
-    // Service location pages (only for services that should have location pages)
-    if (service.isLocationSpecific || service.availableLocations?.length) {
-      const locations = service.availableLocations?.length 
-        ? allLocations.filter(loc => service.availableLocations?.includes(loc.slug))
-        : allLocations;
+    const locations = service.availableLocations?.length 
+      ? allLocations.filter(loc => service.availableLocations?.includes(loc.slug))
+      : allLocations;
 
+    CITY_SLUGS.forEach(city => {
       locations.forEach(location => {
-        addUrl(`/services/${service.slug}/${location.slug}`, 0.7);
+        addUrl(`/services/${city}/${location.slug}/${service.slug}`, 0.65);
       });
-    }
+    });
   });
 
   return routes;

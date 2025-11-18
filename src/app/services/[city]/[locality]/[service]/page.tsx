@@ -2,41 +2,63 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
-  LOCATIONS,
   getAllLocationsWithLocalities,
   getLocationBySlug,
   getLocalityDetails,
 } from "@/data/locations";
-import { SERVICES, getServiceBySlug, Service } from "@/data/services";
+import { SERVICES, getServiceBySlug } from "@/data/services";
 import { BUSINESS_CONFIG } from "@/config/business";
 import {
   generatePageTitle,
   generateMetaDescription,
   generateHeadline,
-  generateIntroContent,
-  generateServiceBenefits,
-  generateLocationContent,
-  generateFAQs,
+  generateServicePageContent,
   generateTestimonials,
   generateKeywords,
 } from "@/utils/content-generator";
-import {
-  generateAllSchemas,
-} from "@/utils/schema-generator";
+import { generateAllSchemas } from "@/utils/schema-generator";
 import CTAButtons from "@/components/CTAButtons";
 import FloatingCTA from "@/components/FloatingCTA";
 import styles from "./service.module.css";
+import { CITY_CONFIG, CITY_SLUGS, isValidCity } from "@/data/cities";
 
-// Generate static params for all location + service combinations
+const getDisplayName = (localitySlug: string) => {
+  const location = getLocationBySlug(localitySlug);
+  const localityDetails = getLocalityDetails(localitySlug);
+
+  if (location) {
+    return location.name;
+  }
+
+  if (localityDetails) {
+    return localityDetails.locality
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+  }
+
+  return localitySlug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+};
+
+const doesLocalityExist = (localitySlug: string) => {
+  return Boolean(getLocationBySlug(localitySlug) || getLocalityDetails(localitySlug));
+};
+
 export async function generateStaticParams() {
   const allLocations = getAllLocationsWithLocalities();
-  const params: { location: string; service: string }[] = [];
+  const params: { city: string; locality: string; service: string }[] = [];
 
-  allLocations.forEach((location) => {
-    SERVICES.forEach((service) => {
-      params.push({
-        location: location.slug,
-        service: service.slug,
+  CITY_SLUGS.forEach((city) => {
+    allLocations.forEach((location) => {
+      SERVICES.forEach((service) => {
+        params.push({
+          city,
+          locality: location.slug,
+          service: service.slug,
+        });
       });
     });
   });
@@ -44,30 +66,33 @@ export async function generateStaticParams() {
   return params;
 }
 
-// Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ location: string; service: string }>;
+  params: Promise<{ city: string; locality: string; service: string }>;
 }): Promise<Metadata> {
-  const { location: locationSlug, service: serviceSlug } = await params;
-  const location = getLocationBySlug(locationSlug);
-  const localityDetails = getLocalityDetails(locationSlug);
+  const { city, locality, service: serviceSlug } = await params;
+
+  if (!isValidCity(city)) {
+    return { title: "City Not Found" };
+  }
+
+  if (!doesLocalityExist(locality)) {
+    return { title: "Location Not Found" };
+  }
+
   const service = getServiceBySlug(serviceSlug);
 
   if (!service) {
     return { title: "Service Not Found" };
   }
 
-  const displayName = location
-    ? location.name
-    : localityDetails
-    ? localityDetails.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-    : locationSlug;
+  const locationName = getDisplayName(locality);
+  const cityName = CITY_CONFIG[city].name;
 
-  const title = generatePageTitle(service.name, displayName);
-  const description = generateMetaDescription(service.name, displayName);
-  const keywords = generateKeywords(service.name, displayName);
+  const title = generatePageTitle(service.name, `${locationName}, ${cityName}`);
+  const description = generateMetaDescription(service.name, `${locationName}, ${cityName}`);
+  const keywords = generateKeywords(service.name, `${locationName}, ${cityName}`);
 
   return {
     title,
@@ -85,7 +110,7 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `/${locationSlug}/${serviceSlug}`,
+      canonical: `/services/${city}/${locality}/${serviceSlug}`,
     },
   };
 }
@@ -93,47 +118,70 @@ export async function generateMetadata({
 export default async function ServicePage({
   params,
 }: {
-  params: Promise<{ location: string; service: string }>;
+  params: Promise<{ city: string; locality: string; service: string }>;
 }) {
-  const { location: locationSlug, service: serviceSlug } = await params;
-  const location = getLocationBySlug(locationSlug);
-  const localityDetails = getLocalityDetails(locationSlug);
+  const { city, locality: localitySlug, service: serviceSlug } = await params;
+
+  if (!isValidCity(city)) {
+    notFound();
+  }
+
   const service = getServiceBySlug(serviceSlug);
+  const location = getLocationBySlug(localitySlug);
+  const localityDetails = getLocalityDetails(localitySlug);
 
   if (!service || (!location && !localityDetails)) {
     notFound();
   }
 
-  const displayName = location
-    ? location.name
-    : localityDetails
-    ? localityDetails.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-    : locationSlug;
+  const displayName = getDisplayName(localitySlug);
+  const cityName = CITY_CONFIG[city].name;
 
-  const faqs = generateFAQs(service.name, displayName);
-  const testimonials = generateTestimonials(displayName);
-  const benefits = generateServiceBenefits(service);
+  const districtName = location?.district || localityDetails?.district.name;
+  const landmarks = location?.landmarks || localityDetails?.district.landmarks || [];
+  const nearbyLocalities =
+    (location?.localities || localityDetails?.district.localities || []).filter(
+      (slug) => slug !== localitySlug
+    );
 
-  // Generate JSON-LD schemas
+  const dynamicContent = generateServicePageContent({
+    serviceName: service.name,
+    serviceSlug,
+    serviceCategory: service.category,
+    serviceFeatures: service.features,
+    cityName,
+    citySlug: city,
+    localityName: displayName,
+    localitySlug,
+    districtName,
+    landmarks,
+    nearbyLocalities,
+  });
+
+  const testimonials = generateTestimonials(displayName, service.name);
+
+  const canonicalPath = `/services/${city}/${localitySlug}/${serviceSlug}`;
+
   const breadcrumbs = [
     { name: "Home", url: "/" },
-    { name: displayName, url: `/${locationSlug}` },
-    { name: service.name, url: `/${locationSlug}/${serviceSlug}` },
+    { name: "Services", url: "/services" },
+    { name: cityName, url: `/services/${city}` },
+    { name: displayName, url: `/services/${city}/${localitySlug}` },
+    { name: service.name, url: canonicalPath },
   ];
 
   const schemas = generateAllSchemas(
     {
       businessName: BUSINESS_CONFIG.name,
       serviceName: service.name,
-      location: displayName,
-      description: generateMetaDescription(service.name, displayName),
-      url: `/${locationSlug}/${serviceSlug}`,
+      location: `${displayName}, ${cityName}`,
+      description: generateMetaDescription(service.name, `${displayName}, ${cityName}`),
+      url: canonicalPath,
       price: service.priceRange,
     },
-    { breadcrumbs, faqs }
+    { breadcrumbs, faqs: dynamicContent.faqs }
   );
 
-  // Get related services
   const relatedServices = SERVICES.filter(
     (s) => s.category === service.category && s.slug !== service.slug
   ).slice(0, 3);
@@ -152,8 +200,9 @@ export default async function ServicePage({
       <div className={styles.container}>
         {/* Breadcrumb */}
         <nav className={styles.breadcrumb}>
-          <Link href="/">Home</Link> / <Link href={`/${locationSlug}`}>{displayName}</Link> /{" "}
-          <span>{service.name}</span>
+          <Link href="/">Home</Link> / <Link href="/services">Services</Link> /{" "}
+          <Link href={`/services/${city}`}>{cityName}</Link> /{" "}
+          <Link href={`/services/${city}/${localitySlug}`}>{displayName}</Link> / <span>{service.name}</span>
         </nav>
 
         {/* Hero Section */}
@@ -161,8 +210,9 @@ export default async function ServicePage({
           <div className={styles.heroContent}>
             <div className={styles.serviceIcon}>{service.icon}</div>
             <h1 className={styles.mainHeading}>
-              {generateHeadline(service.name, displayName)}
+              {generateHeadline(service.name, `${displayName}, ${cityName}`)}
             </h1>
+            <p className={styles.heroKicker}>{dynamicContent.heroSubtitle}</p>
             <p className={styles.subheading}>{service.description}</p>
             {service.priceRange && (
               <div className={styles.priceTag}>
@@ -171,6 +221,14 @@ export default async function ServicePage({
               </div>
             )}
             <CTAButtons variant="horizontal" />
+            <div className={styles.heroStats}>
+              {dynamicContent.heroStats.map((stat) => (
+                <div key={stat.label} className={styles.stat}>
+                  <span className={styles.statNumber}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -178,8 +236,8 @@ export default async function ServicePage({
         <section className={styles.section}>
           <div className={styles.content}>
             <h2>About {service.name} in {displayName}</h2>
-            <p className={styles.intro}>{generateIntroContent(service.name, displayName)}</p>
-            <p>{generateLocationContent(displayName)}</p>
+            <p className={styles.intro}>{dynamicContent.introParagraph}</p>
+            <p>{dynamicContent.locationSnippet}</p>
           </div>
         </section>
 
@@ -195,6 +253,13 @@ export default async function ServicePage({
                 </div>
               ))}
             </div>
+            {dynamicContent.serviceHighlights.length > 0 && (
+              <ul className={styles.highlightList}>
+                {dynamicContent.serviceHighlights.map((highlight, index) => (
+                  <li key={index}>{highlight}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </section>
 
@@ -203,7 +268,7 @@ export default async function ServicePage({
           <div className={styles.content}>
             <h2>Why Choose Our {service.name}?</h2>
             <div className={styles.benefitsList}>
-              {benefits.map((benefit, index) => (
+              {dynamicContent.whyChoose.map((benefit, index) => (
                 <div key={index} className={styles.benefitItem}>
                   <span className={styles.checkmark}>✓</span>
                   <p>{benefit}</p>
@@ -279,7 +344,7 @@ export default async function ServicePage({
           <div className={styles.content}>
             <h2>Frequently Asked Questions</h2>
             <div className={styles.faqList}>
-              {faqs.map((faq, index) => (
+              {dynamicContent.faqs.map((faq, index) => (
                 <details key={index} className={styles.faqItem}>
                   <summary className={styles.faqQuestion}>{faq.question}</summary>
                   <p className={styles.faqAnswer}>{faq.answer}</p>
@@ -298,7 +363,7 @@ export default async function ServicePage({
                 {relatedServices.map((relatedService) => (
                   <Link
                     key={relatedService.slug}
-                    href={`/${locationSlug}/${relatedService.slug}`}
+                    href={`/services/${city}/${localitySlug}/${relatedService.slug}`}
                     className={styles.relatedCard}
                   >
                     <div className={styles.relatedIcon}>{relatedService.icon}</div>
@@ -318,7 +383,7 @@ export default async function ServicePage({
             <div className={styles.allServicesCard}>
               <h3>Looking for Other Services in {displayName}?</h3>
               <p>Explore all our CCTV and security services</p>
-              <Link href={`/${locationSlug}`} className={styles.allServicesButton}>
+              <Link href={`/services/${city}/${localitySlug}`} className={styles.allServicesButton}>
                 View All Services
               </Link>
             </div>
@@ -330,13 +395,12 @@ export default async function ServicePage({
           <div className={styles.content}>
             <h2>Ready for {service.name} in {displayName}?</h2>
             <p className={styles.ctaText}>
-              Contact us now for a free consultation and quote. Our expert team is ready to help!
+              {dynamicContent.cta.body}
             </p>
             <CTAButtons variant="horizontal" />
             <p className={styles.contactInfo}>
-              <strong>24/7 Support Available</strong>
-              <br />
-              Call: <a href={`tel:${BUSINESS_CONFIG.phone}`}>{BUSINESS_CONFIG.phone}</a>
+              {dynamicContent.cta.phoneLine}{" "}
+              <a href={`tel:${BUSINESS_CONFIG.phone}`}>{BUSINESS_CONFIG.phone}</a>
             </p>
           </div>
         </section>
@@ -346,3 +410,4 @@ export default async function ServicePage({
     </>
   );
 }
+

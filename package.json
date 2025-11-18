@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:seo-urls": "ts-node scripts/generate-seo-urls.ts"
   },
   "dependencies": {
     "next": "16.0.0",
@@ -20,6 +21,7 @@
     "axios": "^1.13.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

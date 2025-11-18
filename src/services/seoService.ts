@@ -13,7 +13,8 @@ export interface SEOMetadata {
 export const generateLocationServiceMetadata = (
   location: Location,
   service: Service,
-  baseUrl: string
+  baseUrl: string,
+  citySlug: string = "delhi"
 ): SEOMetadata => {
   const locationName = location.name;
   const serviceName = service.name;
@@ -63,7 +64,7 @@ export const generateLocationServiceMetadata = (
     "@type": "ProfessionalService",
     "name": title,
     "description": description,
-    "url": `${baseUrl}/service/${locationSlug}/${serviceSlug}`,
+    "url": `${baseUrl}/services/${citySlug}/${locationSlug}/${serviceSlug}`,
     "telephone": process.env.NEXT_PUBLIC_PHONE,
     "address": {
       "@type": "PostalAddress",
@@ -111,7 +112,7 @@ export const generateLocationServiceMetadata = (
     title,
     description,
     keywords,
-    canonicalUrl: `${baseUrl}/service/${locationSlug}/${serviceSlug}`,
+    canonicalUrl: `${baseUrl}/services/${citySlug}/${locationSlug}/${serviceSlug}`,
     ogType: 'website',
     structuredData
   };

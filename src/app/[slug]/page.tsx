@@ -20,6 +20,8 @@ import CTAButtons from "@/components/CTAButtons";
 import FloatingCTA from "@/components/FloatingCTA";
 import styles from "./catch-all.module.css";
 
+const DEFAULT_CITY_SLUG = "delhi";
+
 // Parse single slug route - handles locations and SEO routes
 function parseRoute(slug: string): { 
   type: 'location' | 'seo-route';
@@ -312,7 +314,7 @@ export default async function SlugPage({
                   {services.map((service) => (
                     <Link
                       key={service.slug}
-                      href={`/${locationSlug}/${service.slug}`}
+                      href={`/services/${DEFAULT_CITY_SLUG}/${locationSlug}/${service.slug}`}
                       style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
                     >
                       <div className={styles.featureCard} style={{ cursor: 'pointer' }}>
@@ -390,136 +392,5 @@ export default async function SlugPage({
     }
   }
 
-  if (!serviceSlug || !locationSlug) {
-    notFound();
-  }
-
-  const service = getServiceBySlug(serviceSlug);
-  const location = getLocationBySlug(locationSlug);
-  const localityDetails = getLocalityDetails(locationSlug);
-
-  if (!service || (!location && !localityDetails)) {
-    notFound();
-  }
-
-  const displayName = location
-    ? location.name
-    : localityDetails
-    ? localityDetails.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-    : locationSlug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-
-  const districtSlug = location ? location.slug : localityDetails?.district.slug || locationSlug;
-  
-  const faqs = generateFAQs(service.name, displayName);
-  const localityContent = generateLocalityContent(locationSlug, districtSlug);
-
-  const breadcrumbs = [
-    { name: "Home", url: "/" },
-    { name: displayName, url: `/${locationSlug}` },
-    { name: service.name, url: `/${locationSlug}/${serviceSlug}` },
-  ];
-
-  // Construct full URL for schema
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cctvinstallation.co.in';
-  const fullUrl = `${baseUrl}/${slug}`;
-
-  const schemas = generateAllSchemas(
-    {
-      businessName: BUSINESS_CONFIG.name,
-      serviceName: service.name,
-      location: displayName,
-      description: generateMetaDescription(service.name, displayName),
-      url: fullUrl,
-      price: service.priceRange,
-    },
-    { breadcrumbs, faqs }
-  );
-
-  return (
-    <>
-      {schemas.map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
-
-      <div className={styles.container}>
-        <nav className={styles.breadcrumb}>
-          <Link href="/">Home</Link> / <Link href={`/${locationSlug}`}>{displayName}</Link> /{" "}
-          <span>{service.name}</span>
-        </nav>
-
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <div className={styles.serviceIcon}>{service.icon}</div>
-            <h1 className={styles.mainHeading}>
-              {service.name} in {displayName}, Delhi
-            </h1>
-            <p className={styles.subheading}>{service.description}</p>
-            {service.priceRange && (
-              <div className={styles.priceTag}>
-                <span className={styles.priceLabel}>Starting from</span>
-                <span className={styles.price}>{service.priceRange}</span>
-              </div>
-            )}
-            <CTAButtons variant="horizontal" />
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>About {displayName}</h2>
-            <p className={styles.intro}>{localityContent.overview}</p>
-            <p>{localityContent.connectivity}</p>
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>What's Included</h2>
-            <div className={styles.featuresGrid}>
-              {service.features.map((feature, index) => (
-                <div key={index} className={styles.featureCard}>
-                  <span className={styles.featureIcon}>✓</span>
-                  <h3>{feature}</h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQs Section */}
-        {faqs && faqs.length > 0 && (
-          <section className={styles.section}>
-            <div className={styles.content}>
-              <h2>Frequently Asked Questions</h2>
-              <div className={styles.faqList}>
-                {faqs.map((faq, index) => (
-                  <div key={index} className={styles.faqItem}>
-                    <h3 className={styles.faqQuestion}>{faq.question}</h3>
-                    <p className={styles.faqAnswer}>{faq.answer}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        <section className={styles.ctaSection}>
-          <div className={styles.content}>
-            <h2>Get Started Today!</h2>
-            <p>Contact us for a free consultation and quote</p>
-            <CTAButtons variant="horizontal" />
-            <p style={{ marginTop: '2rem' }}>
-              Call/WhatsApp: <a href={`tel:${BUSINESS_CONFIG.phone}`}>{BUSINESS_CONFIG.phone}</a>
-            </p>
-          </div>
-        </section>
-
-        <FloatingCTA />
-      </div>
-    </>
-  );
+  redirect(`/services/${DEFAULT_CITY_SLUG}/${locationSlug}/${serviceSlug}`);
 }

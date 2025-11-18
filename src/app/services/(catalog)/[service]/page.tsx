@@ -83,3 +83,4 @@ export default async function ServicePage({
 export async function generateStaticParams() {
   return []; // This will be populated by the build process
 }
+

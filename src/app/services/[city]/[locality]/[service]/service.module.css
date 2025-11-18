@@ -52,6 +52,14 @@
   line-height: 1.2;
 }
 
+.heroKicker {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: #ffd700;
+}
+
 .subheading {
   font-size: 1.25rem;
   margin-bottom: 2rem;
@@ -59,6 +67,35 @@
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.heroStats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  min-width: 120px;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.statNumber {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
 }
 
 .priceTag {
@@ -141,6 +178,25 @@
   font-weight: 600;
   color: #1e3c72;
   margin: 0;
+}
+
+.highlightList {
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.highlightList li {
+  padding: 1.25rem 1.5rem;
+  background: #f8f9fc;
+  border: 1px solid #e3e6ef;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1e3c72;
 }
 
 .benefitsList {
@@ -453,3 +509,4 @@
     padding: 2rem 1rem;
   }
 }
+
