@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next';
-import { getAllLocationsWithLocalities } from '@/data/locations';
-import { SERVICES, SERVICE_CATEGORIES } from '@/data/services';
-import { CITY_SLUGS } from '@/data/cities';
+import { SERVICES } from '@/data/services';
+import { CITY_CONFIG, CITY_SLUGS } from '@/data/cities';
 
 // Helper to generate canonical URLs
 const getCanonicalUrl = (path: string): string => {
@@ -46,67 +45,20 @@ export function generateSitemap(): SitemapEntry[] {
   addUrl('/privacy-policy', 0.3, 'yearly');
   addUrl('/terms-of-service', 0.3, 'yearly');
 
-  // 2. Get all locations and localities
-  const locationsData = getAllLocationsWithLocalities();
-  
-  // Group localities by their parent city
-  const localitiesByCity = locationsData.reduce((acc, item) => {
-    if (item.isLocality && item.parent) {
-      if (!acc[item.parent]) {
-        acc[item.parent] = [];
-      }
-      acc[item.parent].push(item);
-    }
-    return acc;
-  }, {} as Record<string, typeof locationsData>);
-
-  // Process each city
-  for (const city of locationsData.filter(item => !item.isLocality)) {
-    // Add city page
-    addUrl(`/services/${city.slug}`, 0.8);
-    
-    // Get localities for this city
-    const localities = localitiesByCity[city.slug] || [];
-    
-    // Add locality pages and service combinations
-    for (const locality of localities) {
-      // Add locality page
-      addUrl(`/services/${city.slug}/${locality.slug}`, 0.7);
-      
-      // Add service pages for this locality
-      for (const service of SERVICES) {
-        addUrl(
-          `/services/${city.slug}/${locality.slug}/${service.slug}`, 
-          0.9, 
-          'weekly'
-        );
-      }
-    }
-  }
-  allLocations.forEach(location => {
-    addUrl(`/locations/${location.slug}`, 0.8);
-  });
-
-  // City and locality summary pages under /services
+  // 2. City, locality, and service pages
   CITY_SLUGS.forEach(city => {
     addUrl(`/services/${city}`, 0.8);
-    allLocations.forEach(location => {
-      addUrl(`/services/${city}/${location.slug}`, 0.75);
-    });
-  });
+    const localities = CITY_CONFIG[city]?.localities || [];
 
-  // 3. Service pages
-  SERVICES.forEach(service => {
-    // Main service page
-    addUrl(`/services/${service.slug}`, service.category === SERVICE_CATEGORIES.CCTV ? 0.9 : 0.8);
+    localities.forEach(locality => {
+      addUrl(`/services/${city}/${locality}`, 0.7);
 
-    const locations = service.availableLocations?.length 
-      ? allLocations.filter(loc => service.availableLocations?.includes(loc.slug))
-      : allLocations;
-
-    CITY_SLUGS.forEach(city => {
-      locations.forEach(location => {
-        addUrl(`/services/${city}/${location.slug}/${service.slug}`, 0.65);
+      SERVICES.forEach(service => {
+        addUrl(
+          `/services/${city}/${locality}/${service.slug}`,
+          0.9,
+          'weekly'
+        );
       });
     });
   });

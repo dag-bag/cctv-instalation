@@ -3,20 +3,6 @@ import type { NextRequest } from 'next/server';
 import { SERVICES, getServiceBySlug } from '@/data/services';
 import { getLocationBySlug, getLocalityDetails } from '@/data/locations';
 
-// List of old paths that should be redirected to new paths
-const redirects: Array<{ from: string; to: string }> = [
-  // Old service paths
-  { from: '^/installation-services$', to: '/services/installation-services' },
-  { from: '^/repair-services$', to: '/services/repair-services' },
-  { from: '^/maintenance-services$', to: '/services/maintenance-services' },
-  
-  // Old location paths
-  { from: '^/service/([^/]+)$', to: '/locations/$1' },
-  
-  // Old service+location paths
-  { from: '^/service/([^/]+)/([^/]+)$', to: '/services/$2/$1' },
-];
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const hostname = request.headers.get('host') || 'www.cctvinstallationdelhi.in';
@@ -43,40 +29,39 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
-  // Handle old URL redirects
-  for (const redirect of redirects) {
-    const regex = new RegExp(redirect.from);
-    const match = pathname.match(regex);
-    
-    if (match) {
-      const to = redirect.to.replace(/\$\d+/g, (group) => {
-        const index = parseInt(group.slice(1), 10) - 1;
-        return match[index + 1] || '';
-      });
-      
-      const url = new URL(to, 'https://' + hostname);
-      return NextResponse.redirect(url, 301);
+  // Handle legacy /service/<location>/<service> routes
+  const legacyServiceMatch = pathname.match(/^\/service\/([^/]+)\/([^/]+)$/);
+  if (legacyServiceMatch) {
+    const [, legacyLocation, legacyService] = legacyServiceMatch;
+    const service = getServiceBySlug(legacyService);
+    const target = resolveCityAndLocality(legacyLocation);
+
+    if (service && target) {
+      return NextResponse.redirect(
+        new URL(
+          `/services/${target.citySlug}/${target.localitySlug}/${legacyService}`,
+          request.url
+        ),
+        301
+      );
     }
   }
 
-  // Handle service/location routes
-  const serviceLocationMatch = pathname.match(/^\/services\/([^/]+)(?:\/([^/]+))?/);
-  if (serviceLocationMatch) {
-    const [, serviceSlug, locationSlug] = serviceLocationMatch;
-    const service = getServiceBySlug(serviceSlug);
-    
-    // If service doesn't exist, redirect to services page
-    if (!service) {
-      return NextResponse.redirect(new URL('/services', 'https://' + hostname), 301);
-    }
-    
-    // If location is provided but not valid
-    if (locationSlug) {
-      const location = getLocationBySlug(locationSlug) || getLocalityDetails(locationSlug);
-      if (!location) {
-        // If location doesn't exist, redirect to service page
-        return NextResponse.redirect(new URL(`/services/${serviceSlug}`, 'https://' + hostname), 301);
-      }
+  // Handle legacy /services/<service>/<location> routes
+  const invertedServicesMatch = pathname.match(/^\/services\/([^/]+)\/([^/]+)$/);
+  if (invertedServicesMatch) {
+    const [, legacyService, legacyLocation] = invertedServicesMatch;
+    const service = getServiceBySlug(legacyService);
+    const target = resolveCityAndLocality(legacyLocation);
+
+    if (service && target) {
+      return NextResponse.redirect(
+        new URL(
+          `/services/${target.citySlug}/${target.localitySlug}/${legacyService}`,
+          request.url
+        ),
+        301
+      );
     }
   }
 
@@ -86,9 +71,18 @@ export function middleware(request: NextRequest) {
     const parsed = parseSEORoute(slug);
 
     if (parsed) {
-      // Redirect to the new URL structure
-      const url = new URL(`/services/${parsed.service}/${parsed.location}`, 'https://' + hostname);
-      return NextResponse.redirect(url, 301);
+      const service = getServiceBySlug(parsed.service);
+      const target = resolveCityAndLocality(parsed.location);
+
+      if (service && target) {
+        return NextResponse.redirect(
+          new URL(
+            `/services/${target.citySlug}/${target.localitySlug}/${parsed.service}`,
+            request.url
+          ),
+          301
+        );
+      }
     }
   }
 
@@ -128,6 +122,26 @@ function parseSEORoute(seoRoute: string): { service: string; location: string } 
         location: location,
       };
     }
+  }
+
+  return null;
+}
+
+function resolveCityAndLocality(localitySlug: string) {
+  const localityDetails = getLocalityDetails(localitySlug);
+  if (localityDetails) {
+    return {
+      citySlug: localityDetails.district.slug,
+      localitySlug: localityDetails.locality,
+    };
+  }
+
+  const location = getLocationBySlug(localitySlug);
+  if (location) {
+    return {
+      citySlug: location.slug,
+      localitySlug: location.slug,
+    };
   }
 
   return null;

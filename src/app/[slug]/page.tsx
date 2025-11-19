@@ -392,5 +392,24 @@ export default async function SlugPage({
     }
   }
 
-  redirect(`/services/${DEFAULT_CITY_SLUG}/${locationSlug}/${serviceSlug}`);
+  if (!serviceSlug || !locationSlug) {
+    notFound();
+  }
+
+  const locationEntry = getLocationBySlug(locationSlug);
+  const localityDetails = getLocalityDetails(locationSlug);
+
+  if (!locationEntry && !localityDetails) {
+    notFound();
+  }
+
+  const citySlug = locationEntry
+    ? locationEntry.slug
+    : localityDetails?.district.slug || DEFAULT_CITY_SLUG;
+
+  const localityTarget = locationEntry
+    ? locationEntry.slug
+    : localityDetails?.locality || locationSlug;
+
+  redirect(`/services/${citySlug}/${localityTarget}/${serviceSlug}`);
 }
