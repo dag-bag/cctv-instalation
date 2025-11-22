@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import { LOCATIONS, DELHI_DISTRICTS } from "@/data/locations";
-import { SERVICES, SERVICE_CATEGORIES } from "@/data/services";
+import { CITIES, LOCALITIES, SERVICES } from "@/lib/seo-data";
 import { BUSINESS_CONFIG } from "@/config/business";
-import { generateOrganizationSchema } from "@/utils/schema-generator";
 import CTAButtons from "@/components/CTAButtons";
 import FloatingCTA from "@/components/FloatingCTA";
 import styles from "./page.module.css";
@@ -24,19 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const organizationSchema = generateOrganizationSchema();
 
   // Get featured services (first 6)
   const featuredServices = SERVICES.slice(0, 6);
 
   return (
     <>
-      {/* Organization Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-
       <div className={styles.container}>
         {/* Hero Section */}
         <section className={styles.hero}>
@@ -101,12 +92,12 @@ export default function Home() {
               Comprehensive CCTV and security solutions for all your needs
             </p>
             <div className={styles.servicesGrid}>
-              {featuredServices.map((service) => (
-                <div key={service.slug} className={styles.serviceCard}>
-                  <div className={styles.serviceIcon}>{service.icon}</div>
-                  <h3 className={styles.serviceTitle}>{service.name}</h3>
-                  <p className={styles.serviceDescription}>{service.description}</p>
-                  <div className={styles.servicePrice}>{service.priceRange}</div>
+              {featuredServices.map((service, index) => (
+                <div key={index} className={styles.serviceCard}>
+                  <div className={styles.serviceIcon}>🎥</div>
+                  <h3 className={styles.serviceTitle}>{service}</h3>
+                  <p className={styles.serviceDescription}>Professional {service.toLowerCase()} services</p>
+                  <div className={styles.servicePrice}>Contact for Quote</div>
                 </div>
               ))}
             </div>
@@ -124,20 +115,23 @@ export default function Home() {
               We provide CCTV services across all districts and localities in Delhi
             </p>
             <div className={styles.locationsGrid}>
-              {LOCATIONS.map((location) => (
-                <Link
-                  key={location.slug}
-                  href={`/${location.slug}`}
-                  className={styles.locationCard}
-                >
-                  <div className={styles.locationIcon}>📍</div>
-                  <h3 className={styles.locationName}>{location.name}</h3>
-                  <p className={styles.localityCount}>
-                    {location.localities.length}+ localities covered
-                  </p>
-                  <span className={styles.locationLink}>View Services →</span>
-                </Link>
-              ))}
+              {CITIES.map((city) => {
+                const localities = LOCALITIES[city] || [];
+                return (
+                  <Link
+                    key={city}
+                    href={`/${city.toLowerCase()}`}
+                    className={styles.locationCard}
+                  >
+                    <div className={styles.locationIcon}>📍</div>
+                    <h3 className={styles.locationName}>{city}</h3>
+                    <p className={styles.localityCount}>
+                      {localities.length}+ localities covered
+                    </p>
+                    <span className={styles.locationLink}>View Services →</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
