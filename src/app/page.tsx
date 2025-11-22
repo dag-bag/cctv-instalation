@@ -193,14 +193,6 @@ export default function Home() {
               Get a free consultation and quote from our expert team. Available 24/7 for your convenience.
             </p>
             <CTAButtons variant="horizontal" />
-            <div className={styles.contactDetails}>
-              <p>
-                <strong>Call/WhatsApp:</strong> <a href={`tel:${BUSINESS_CONFIG.phone}`}>{BUSINESS_CONFIG.phone}</a>
-              </p>
-              <p className={styles.workingHours}>
-                <strong>Working Hours:</strong> Mon-Fri: 9 AM - 8 PM | Sat-Sun: 10 AM - 6 PM | Emergency: 24/7
-              </p>
-            </div>
           </div>
         </section>
 

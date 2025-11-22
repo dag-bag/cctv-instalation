@@ -60,6 +60,11 @@ export const metadata: Metadata = {
   },
 };
 
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+// ... imports ...
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,7 +78,9 @@ export default function RootLayout({
         <meta name="theme-color" content="#2a5298" />
       </head>
       <body className={`${inter.variable} ${outfit.variable}`}>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

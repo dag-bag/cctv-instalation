@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { CITIES, LOCALITIES, SERVICES, createSlug } from '../lib/seo-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://yourdomain.com';
+  const baseUrl = 'https://cctv-installation-services.vercel.app';
   const urls: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
