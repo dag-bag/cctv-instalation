@@ -24,14 +24,31 @@ export default function BookingForm({ defaultService }: Props) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      // Simulate API call
-      console.log('Form submitted:', formData);
-      setIsSubmitted(true);
-      // Reset after 3 seconds
-      setTimeout(() => setIsSubmitted(false), 3000);
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          setIsSubmitted(true);
+          setFormData({ name: '', phone: '', service: defaultService });
+          setTimeout(() => setIsSubmitted(false), 5000);
+        } else {
+          alert('Failed to send request. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('An error occurred. Please try again.');
+      }
     }
   };
 
@@ -81,7 +98,11 @@ export default function BookingForm({ defaultService }: Props) {
               <option value="other">Other Service</option>
             </select>
           </div>
-          <button type="submit" className={styles.submitButton}>
+          <button 
+            type="submit" 
+            className={styles.submitButton}
+            aria-label="Get a free quote for CCTV installation"
+          >
             Get Free Quote
           </button>
         </form>

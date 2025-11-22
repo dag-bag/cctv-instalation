@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://www.yourbusiness.com/sitemap.xml', // Update with actual domain
+    sitemap: 'https://cctv-installation-services.vercel.app/sitemap.xml', // Update with actual domain
   };
 }

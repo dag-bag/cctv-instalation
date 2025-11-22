@@ -220,10 +220,6 @@ const styles = {
     border: '1px solid #e2e8f0',
     borderRadius: '0.375rem',
     outline: 'none',
-    ':focus': {
-      borderColor: '#4299e1',
-      boxShadow: '0 0 0 1px #4299e1',
-    },
   },
   tabs: {
     display: 'flex',
@@ -239,9 +235,6 @@ const styles = {
     borderRadius: '0.375rem',
     cursor: 'pointer',
     whiteSpace: 'nowrap',
-    ':hover': {
-      backgroundColor: '#edf2f7',
-    },
   },
   activeTab: {
     padding: '0.5rem 1rem',
@@ -270,11 +263,7 @@ const styles = {
     fontWeight: 600,
     color: '#4a5568',
   },
-  tr: {
-    ':hover': {
-      backgroundColor: '#f8fafc',
-    },
-  },
+  tr: {},  
   td: {
     padding: '0.75rem 1rem',
     borderBottom: '1px solid #edf2f7',
@@ -283,9 +272,6 @@ const styles = {
   link: {
     color: '#3182ce',
     textDecoration: 'none',
-    ':hover': {
-      textDecoration: 'underline',
-    },
   },
   cityBadge: {
     display: 'inline-block',
@@ -349,9 +335,6 @@ const styles = {
     border: 'none',
     borderRadius: '0.375rem',
     cursor: 'pointer',
-    ':hover': {
-      backgroundColor: '#c53030',
-    },
   },
   noResults: {
     padding: '2rem',

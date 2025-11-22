@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import Image from "next/image";
 import { CITIES, LOCALITIES, SERVICES } from "@/lib/seo-data";
 import { BUSINESS_CONFIG } from "@/config/business";
 import CTAButtons from "@/components/CTAButtons";
@@ -31,6 +32,15 @@ export default function Home() {
       <div className={styles.container}>
         {/* Hero Section */}
         <section className={styles.hero}>
+          <div className={styles.heroBackground}>
+            <Image
+              src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
+              alt="Security Camera Background"
+              fill
+              priority
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
           <div className={styles.heroContent}>
             <h1 className={styles.mainHeading}>
               Professional CCTV Installation & Repair Services in Delhi

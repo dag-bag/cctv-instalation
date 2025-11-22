@@ -3,15 +3,22 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { parseSlug, SERVICES, LOCALITIES, createSlug } from '../../lib/seo-data';
-import styles from './page.module.css';
-import BookingForm from '../../components/BookingForm';
+import { SERVICES, LOCALITIES, CITIES, createSlug } from '../../../../../lib/seo-data';
+import styles from '../../../../[slug]/page.module.css';
+import BookingForm from '../../../../../components/BookingForm';
 
 type Props = {
   params: Promise<{
-    slug: string;
+    city: string;
+    locality: string;
+    service: string;
   }>;
 };
+
+// Helper to find original casing from slug
+function findOriginalFromSlug(slug: string, list: string[]): string | undefined {
+  return list.find(item => createSlug(item) === slug);
+}
 
 // Reusing the data fetching logic (simulated)
 async function getPageData(city: string, locality: string, service: string) {
@@ -66,37 +73,53 @@ async function getPageData(city: string, locality: string, service: string) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const parsed = parseSlug(slug);
+  const { city: citySlug, locality: localitySlug, service: serviceSlug } = await params;
 
-  if (!parsed) {
+  const city = findOriginalFromSlug(citySlug, CITIES);
+  
+  if (!city) {
+      return {
+          title: 'City Not Found',
+      }
+  }
+
+  const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []);
+  const service = findOriginalFromSlug(serviceSlug, SERVICES);
+
+  if (!locality || !service) {
     return {
       title: 'Service Not Found',
       description: 'The requested service page could not be found.'
     };
   }
 
-  const { city, locality, service } = parsed;
   const data = await getPageData(city, locality, service);
 
   return {
     title: data.title,
     description: data.metaDescription,
     alternates: {
-      canonical: `https://yourdomain.com/${slug}`,
+      canonical: `https://yourdomain.com/services/${citySlug}/${localitySlug}/${serviceSlug}`,
     },
   };
 }
 
-export default async function FlatServicePage({ params }: Props) {
-  const { slug } = await params;
-  const parsed = parseSlug(slug);
+export default async function HierarchicalServicePage({ params }: Props) {
+  const { city: citySlug, locality: localitySlug, service: serviceSlug } = await params;
 
-  if (!parsed) {
+  const city = findOriginalFromSlug(citySlug, CITIES);
+  
+  if (!city) {
+      notFound();
+  }
+
+  const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []);
+  const service = findOriginalFromSlug(serviceSlug, SERVICES);
+
+  if (!locality || !service) {
     notFound();
   }
 
-  const { city, locality, service } = parsed;
   const data = await getPageData(city, locality, service);
 
   // Get nearby localities (same city, excluding current)
@@ -110,7 +133,7 @@ export default async function FlatServicePage({ params }: Props) {
     '@type': 'LocalBusiness',
     'name': `${service} in ${locality}, ${city}`,
     'description': data.metaDescription,
-    'url': `https://yourdomain.com/${slug}`,
+    'url': `https://yourdomain.com/services/${citySlug}/${localitySlug}/${serviceSlug}`,
     'areaServed': {
       '@type': 'City',
       'name': `${locality}, ${city}`
@@ -144,7 +167,7 @@ export default async function FlatServicePage({ params }: Props) {
         },
         'priceSpecification': {
           '@type': 'PriceSpecification',
-          'price': '0', // Set to 0 or remove price property if allowed, using 0 as placeholder for "Call for price" logic often used
+          'price': '0',
           'priceCurrency': 'INR',
           'description': 'Call for Quote'
         }
@@ -173,13 +196,19 @@ export default async function FlatServicePage({ params }: Props) {
         '@type': 'ListItem',
         'position': 2,
         'name': city,
-        'item': `https://yourdomain.com/services/${city.toLowerCase()}`
+        'item': `https://yourdomain.com/services/${citySlug}`
       },
       {
         '@type': 'ListItem',
         'position': 3,
-        'name': `${service} in ${locality}`,
-        'item': `https://yourdomain.com/${slug}`
+        'name': locality,
+        'item': `https://yourdomain.com/services/${citySlug}/${localitySlug}`
+      },
+      {
+        '@type': 'ListItem',
+        'position': 4,
+        'name': service,
+        'item': `https://yourdomain.com/services/${citySlug}/${localitySlug}/${serviceSlug}`
       }
     ]
   };
@@ -206,7 +235,15 @@ export default async function FlatServicePage({ params }: Props) {
       
       {/* Hero Section */}
       <header className={styles.hero}>
-        <div className={styles.heroBackground}></div>
+        <div className={styles.heroBackground}>
+          <Image
+            src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
+            alt="Security Camera Background"
+            fill
+            priority
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
         <div className={styles.heroContent}>
           <h1 className={styles.title}>
             {data.heroHeading} <span className={styles.highlight}>{locality}</span>, {city}
@@ -224,7 +261,7 @@ export default async function FlatServicePage({ params }: Props) {
       <nav className={styles.breadcrumbs}>
         <div className={styles.breadcrumbContent}>
           <Link href="/" className={styles.link}>Home</Link> &gt;{' '}
-          <Link href={`/services/${city.toLowerCase()}`} className={styles.link}>{city}</Link> &gt;{' '}
+          <Link href={`/services/${citySlug}`} className={styles.link}>{city}</Link> &gt;{' '}
           <span className={styles.activeBreadcrumb}>{locality}</span>
         </div>
       </nav>

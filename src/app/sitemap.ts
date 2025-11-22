@@ -12,29 +12,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Generate URLs for all Service + Locality + City combinations
-  SERVICES.forEach(service => {
-    const serviceSlug = createSlug(service);
-    
-    CITIES.forEach(city => {
-      const citySlug = createSlug(city);
-      const localities = LOCALITIES[city] || [];
+  // 1. City Pages: /services/[city]
+  CITIES.forEach(city => {
+    const citySlug = createSlug(city);
+    urls.push({
+      url: `${baseUrl}/services/${citySlug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    });
 
-      // Add City-level service page (e.g., cctv-installation-in-delhi)
-      // Note: This assumes you have a route for city-level services or it's handled by the same slug logic
-      // If your slug logic expects locality, we might skip this or ensure the slug parser handles it.
-      // Based on current slug parser: [service]-in-[locality]-[city], so city-only might need a different pattern or be skipped if not supported.
-      // For now, we focus on the locality combinations as requested.
+    const localities = LOCALITIES[city] || [];
+    localities.forEach(locality => {
+      const localitySlug = createSlug(locality);
+      
+      // 2. Locality Pages: /services/[city]/[locality]
+      urls.push({
+        url: `${baseUrl}/services/${citySlug}/${localitySlug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+      });
 
-      localities.forEach(locality => {
-        const localitySlug = createSlug(locality);
-        const slug = `${serviceSlug}-in-${localitySlug}-${citySlug}`;
-        
+      // 3. Service Pages: /services/[city]/[locality]/[service]
+      SERVICES.forEach(service => {
+        const serviceSlug = createSlug(service);
         urls.push({
-          url: `${baseUrl}/${slug}`,
+          url: `${baseUrl}/services/${citySlug}/${localitySlug}/${serviceSlug}`,
           lastModified: new Date(),
-          changeFrequency: 'weekly',
-          priority: 0.8,
+          changeFrequency: 'monthly',
+          priority: 0.7,
         });
       });
     });

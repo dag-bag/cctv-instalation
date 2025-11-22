@@ -1,4 +1,4 @@
-import { generateSitemap } from '../src/app/sitemap';
+import generateSitemap from '../src/app/sitemap';
 import axios from 'axios';
 import { writeFileSync } from 'fs';
 import { join } from 'path';

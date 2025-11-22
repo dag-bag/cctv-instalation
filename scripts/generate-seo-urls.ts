@@ -2,9 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { SERVICES } from "../src/data/services";
-import { getAllLocationsWithLocalities } from "../src/data/locations";
-import { CITY_CONFIG, CITY_SLUGS } from "../src/data/cities";
+import { SERVICES, CITIES, LOCALITIES, createSlug } from "../src/lib/seo-data";
 
 const DEFAULT_DOMAIN = "https://yourbrand.com";
 const baseDomain = (process.env.NEXT_PUBLIC_DOMAIN || DEFAULT_DOMAIN).replace(/\/$/, "");
@@ -28,34 +26,34 @@ type SeoEntry = {
   keyword: string;
 };
 
-const allLocations = getAllLocationsWithLocalities();
+
 const seoEntries: SeoEntry[] = [];
 
-CITY_SLUGS.forEach((citySlug) => {
-  const cityConfig = CITY_CONFIG[citySlug];
-  if (!cityConfig) return;
+CITIES.forEach((city) => {
+  const citySlug = createSlug(city);
+  const localities = LOCALITIES[city] || [];
 
-  allLocations.forEach((location) => {
-    const localitySlug = location.slug;
-    const localityName = location.name;
+  localities.forEach((locality) => {
+    const localitySlug = createSlug(locality);
 
     SERVICES.forEach((service) => {
-      const legacyPath = `/${service.slug}-in-${localitySlug}-${citySlug}`;
-      const canonicalPath = `/services/${citySlug}/${localitySlug}/${service.slug}`;
+      const serviceSlug = createSlug(service);
+      const legacyPath = `/${serviceSlug}-in-${localitySlug}-${citySlug}`;
+      const canonicalPath = `/services/${citySlug}/${localitySlug}/${serviceSlug}`;
 
       seoEntries.push({
         citySlug,
-        cityName: cityConfig.name,
+        cityName: city,
         localitySlug,
-        localityName,
-        serviceSlug: service.slug,
-        serviceName: service.name,
+        localityName: locality,
+        serviceSlug,
+        serviceName: service,
         legacyPath,
         canonicalPath,
         legacyUrl: `${baseDomain}${legacyPath}`,
         canonicalUrl: `${baseDomain}${canonicalPath}`,
-        headline: `${service.name} in ${localityName}, ${cityConfig.name}`,
-        keyword: `${service.name} ${localityName}`,
+        headline: `${service} in ${locality}, ${city}`,
+        keyword: `${service} ${locality}`,
       });
     });
   });

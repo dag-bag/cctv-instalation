@@ -6,34 +6,9 @@ export const CITIES = [
   'Faridabad'
 ];
 
-export const LOCALITIES: Record<string, string[]> = {
-  'Delhi': [
-    'Dwarka', 'Rohini', 'Janakpuri', 'Vasant Kunj', 'Lajpat Nagar', 'Saket', 'Hauz Khas', 'Greater Kailash', 'Pitampura', 'Paschim Vihar',
-    'Mayur Vihar', 'Laxmi Nagar', 'Karol Bagh', 'Connaught Place', 'Chandni Chowk', 'Nehru Place', 'Okhla', 'Sarita Vihar', 'Jasola', 'Kalkaji',
-    'Malviya Nagar', 'Green Park', 'Defence Colony', 'South Extension', 'Rajouri Garden', 'Punjabi Bagh', 'Model Town', 'Ashok Vihar', 'Shalimar Bagh'
-  ],
-  'Gurgaon': [
-    'DLF Phase 1', 'DLF Phase 2', 'DLF Phase 3', 'DLF Phase 4', 'DLF Phase 5', 'Sector 14', 'Sector 15', 'Sector 21', 'Sector 22', 'Sector 23',
-    'Sector 31', 'Sector 40', 'Sector 45', 'Sector 46', 'Sector 56', 'Sector 57', 'Sohna Road', 'Golf Course Road', 'MG Road', 'Sushant Lok',
-    'Nirvana Country', 'South City 1', 'South City 2', 'Palam Vihar', 'Udyog Vihar', 'Manesar'
-  ],
-  'Noida': [
-    'Sector 18', 'Sector 15', 'Sector 16', 'Sector 62', 'Sector 63', 'Sector 1', 'Sector 2', 'Sector 3', 'Sector 4', 'Sector 5',
-    'Sector 10', 'Sector 11', 'Sector 12', 'Sector 19', 'Sector 20', 'Sector 21', 'Sector 22', 'Sector 23', 'Sector 24', 'Sector 25',
-    'Sector 26', 'Sector 27', 'Sector 28', 'Sector 29', 'Sector 30', 'Sector 31', 'Sector 33', 'Sector 34', 'Sector 35', 'Sector 36',
-    'Sector 37', 'Sector 39', 'Sector 40', 'Sector 41', 'Sector 44', 'Sector 45', 'Sector 46', 'Sector 47', 'Sector 48', 'Sector 49',
-    'Sector 50', 'Sector 51', 'Sector 52', 'Sector 53', 'Sector 55', 'Sector 56', 'Sector 57', 'Sector 58', 'Sector 59', 'Sector 60',
-    'Sector 61', 'Sector 70', 'Sector 71', 'Sector 72', 'Sector 73', 'Sector 74', 'Sector 75', 'Sector 76', 'Sector 77', 'Sector 78',
-    'Sector 79', 'Sector 82', 'Sector 93', 'Sector 100', 'Sector 104', 'Sector 105', 'Sector 108', 'Sector 110', 'Sector 119', 'Sector 120',
-    'Sector 121', 'Sector 122', 'Sector 128', 'Sector 135', 'Sector 137', 'Sector 143', 'Sector 144', 'Sector 150', 'Sector 151', 'Sector 168'
-  ],
-  'Ghaziabad': [
-    'Indirapuram', 'Vaishali', 'Vasundhara', 'Kaushambi', 'Raj Nagar Extension', 'Crossings Republik', 'Mohan Nagar', 'Sahibabad', 'Govindpuram', 'Lal Kuan'
-  ],
-  'Faridabad': [
-    'Sector 15', 'Sector 16', 'Sector 21', 'Sector 28', 'Sector 29', 'Sector 30', 'Sector 31', 'Sector 37', 'Sector 46', 'NIT', 'Greenfield Colony', 'Charmwood Village'
-  ]
-};
+import localitiesData from '../data/localities.json';
+
+export const LOCALITIES: Record<string, string[]> = localitiesData;
 
 export const SERVICES = [
   'IP Camera Installation',
