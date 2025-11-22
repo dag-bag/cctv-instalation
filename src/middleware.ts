@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { SERVICES, getServiceBySlug } from '@/data/services';
-import { getLocationBySlug, getLocalityDetails } from '@/data/locations';
+import { getServiceBySlug, findLocation, createSlug } from './lib/seo-data';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -34,16 +33,11 @@ export function middleware(request: NextRequest) {
   if (legacyServiceMatch) {
     const [, legacyLocation, legacyService] = legacyServiceMatch;
     const service = getServiceBySlug(legacyService);
-    const target = resolveCityAndLocality(legacyLocation);
+    const location = findLocation(legacyLocation);
 
-    if (service && target) {
-      return NextResponse.redirect(
-        new URL(
-          `/services/${target.citySlug}/${target.localitySlug}/${legacyService}`,
-          request.url
-        ),
-        301
-      );
+    if (service && location && location.locality) {
+      const slug = `${createSlug(service)}-in-${createSlug(location.locality)}-${createSlug(location.city)}`;
+      return NextResponse.redirect(new URL(`/${slug}`, request.url), 301);
     }
   }
 
@@ -52,112 +46,19 @@ export function middleware(request: NextRequest) {
   if (invertedServicesMatch) {
     const [, legacyService, legacyLocation] = invertedServicesMatch;
     const service = getServiceBySlug(legacyService);
-    const target = resolveCityAndLocality(legacyLocation);
+    const location = findLocation(legacyLocation);
 
-    if (service && target) {
-      return NextResponse.redirect(
-        new URL(
-          `/services/${target.citySlug}/${target.localitySlug}/${legacyService}`,
-          request.url
-        ),
-        301
-      );
-    }
-  }
-
-  // Handle SEO-friendly URLs (e.g., cctv-installation-in-karol-bagh)
-  if (pathname.includes('-in-') || pathname.endsWith('-delhi')) {
-    const slug = pathname.slice(1); // Remove leading /
-    const parsed = parseSEORoute(slug);
-
-    if (parsed) {
-      const service = getServiceBySlug(parsed.service);
-      const target = resolveCityAndLocality(parsed.location);
-
-      if (service && target) {
-        return NextResponse.redirect(
-          new URL(
-            `/services/${target.citySlug}/${target.localitySlug}/${parsed.service}`,
-            request.url
-          ),
-          301
-        );
-      }
+    if (service && location && location.locality) {
+      const slug = `${createSlug(service)}-in-${createSlug(location.locality)}-${createSlug(location.city)}`;
+      return NextResponse.redirect(new URL(`/${slug}`, request.url), 301);
     }
   }
 
   return NextResponse.next();
 }
 
-function parseSEORoute(seoRoute: string): { service: string; location: string } | null {
-  const parts = seoRoute.split('-');
-
-  // Remove 'delhi' from the end if present
-  if (parts[parts.length - 1] === 'delhi') {
-    parts.pop();
-  }
-
-  // Find 'in' separator
-  const inIndex = parts.indexOf('in');
-
-  if (inIndex !== -1) {
-    // Pattern: service-in-location
-    const serviceParts = parts.slice(0, inIndex);
-    const locationParts = parts.slice(inIndex + 1);
-
-    return {
-      service: serviceParts.join('-'),
-      location: locationParts.join('-'),
-    };
-  }
-
-  // Try to match known service patterns
-  for (const service of SERVICES) {
-    if (seoRoute.startsWith(service.slug)) {
-      const location = seoRoute
-        .substring(service.slug.length + 1)
-        .replace(/-delhi$/, '');
-      return {
-        service: service.slug,
-        location: location,
-      };
-    }
-  }
-
-  return null;
-}
-
-function resolveCityAndLocality(localitySlug: string) {
-  const localityDetails = getLocalityDetails(localitySlug);
-  if (localityDetails) {
-    return {
-      citySlug: localityDetails.district.slug,
-      localitySlug: localityDetails.locality,
-    };
-  }
-
-  const location = getLocationBySlug(localitySlug);
-  if (location) {
-    return {
-      citySlug: location.slug,
-      localitySlug: location.slug,
-    };
-  }
-
-  return null;
-}
-
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public files (public folder)
-     * - API routes
-     * - Already rewritten paths
-     */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.|api/).*)',
   ],
 };

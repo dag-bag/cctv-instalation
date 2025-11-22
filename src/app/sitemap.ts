@@ -1,72 +1,44 @@
 import { MetadataRoute } from 'next';
-import { SERVICES } from '@/data/services';
-import { CITY_CONFIG, CITY_SLUGS } from '@/data/cities';
+import { CITIES, LOCALITIES, SERVICES, createSlug } from '../lib/seo-data';
 
-// Helper to generate canonical URLs
-const getCanonicalUrl = (path: string): string => {
-  return `${process.env.NEXT_PUBLIC_DOMAIN}${path}`.toLowerCase().replace(/\s+/g, '-');
-};
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://yourdomain.com';
+  const urls: MetadataRoute.Sitemap = [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+  ];
 
-type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly';
-
-type SitemapEntry = {
-  url: string;
-  lastModified: Date | string;
-  changeFrequency: ChangeFrequency;
-  priority: number;
-}
-
-// Export as both default and named export for compatibility
-export function generateSitemap(): SitemapEntry[] {
-  const routes: SitemapEntry[] = [];
-  const urlSet = new Set<string>();
-
-  // Add a URL to sitemap if it's not a duplicate
-  const addUrl = (path: string, priority: number, changeFrequency: ChangeFrequency = 'weekly'): void => {
-    // Ensure path starts with a slash and doesn't end with one
-    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-    const canonicalUrl = getCanonicalUrl(normalizedPath);
+  // Generate URLs for all Service + Locality + City combinations
+  SERVICES.forEach(service => {
+    const serviceSlug = createSlug(service);
     
-    if (!urlSet.has(canonicalUrl)) {
-      urlSet.add(canonicalUrl);
-      routes.push({
-        url: canonicalUrl,
-        lastModified: new Date(),
-        changeFrequency,
-        priority,
-      });
-    }
-  };
+    CITIES.forEach(city => {
+      const citySlug = createSlug(city);
+      const localities = LOCALITIES[city] || [];
 
-  // 1. Core pages
-  addUrl('/', 1.0, 'daily');
-  addUrl('/about', 0.8);
-  addUrl('/contact', 0.8);
-  addUrl('/privacy-policy', 0.3, 'yearly');
-  addUrl('/terms-of-service', 0.3, 'yearly');
+      // Add City-level service page (e.g., cctv-installation-in-delhi)
+      // Note: This assumes you have a route for city-level services or it's handled by the same slug logic
+      // If your slug logic expects locality, we might skip this or ensure the slug parser handles it.
+      // Based on current slug parser: [service]-in-[locality]-[city], so city-only might need a different pattern or be skipped if not supported.
+      // For now, we focus on the locality combinations as requested.
 
-  // 2. City, locality, and service pages
-  CITY_SLUGS.forEach(city => {
-    addUrl(`/services/${city}`, 0.8);
-    const localities = CITY_CONFIG[city]?.localities || [];
-
-    localities.forEach(locality => {
-      addUrl(`/services/${city}/${locality}`, 0.7);
-
-      SERVICES.forEach(service => {
-        addUrl(
-          `/services/${city}/${locality}/${service.slug}`,
-          0.9,
-          'weekly'
-        );
+      localities.forEach(locality => {
+        const localitySlug = createSlug(locality);
+        const slug = `${serviceSlug}-in-${localitySlug}-${citySlug}`;
+        
+        urls.push({
+          url: `${baseUrl}/${slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        });
       });
     });
   });
 
-  return routes;
-}
-
-// Default export for Next.js
-export default function sitemap(): MetadataRoute.Sitemap {
-  return generateSitemap();
+  return urls;
 }

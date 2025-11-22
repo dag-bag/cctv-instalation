@@ -1,415 +1,436 @@
-import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
-import Link from "next/link";
-import {
-  getAllLocationsWithLocalities,
-  getLocationBySlug,
-  getLocalityDetails,
-} from "@/data/locations";
-import { SERVICES, getServiceBySlug } from "@/data/services";
-import { BUSINESS_CONFIG } from "@/config/business";
-import {
-  generatePageTitle,
-  generateMetaDescription,
-  generateFAQs,
-  generateKeywords,
-} from "@/utils/content-generator";
-import { generateLocalityContent } from "@/utils/locality-api";
-import { generateAllSchemas } from "@/utils/schema-generator";
-import CTAButtons from "@/components/CTAButtons";
-import FloatingCTA from "@/components/FloatingCTA";
-import styles from "./catch-all.module.css";
+import React from 'react';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { parseSlug, SERVICES, LOCALITIES, createSlug } from '../../lib/seo-data';
+import styles from './page.module.css';
+import BookingForm from '../../components/BookingForm';
 
-const DEFAULT_CITY_SLUG = "delhi";
+type Props = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
-// Parse single slug route - handles locations and SEO routes
-function parseRoute(slug: string): { 
-  type: 'location' | 'seo-route';
-  location?: string;
-  service?: string;
-} {
-  // Priority 1: Check if it's a valid location (district or locality) FIRST
-  // This prevents valid locations like "north-west-delhi" from being treated as SEO routes
-  const location = getLocationBySlug(slug);
-  const locality = getLocalityDetails(slug);
-  
-  if (location || locality) {
-    return { type: 'location', location: slug };
-  }
-  
-  // Priority 2: Check if it's an SEO route with hyphens (e.g., "cctv-installation-in-rohini-delhi")
-  // Only treat as SEO route if it contains '-in-' or ends with '-delhi' AND is not a valid location
-  if (slug.includes('-in-') || (slug.endsWith('-delhi') && !location && !locality)) {
-    return { type: 'seo-route', location: slug, service: slug };
-  }
-  
-  // Priority 3: Assume it's a location with hyphenated name
-  return { type: 'location', location: slug };
+// Reusing the data fetching logic (simulated)
+async function getPageData(city: string, locality: string, service: string) {
+  const serviceLower = service.toLowerCase();
+  const isElectrical = serviceLower.includes('electrical') || serviceLower.includes('wiring') || serviceLower.includes('power') || serviceLower.includes('mcb') || serviceLower.includes('earthing');
+
+  const features = isElectrical 
+    ? ['ISI Marked Cables', 'Certified Electricians', 'Load Calculation', 'Short Circuit Protection', '24/7 Support', 'Safety First Approach']
+    : ['High Definition Video', 'Remote Access', 'Night Vision', 'Motion Detection', '24/7 Support', 'Expert Installation'];
+
+  const pricing = isElectrical
+    ? [
+        { item: 'Wiring (per meter)', price: 'Get Quote', cta: 'Call Us' },
+        { item: 'Switch/Socket Installation', price: 'Get Quote', cta: 'Call Us' },
+        { item: 'MCB Box Installation', price: 'Get Quote', cta: 'Call Us' },
+        { item: 'Inverter Connection', price: 'Get Quote', cta: 'Call Us' },
+      ]
+    : [
+        { item: 'IP Camera Installation', price: 'Get Quote', cta: 'Call Us' },
+        { item: 'DVR/NVR Setup', price: 'Get Quote', cta: 'Call Us' },
+        { item: 'Cable Laying (per meter)', price: 'Get Quote', cta: 'Call Us' },
+        { item: 'Biometric Setup', price: 'Get Quote', cta: 'Call Us' },
+      ];
+
+  return {
+    title: `${service} in ${locality}, ${city} | Expert Services`,
+    metaDescription: `Looking for ${service} in ${locality}, ${city}? We provide professional, affordable, and reliable ${serviceLower} services. Call now for a free quote!`,
+    heroHeading: `${service} in`,
+    heroSubheading: `Secure your property in ${city} with our top-rated ${serviceLower} solutions. Fast, reliable, and affordable.`,
+    features,
+    pricing,
+    testimonials: [
+      { name: 'Rahul Sharma', location: locality, text: `Excellent ${serviceLower} service! The team was professional and finished the work on time.` },
+      { name: 'Priya Singh', location: city, text: `Highly recommend their services. Very reasonable pricing and great quality work.` },
+      { name: 'Amit Verma', location: locality, text: `Best service provider in ${locality}. They explained everything clearly and did a neat job.` }
+    ],
+    faq: [
+      {
+        question: `Do you provide ${service} in ${locality}?`,
+        answer: `Yes, we provide comprehensive ${service} services specifically in ${locality} and surrounding areas of ${city}.`
+      },
+      {
+        question: `What is the cost of ${service} in ${city}?`,
+        answer: `The cost varies based on your specific requirements. We offer competitive pricing. Contact us for a free quote.`
+      },
+      {
+        question: `How soon can you start the work in ${locality}?`,
+        answer: `We have a local team in ${city} ready to be deployed. In most cases, we can start the work within 24-48 hours of your booking.`
+      }
+    ]
+  };
 }
 
-// Helper for SEO routes - parses hyphenated SEO URLs
-// Examples: "cctv-installation-in-rohini-delhi" or "repair-services-karol-bagh-delhi"
-function parseSEORoute(seoRoute: string): { service: string; location: string } | null {
-  // Split by hyphens
-  const parts = seoRoute.split('-');
-  
-  // Remove 'delhi' suffix if present
-  if (parts[parts.length - 1] === 'delhi') {
-    parts.pop();
-  }
-  
-  // Pattern 1: service-in-location (e.g., "installation-services-in-rohini")
-  const inIndex = parts.indexOf('in');
-  if (inIndex !== -1 && inIndex > 0) {
-    const serviceParts = parts.slice(0, inIndex);
-    const locationParts = parts.slice(inIndex + 1);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const parsed = parseSlug(slug);
+
+  if (!parsed) {
     return {
-      service: serviceParts.join('-'),
-      location: locationParts.join('-'),
+      title: 'Service Not Found',
+      description: 'The requested service page could not be found.'
     };
   }
-  
-  // Pattern 2: Try to match service slug at the start
-  for (const service of SERVICES) {
-    const serviceSlugParts = service.slug.split('-');
-    
-    // Check if the route starts with this service slug
-    if (parts.length > serviceSlugParts.length) {
-      const routeServicePart = parts.slice(0, serviceSlugParts.length).join('-');
-      
-      if (routeServicePart === service.slug) {
-        // Extract location from remaining parts
-        const locationParts = parts.slice(serviceSlugParts.length);
-        const location = locationParts.join('-');
-        
-        return { service: service.slug, location };
-      }
-    }
-  }
-  
-  return null;
+
+  const { city, locality, service } = parsed;
+  const data = await getPageData(city, locality, service);
+
+  return {
+    title: data.title,
+    description: data.metaDescription,
+    alternates: {
+      canonical: `https://yourdomain.com/${slug}`,
+    },
+  };
 }
 
-// Generate static params for [slug] route
-export async function generateStaticParams() {
-  const allLocations = getAllLocationsWithLocalities();
-  const params: { slug: string }[] = [];
-
-  // Add all locations (districts and localities)
-  allLocations.forEach((location) => {
-    params.push({ slug: location.slug });
-    
-    // Add SEO routes for each location
-    SERVICES.forEach((service) => {
-      params.push({ slug: `${service.slug}-in-${location.slug}-delhi` });
-      params.push({ slug: `${service.slug}-${location.slug}-delhi` });
-    });
-  });
-
-  return params;
-}
-
-// Metadata
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export default async function FlatServicePage({ params }: Props) {
   const { slug } = await params;
-  const route = parseRoute(slug);
+  const parsed = parseSlug(slug);
 
-  if (route.type === 'seo-route' && route.location) {
-    const parsed = parseSEORoute(route.location);
-    if (parsed) {
-      const service = getServiceBySlug(parsed.service);
-      const locationData = getLocationBySlug(parsed.location);
-      const localityData = getLocalityDetails(parsed.location);
+  if (!parsed) {
+    notFound();
+  }
+
+  const { city, locality, service } = parsed;
+  const data = await getPageData(city, locality, service);
+
+  // Get nearby localities (same city, excluding current)
+  const nearbyLocalities = (LOCALITIES[city] || [])
+    .filter(l => l !== locality)
+    .slice(0, 10); // Limit to 10
+
+  // JSON-LD Schemas
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    'name': `${service} in ${locality}, ${city}`,
+    'description': data.metaDescription,
+    'url': `https://yourdomain.com/${slug}`,
+    'areaServed': {
+      '@type': 'City',
+      'name': `${locality}, ${city}`
+    },
+    'priceRange': '₹₹',
+    'openingHours': 'Mo-Su 09:00-20:00',
+    'telephone': '+91-9999999999',
+    'image': 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop'
+  };
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    'name': service,
+    'provider': {
+      '@type': 'LocalBusiness',
+      'name': 'Your Business Name'
+    },
+    'areaServed': {
+      '@type': 'Place',
+      'name': `${locality}, ${city}`
+    },
+    'hasOfferCatalog': {
+      '@type': 'OfferCatalog',
+      'name': 'Service Catalog',
+      'itemListElement': data.pricing.map(p => ({
+        '@type': 'Offer',
+        'itemOffered': {
+          '@type': 'Service',
+          'name': p.item
+        },
+        'priceSpecification': {
+          '@type': 'PriceSpecification',
+          'price': '0', // Set to 0 or remove price property if allowed, using 0 as placeholder for "Call for price" logic often used
+          'priceCurrency': 'INR',
+          'description': 'Call for Quote'
+        }
+      }))
+    },
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '4.8',
+      'reviewCount': '1250',
+      'bestRating': '5',
+      'worstRating': '1'
+    }
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://yourdomain.com'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': city,
+        'item': `https://yourdomain.com/services/${city.toLowerCase()}`
+      },
+      {
+        '@type': 'ListItem',
+        'position': 3,
+        'name': `${service} in ${locality}`,
+        'item': `https://yourdomain.com/${slug}`
+      }
+    ]
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': data.faq.map(f => ({
+      '@type': 'Question',
+      'name': f.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': f.answer
+      }
+    }))
+  };
+
+  return (
+    <div className={styles.container}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, serviceSchema, breadcrumbSchema, faqSchema]) }}
+      />
       
-      if (service && (locationData || localityData)) {
-        const displayName = locationData 
-          ? locationData.name 
-          : localityData
-          ? localityData.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-          : parsed.location.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+      {/* Hero Section */}
+      <header className={styles.hero}>
+        <div className={styles.heroBackground}></div>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>
+            {data.heroHeading} <span className={styles.highlight}>{locality}</span>, {city}
+          </h1>
+          <p className={styles.subtitle}>
+            {data.heroSubheading}
+          </p>
+          <button className={styles.ctaButton}>
+            Book Service Now
+          </button>
+        </div>
+      </header>
+
+      {/* Breadcrumbs */}
+      <nav className={styles.breadcrumbs}>
+        <div className={styles.breadcrumbContent}>
+          <Link href="/" className={styles.link}>Home</Link> &gt;{' '}
+          <Link href={`/services/${city.toLowerCase()}`} className={styles.link}>{city}</Link> &gt;{' '}
+          <span className={styles.activeBreadcrumb}>{locality}</span>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className={styles.main}>
         
-        return {
-          title: generatePageTitle(service.name, displayName),
-          description: generateMetaDescription(service.name, displayName),
-          keywords: generateKeywords(service.name, displayName),
-          alternates: {
-            canonical: `/${parsed.location}/${parsed.service}`,
-          },
-        };
-      }
-    }
-  }
-
-  if (route.location && route.service) {
-    const service = getServiceBySlug(route.service);
-    const locationData = getLocationBySlug(route.location);
-    const localityData = getLocalityDetails(route.location);
-    
-    if (service && (locationData || localityData)) {
-      const displayName = locationData 
-        ? locationData.name 
-        : localityData
-        ? localityData.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-        : route.location.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-      
-      return {
-        title: generatePageTitle(service.name, displayName),
-        description: generateMetaDescription(service.name, displayName),
-        keywords: generateKeywords(service.name, displayName),
-      };
-    }
-  }
-
-  if (route.location) {
-    const locationData = getLocationBySlug(route.location);
-    const localityData = getLocalityDetails(route.location);
-    
-    if (locationData || localityData) {
-      const displayName = locationData 
-        ? locationData.name 
-        : localityData
-        ? localityData.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-        : route.location.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-      
-      return {
-        title: generatePageTitle("CCTV Installation & Repair Services", displayName),
-        description: generateMetaDescription("CCTV services", displayName),
-        keywords: generateKeywords("CCTV services", displayName),
-      };
-    }
-  }
-
-  return { title: BUSINESS_CONFIG.name };
-}
-
-// Main component
-export default async function SlugPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const route = parseRoute(slug);
-
-  // Handle location-only pages
-  if (route.type === 'location' && route.location && !route.service) {
-    const location = getLocationBySlug(route.location);
-    const localityDetails = getLocalityDetails(route.location);
-
-    if (!location && !localityDetails) {
-      notFound();
-    }
-
-    const displayName = location
-      ? location.name
-      : localityDetails
-      ? localityDetails.locality.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-      : route.location.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-
-    const locationSlug = route.location;
-    const districtSlug = location ? location.slug : localityDetails?.district.slug || locationSlug;
-    
-    // Get all services available for this location
-    const locationServices = SERVICES.filter(service => 
-      !service.availableLocations || 
-      service.availableLocations.includes(locationSlug) ||
-      service.isLocationSpecific
-    );
-
-    // Group services by category
-    const servicesByCategory = locationServices.reduce((acc, service) => {
-      if (!acc[service.category]) {
-        acc[service.category] = [];
-      }
-      acc[service.category].push(service);
-      return acc;
-    }, {} as Record<string, typeof SERVICES>);
-
-    return (
-      <div className={styles.container}>
-        {/* Breadcrumb */}
-        <nav className={styles.breadcrumb}>
-          <Link href="/">Home</Link> / <span>{displayName}</span>
-        </nav>
-
-        {/* Hero Section */}
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <div className={styles.serviceIcon}>🏠</div>
-            <h1 className={styles.mainHeading}>
-              CCTV & Security Services in {displayName}
-            </h1>
-            <p className={styles.subheading}>
-              Professional security solutions for homes and businesses in {displayName}. 
-              Get expert CCTV installation, repair, and maintenance services with free site surveys and competitive pricing.
-            </p>
-            <CTAButtons variant="horizontal" />
-          </div>
-        </section>
-
-        {/* About Location Section */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>Why Choose Us in {displayName}?</h2>
+        {/* Left Column: Details */}
+        <div className={styles.contentSection}>
+          <section>
+            <h2 className={styles.sectionTitle}>Why Choose Us for {service}?</h2>
+            <div className={styles.text}>
+              <p>
+                Residents of <strong>{locality}, {city}</strong> trust us for their security needs. 
+                We provide top-notch {service.toLowerCase()} with a focus on quality, speed, and reliability. 
+                Whether it's a residential complex or a commercial establishment in {locality}, our expert team is ready to assist.
+              </p>
+            </div>
+            
             <div className={styles.featuresGrid}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>✓</span>
-                <h3>Local Experts</h3>
-                <p>Extensive experience serving {displayName} and surrounding areas</p>
+              {data.features.map((feature, index) => (
+                <div key={index} className={styles.featureCard}>
+                  <span className={styles.checkIcon}>
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  </span>
+                  <span className={styles.featureText}>{feature}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Pricing Table */}
+          <section className={styles.pricingSection}>
+            <h3 className={styles.sectionTitle}>Transparent Pricing</h3>
+            <div className={styles.pricingTable}>
+              {data.pricing.map((item, index) => (
+                <div key={index} className={styles.pricingRow}>
+                  <span className={styles.pricingItem}>{item.item}</span>
+                  <button className={styles.pricingButton}>
+                    {item.cta}
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className={styles.pricingNote}>* Prices are indicative and may vary based on site conditions.</p>
+          </section>
+
+          {/* Safety Standards */}
+          <section className={styles.safetySection}>
+            <h3 className={styles.sectionTitle}>Our Safety Standards</h3>
+            <div className={styles.safetyGrid}>
+              <div className={styles.safetyCard}>
+                <div className={styles.safetyIcon}>🛡️</div>
+                <h4>ISI Marked</h4>
+                <p>We use only ISI marked cables and equipment.</p>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>✓</span>
-                <h3>Free Site Survey</h3>
-                <p>No-obligation assessment and detailed quote</p>
+              <div className={styles.safetyCard}>
+                <div className={styles.safetyIcon}>👨‍🔧</div>
+                <h4>Certified Team</h4>
+                <p>Our technicians are trained and certified.</p>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>✓</span>
-                <h3>Professional Installation</h3>
-                <p>Certified technicians with quality workmanship</p>
+              <div className={styles.safetyCard}>
+                <div className={styles.safetyIcon}>⚡</div>
+                <h4>Shock Proof</h4>
+                <p>Proper earthing and insulation ensured.</p>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>✓</span>
-                <h3>24/7 Support</h3>
-                <p>Round-the-clock emergency support and maintenance</p>
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <section className={styles.testimonialSection}>
+            <h3 className={styles.sectionTitle}>What Our Clients Say</h3>
+            <div className={styles.testimonialGrid}>
+              {data.testimonials.map((t, index) => (
+                <div key={index} className={styles.testimonialCard}>
+                  <p className={styles.testimonialText}>"{t.text}"</p>
+                  <div className={styles.testimonialAuthor}>
+                    <span className={styles.authorName}>{t.name}</span>
+                    <span className={styles.authorLoc}>{t.location}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+        {/* How it Works Section */}
+        <section className={styles.howItWorksSection}>
+          <div className={styles.container} style={{ background: 'transparent', minHeight: 'auto' }}>
+            <h2 className={styles.sectionTitle}>How It Works</h2>
+            <div className={styles.stepsGrid}>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>1</div>
+                <h3>Book Service</h3>
+                <p>Call us or request a quote online.</p>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>✓</span>
-                <h3>Competitive Pricing</h3>
-                <p>Transparent pricing with no hidden charges</p>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>2</div>
+                <h3>Confirmation</h3>
+                <p>We confirm your slot & technician.</p>
               </div>
-              <div className={styles.featureCard}>
-                <span className={styles.featureIcon}>✓</span>
-                <h3>Warranty Included</h3>
-                <p>1-year warranty on all installations</p>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>3</div>
+                <h3>Service Delivery</h3>
+                <p>Expert arrives and completes the job.</p>
+              </div>
+              <div className={styles.stepCard}>
+                <div className={styles.stepNumber}>4</div>
+                <h3>Payment</h3>
+                <p>Pay after satisfied service.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* All Services Section */}
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2>Our Services in {displayName}</h2>
-            <p className={styles.intro} style={{ textAlign: 'center', marginBottom: '3rem' }}>
-              Explore our comprehensive range of CCTV and security services available in {displayName}. 
-              Click on any service to learn more and get a free quote.
-            </p>
-            
-            {Object.entries(servicesByCategory).map(([category, services]) => (
-              <div key={category} style={{ marginBottom: '4rem' }}>
-                <h3 style={{ 
-                  fontSize: '1.75rem', 
-                  fontWeight: 600, 
-                  color: '#1e3c72', 
-                  marginBottom: '2rem',
-                  textTransform: 'capitalize'
-                }}>
-                  {category.replace(/-/g, ' ')}
-                </h3>
-                <div className={styles.featuresGrid}>
-                  {services.map((service) => (
-                    <Link
-                      key={service.slug}
-                      href={`/services/${DEFAULT_CITY_SLUG}/${locationSlug}/${service.slug}`}
-                      style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
-                    >
-                      <div className={styles.featureCard} style={{ cursor: 'pointer' }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{service.icon}</div>
-                        <h3 style={{ marginBottom: '0.75rem' }}>{service.name}</h3>
-                        <p style={{ 
-                          color: '#666', 
-                          fontSize: '0.95rem', 
-                          lineHeight: '1.6',
-                          marginBottom: '1rem',
-                          flexGrow: 1
-                        }}>
-                          {service.description}
-                        </p>
-                        {service.priceRange && (
-                          <div style={{ 
-                            color: '#2a5298', 
-                            fontWeight: 600, 
-                            fontSize: '0.9rem',
-                            marginBottom: '0.75rem'
-                          }}>
-                            {service.priceRange}
-                          </div>
-                        )}
-                        <div style={{ 
-                          color: '#2a5298', 
-                          fontWeight: 600, 
-                          marginTop: 'auto',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '0.5rem',
-                          paddingTop: '0.5rem'
-                        }}>
-                          Learn More <span>→</span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+        {/* Map Section */}
+        <section className={styles.mapSection}>
+          <div className={styles.container} style={{ background: 'transparent', minHeight: 'auto' }}>
+            <h2 className={styles.sectionTitle}>Serving {locality} & Nearby</h2>
+            <div className={styles.mapWrapper}>
+              <iframe
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(locality + ', ' + city)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+              ></iframe>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className={styles.faqSection}>
+          <div className={styles.container} style={{ background: 'transparent', minHeight: 'auto' }}>
+            <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
+            <div className={styles.faqGrid}>
+              {data.faq.map((faq, index) => (
+                <div key={index} className={styles.faqItem}>
+                  <h3>{faq.question}</h3>
+                  <p>{faq.answer}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
+        </div>
 
-        {/* CTA Section */}
-        <section className={styles.ctaSection}>
-          <div className={styles.content}>
-            <h2>Ready to Secure Your Property in {displayName}?</h2>
-            <p style={{ fontSize: '1.25rem', marginBottom: '2rem', opacity: 0.95 }}>
-              Contact us today for a free consultation and quote. Our expert team is ready to help!
-            </p>
-            <CTAButtons variant="horizontal" />
-            <p style={{ marginTop: '2rem', fontSize: '1rem', opacity: 0.9 }}>
-              Call/WhatsApp: <a href={`tel:${BUSINESS_CONFIG.phone}`} style={{ color: '#ffd700', fontWeight: 600 }}>{BUSINESS_CONFIG.phone}</a>
-            </p>
+        {/* Right Column: Booking Form / CTA */}
+        <aside className={styles.sidebar}>
+          <BookingForm defaultService={service} />
+
+          {/* Related Services */}
+          <div className={styles.relatedServices}>
+            <h4 className={styles.relatedTitle}>Related Services in {locality}</h4>
+            <ul className={styles.relatedList}>
+              {SERVICES.slice(0, 5).map((s, i) => {
+                 if (s === service) return null;
+                 const slug = `${createSlug(s)}-in-${createSlug(locality)}-${createSlug(city)}`;
+                 return (
+                   <li key={i}>
+                     <Link href={`/${slug}`} className={styles.relatedLink}>{s}</Link>
+                   </li>
+                 );
+              })}
+            </ul>
           </div>
-        </section>
 
-        <FloatingCTA />
+          {/* Nearby Localities */}
+          <div className={styles.relatedServices}>
+            <h4 className={styles.relatedTitle}>Serving Nearby Areas</h4>
+            <ul className={styles.relatedList}>
+              {nearbyLocalities.map((loc, i) => {
+                 const slug = `${createSlug(service)}-in-${createSlug(loc)}-${createSlug(city)}`;
+                 return (
+                   <li key={i}>
+                     <Link href={`/${slug}`} className={styles.relatedLink}>{service} in {loc}</Link>
+                   </li>
+                 );
+              })}
+            </ul>
+          </div>
+        </aside>
+
+      </main>
+
+      {/* Footer CTA */}
+      <footer className={styles.footer}>
+        <h2 className={styles.footerTitle}>Ready to secure your property in {locality}?</h2>
+        <div className={styles.footerButtons}>
+          <button className={styles.ctaButton}>
+            Call Now: +91 99999 99999
+          </button>
+          <button className={styles.outlineButton}>
+            WhatsApp Us
+          </button>
+        </div>
+      </footer>
+
+      {/* Sticky Mobile CTA */}
+      <div className={styles.stickyMobileCTA}>
+        <a href="tel:+919999999999" className={styles.stickyCallBtn}>
+          📞 Call Now
+        </a>
+        <a href="https://wa.me/919999999999" className={styles.stickyWhatsappBtn}>
+          💬 WhatsApp
+        </a>
       </div>
-    );
-  }
-
-  // Handle all service+location combinations
-  let serviceSlug = route.service;
-  let locationSlug = route.location;
-
-  // Handle SEO routes
-  if (route.type === 'seo-route' && route.location) {
-    const parsed = parseSEORoute(route.location);
-    if (parsed) {
-      serviceSlug = parsed.service;
-      locationSlug = parsed.location;
-    }
-  }
-
-  if (!serviceSlug || !locationSlug) {
-    notFound();
-  }
-
-  const locationEntry = getLocationBySlug(locationSlug);
-  const localityDetails = getLocalityDetails(locationSlug);
-
-  if (!locationEntry && !localityDetails) {
-    notFound();
-  }
-
-  const citySlug = locationEntry
-    ? locationEntry.slug
-    : localityDetails?.district.slug || DEFAULT_CITY_SLUG;
-
-  const localityTarget = locationEntry
-    ? locationEntry.slug
-    : localityDetails?.locality || locationSlug;
-
-  redirect(`/services/${citySlug}/${localityTarget}/${serviceSlug}`);
+    </div>
+  );
 }
