@@ -99,7 +99,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: data.title,
     description: data.metaDescription,
     alternates: {
-      canonical: `https://yourdomain.com/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+      canonical: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
     },
   };
 }
@@ -133,7 +133,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
     '@type': 'LocalBusiness',
     'name': `${service} in ${locality}, ${city}`,
     'description': data.metaDescription,
-    'url': `https://yourdomain.com/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+    'url': `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
     'areaServed': {
       '@type': 'City',
       'name': `${locality}, ${city}`
@@ -150,7 +150,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
     'name': service,
     'provider': {
       '@type': 'LocalBusiness',
-      'name': 'Your Business Name'
+      'name': 'CamHarbor'
     },
     'areaServed': {
       '@type': 'Place',
@@ -190,25 +190,25 @@ export default async function HierarchicalServicePage({ params }: Props) {
         '@type': 'ListItem',
         'position': 1,
         'name': 'Home',
-        'item': 'https://yourdomain.com'
+        'item': 'https://www.camharbor.in'
       },
       {
         '@type': 'ListItem',
         'position': 2,
         'name': city,
-        'item': `https://yourdomain.com/services/${citySlug}`
+        'item': `https://www.camharbor.in/services/${citySlug}`
       },
       {
         '@type': 'ListItem',
         'position': 3,
         'name': locality,
-        'item': `https://yourdomain.com/services/${citySlug}/${localitySlug}`
+        'item': `https://www.camharbor.in/services/${citySlug}/${localitySlug}`
       },
       {
         '@type': 'ListItem',
         'position': 4,
         'name': service,
-        'item': `https://yourdomain.com/services/${citySlug}/${localitySlug}/${serviceSlug}`
+        'item': `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`
       }
     ]
   };

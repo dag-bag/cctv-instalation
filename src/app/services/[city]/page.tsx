@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `CCTV & Security Services in ${city} | Expert Installation`,
     description: `Find expert CCTV installation and security services in ${city}. We cover all major localities in ${city}.`,
     alternates: {
-      canonical: `https://yourdomain.com/services/${citySlug}`,
+      canonical: `https://www.camharbor.in/services/${citySlug}`,
     },
   };
 }

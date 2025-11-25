@@ -67,3 +67,15 @@
     display: none; /* Simple mobile hiding for now, can be enhanced later */
   }
 }
+
+.logoImage {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logoImage {
+    height: 32px; /* Slightly smaller on mobile */
+  }
+}

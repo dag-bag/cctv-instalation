@@ -2,11 +2,11 @@
 // Change these values when business name is decided
 
 export const BUSINESS_CONFIG = {
-  name: "Your Business Name", // Replace with actual business name
+  name: "CamHarbor",
   phone: "+918766203976",
   whatsapp: "+918766203976",
-  email: "info@yourbusiness.com", // Replace with actual email
-  address: "Delhi, India", // Replace with actual address
+  email: "info@camharbor.in",
+  address: "Delhi, India",
   
   // SEO Configuration
   defaultDescription: "Professional CCTV installation and repair services in Delhi. 24/7 support, expert technicians, affordable rates.",

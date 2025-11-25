@@ -7,7 +7,10 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          {BUSINESS_CONFIG.name}
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/logo-icon.png" />
+            <img src="/logo-full.png" alt={BUSINESS_CONFIG.name} height={40} className={styles.logoImage} />
+          </picture>
         </Link>
         
         <nav className={styles.nav}>

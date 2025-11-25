@@ -30,11 +30,11 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://cctv-installation-services.vercel.app"), // Replace with your actual deployment URL
+  metadataBase: new URL("https://www.camharbor.in"),
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://www.yourbusiness.com",
+    url: "https://www.camharbor.in",
     siteName: BUSINESS_CONFIG.name,
     title: `${BUSINESS_CONFIG.name} - Professional CCTV Installation & Repair Services in Delhi`,
     description: BUSINESS_CONFIG.defaultDescription,
