@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { SERVICES, LOCALITIES, CITIES, createSlug } from '../../../../../lib/seo-data';
+import { parseSlug, SERVICES, LOCALITIES, CITIES, createSlug, getServiceContent } from '../../../../../lib/seo-data';
 import styles from '../../../../[slug]/page.module.css';
 import BookingForm from '../../../../../components/BookingForm';
 
@@ -23,11 +23,12 @@ function findOriginalFromSlug(slug: string, list: string[]): string | undefined 
 // Reusing the data fetching logic (simulated)
 async function getPageData(city: string, locality: string, service: string) {
   const serviceLower = service.toLowerCase();
+  
+  // Get rich content from our new helper
+  const richContent = getServiceContent(service);
+  
+  // Merge default pricing with service specific logic if needed
   const isElectrical = serviceLower.includes('electrical') || serviceLower.includes('wiring') || serviceLower.includes('power') || serviceLower.includes('mcb') || serviceLower.includes('earthing');
-
-  const features = isElectrical 
-    ? ['ISI Marked Cables', 'Certified Electricians', 'Load Calculation', 'Short Circuit Protection', '24/7 Support', 'Safety First Approach']
-    : ['High Definition Video', 'Remote Access', 'Night Vision', 'Motion Detection', '24/7 Support', 'Expert Installation'];
 
   const pricing = isElectrical
     ? [
@@ -45,10 +46,10 @@ async function getPageData(city: string, locality: string, service: string) {
 
   return {
     title: `${service} in ${locality}, ${city} | Expert Services`,
-    metaDescription: `Looking for ${service} in ${locality}, ${city}? We provide professional, affordable, and reliable ${serviceLower} services. Call now for a free quote!`,
+    metaDescription: `Looking for ${service} in ${locality}, ${city}? ${richContent.description.slice(0, 120)}... Call now for a free quote!`,
     heroHeading: `${service} in`,
     heroSubheading: `Secure your property in ${city} with our top-rated ${serviceLower} solutions. Fast, reliable, and affordable.`,
-    features,
+    features: richContent.benefits, // Use rich benefits
     pricing,
     testimonials: [
       { name: 'Rahul Sharma', location: locality, text: `Excellent ${serviceLower} service! The team was professional and finished the work on time.` },
@@ -56,6 +57,7 @@ async function getPageData(city: string, locality: string, service: string) {
       { name: 'Amit Verma', location: locality, text: `Best service provider in ${locality}. They explained everything clearly and did a neat job.` }
     ],
     faq: [
+      ...richContent.faqs, // Use rich FAQs
       {
         question: `Do you provide ${service} in ${locality}?`,
         answer: `Yes, we provide comprehensive ${service} services specifically in ${locality} and surrounding areas of ${city}.`
@@ -417,12 +419,12 @@ export default async function HierarchicalServicePage({ params }: Props) {
           <div className={styles.relatedServices}>
             <h4 className={styles.relatedTitle}>Related Services in {locality}</h4>
             <ul className={styles.relatedList}>
-              {SERVICES.slice(0, 5).map((s, i) => {
+             {SERVICES.slice(0, 5).map((s, i) => {
                  if (s === service) return null;
-                 const slug = `${createSlug(s)}-in-${createSlug(locality)}-${createSlug(city)}`;
+                 const slug = `/services/${createSlug(city)}/${createSlug(locality)}/${createSlug(s)}`;
                  return (
                    <li key={i}>
-                     <Link href={`/${slug}`} className={styles.relatedLink}>{s}</Link>
+                     <Link href={slug} className={styles.relatedLink}>{s}</Link>
                    </li>
                  );
               })}
@@ -434,10 +436,10 @@ export default async function HierarchicalServicePage({ params }: Props) {
             <h4 className={styles.relatedTitle}>Serving Nearby Areas</h4>
             <ul className={styles.relatedList}>
               {nearbyLocalities.map((loc, i) => {
-                 const slug = `${createSlug(service)}-in-${createSlug(loc)}-${createSlug(city)}`;
+                 const slug = `/services/${createSlug(city)}/${createSlug(loc)}/${createSlug(service)}`;
                  return (
                    <li key={i}>
-                     <Link href={`/${slug}`} className={styles.relatedLink}>{service} in {loc}</Link>
+                     <Link href={slug} className={styles.relatedLink}>{service} in {loc}</Link>
                    </li>
                  );
               })}

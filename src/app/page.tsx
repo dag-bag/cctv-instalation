@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import Image from "next/image";
-import { CITIES, LOCALITIES, SERVICES } from "@/lib/seo-data";
+import { CITIES, LOCALITIES, SERVICES, createSlug } from "@/lib/seo-data";
 import { BUSINESS_CONFIG } from "@/config/business";
 import CTAButtons from "@/components/CTAButtons";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -16,9 +16,20 @@ export const metadata: Metadata = {
     title: `${BUSINESS_CONFIG.name} - CCTV Installation & Repair in Delhi`,
     description: "Professional CCTV services across Delhi. 500+ happy customers, 10+ years experience. Call for free consultation!",
     type: "website",
+    url: "https://www.camharbor.in",
+    siteName: BUSINESS_CONFIG.name,
+    locale: "en_IN",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop",
+        width: 1200,
+        height: 630,
+        alt: "CCTV Installation Services",
+      },
+    ],
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://www.camharbor.in",
   },
 };
 
@@ -27,8 +38,70 @@ export default function Home() {
   // Get featured services (first 6)
   const featuredServices = SERVICES.slice(0, 6);
 
+  // Schema Markup
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    'name': BUSINESS_CONFIG.name,
+    'url': 'https://www.camharbor.in',
+    'logo': 'https://www.camharbor.in/logo-full.png',
+    'contactPoint': {
+      '@type': 'ContactPoint',
+      'telephone': BUSINESS_CONFIG.phone,
+      'contactType': 'customer service',
+      'areaServed': 'IN',
+      'availableLanguage': 'en'
+    }
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    'name': BUSINESS_CONFIG.name,
+    'url': 'https://www.camharbor.in',
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': 'https://www.camharbor.in/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    'name': BUSINESS_CONFIG.name,
+    'image': 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop',
+    'telephone': BUSINESS_CONFIG.phone,
+    'email': BUSINESS_CONFIG.email,
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': 'Delhi',
+      'addressRegion': 'Delhi',
+      'addressCountry': 'IN'
+    },
+    'geo': {
+      '@type': 'GeoCoordinates',
+      'latitude': '28.6139',
+      'longitude': '77.2090'
+    },
+    'url': 'https://www.camharbor.in',
+    'priceRange': '₹₹',
+    'openingHoursSpecification': [
+      {
+        '@type': 'OpeningHoursSpecification',
+        'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        'opens': '00:00',
+        'closes': '23:59'
+      }
+    ]
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, websiteSchema, localBusinessSchema]) }}
+      />
       <div className={styles.container}>
         {/* Hero Section */}
         <section className={styles.hero}>
@@ -127,10 +200,11 @@ export default function Home() {
             <div className={styles.locationsGrid}>
               {CITIES.map((city) => {
                 const localities = LOCALITIES[city] || [];
+                const citySlug = createSlug(city);
                 return (
                   <Link
                     key={city}
-                    href={`/${city.toLowerCase()}`}
+                    href={`/services/${citySlug}`}
                     className={styles.locationCard}
                   >
                     <div className={styles.locationIcon}>📍</div>
