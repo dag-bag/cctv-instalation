@@ -74,6 +74,32 @@ async function getPageData(city: string, locality: string, service: string) {
   };
 }
 
+// Generate static params for all possible combinations
+export async function generateStaticParams() {
+  const params: { city: string; locality: string; service: string }[] = [];
+  
+  for (const city of CITIES) {
+    const citySlug = createSlug(city);
+    const localities = LOCALITIES[city] || [];
+    
+    for (const locality of localities) {
+      const localitySlug = createSlug(locality);
+      
+      for (const service of SERVICES) {
+        const serviceSlug = createSlug(service);
+        
+        params.push({
+          city: citySlug,
+          locality: localitySlug,
+          service: serviceSlug
+        });
+      }
+    }
+  }
+  
+  return params;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { city: citySlug, locality: localitySlug, service: serviceSlug } = await params;
 
