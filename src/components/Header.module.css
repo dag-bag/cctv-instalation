@@ -64,7 +64,51 @@
 
 @media (max-width: 768px) {
   .nav {
-    display: none; /* Simple mobile hiding for now, can be enhanced later */
+    gap: 1rem;
+  }
+
+  .navLink, .ctaButton {
+    display: none;
+  }
+
+  .mobileActions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .mobileBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .mobileCall {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .mobileWhatsapp {
+    background: #25D366;
+    color: white;
+  }
+
+  .mobileBtn:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Hide mobile actions on desktop */
+@media (min-width: 769px) {
+  .mobileActions {
+    display: none;
   }
 }
 
