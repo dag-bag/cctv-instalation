@@ -366,7 +366,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
                 </strong>{" "}
                 trust us for their security needs. We provide top-notch{" "}
                 {service.toLowerCase()} with a focus on quality, speed, and
-                reliability. Whether it's a residential complex or a commercial
+                reliability. Whether it&apos;s a residential complex or a commercial
                 establishment in {locality}, our expert team is ready to assist.
               </p>
             </div>
@@ -441,7 +441,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
             <div className={styles.testimonialGrid}>
               {data.testimonials.map((t, index) => (
                 <div key={index} className={styles.testimonialCard}>
-                  <p className={styles.testimonialText}>"{t.text}"</p>
+                  <p className={styles.testimonialText}>&quot;{t.text}&quot;</p>
                   <div className={styles.testimonialAuthor}>
                     <span className={styles.authorName}>{t.name}</span>
                     <span className={styles.authorLoc}>{t.location}</span>

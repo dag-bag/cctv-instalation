@@ -1,15 +1,24 @@
-import generateSitemap from '../src/app/sitemap';
+import generateSitemap, { generateSitemaps } from '../src/app/sitemap';
 import axios from 'axios';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 async function validateSitemap() {
-  const sitemapUrls = generateSitemap();
+  // Get all sitemap IDs
+  const sitemapIds = await generateSitemaps();
+  let allUrls: any[] = [];
+  
+  // Fetch all sitemaps
+  for (const { id } of sitemapIds) {
+    const sitemapUrls = await generateSitemap({ id });
+    allUrls = allUrls.concat(sitemapUrls);
+  }
+  
   const results: Array<{ url: string; status: number; error?: string }> = [];
   
-  console.log(`Validating ${sitemapUrls.length} URLs from sitemap...`);
+  console.log(`Validating ${allUrls.length} URLs from sitemap...`);
   
-  for (const entry of sitemapUrls) {
+  for (const entry of allUrls) {
     const url = entry.url;
     try {
       const response = await axios.head(url, { 

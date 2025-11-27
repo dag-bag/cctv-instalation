@@ -1,4 +1,4 @@
-import generateSitemap from '../src/app/sitemap';
+import generateSitemap, { generateSitemaps } from '../src/app/sitemap';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 import axios from 'axios';
@@ -32,15 +32,24 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
 }
 
 async function checkAllUrls() {
-  const sitemapUrls = generateSitemap();
+  // Get all sitemap IDs
+  const sitemapIds = await generateSitemaps();
+  let allUrls: any[] = [];
+  
+  // Fetch all sitemaps
+  for (const { id } of sitemapIds) {
+    const sitemapUrls = await generateSitemap({ id });
+    allUrls = allUrls.concat(sitemapUrls);
+  }
+  
   const results: UrlCheckResult[] = [];
   const maxConcurrent = 5; // Number of concurrent requests
   
-  console.log(`Checking ${sitemapUrls.length} URLs from sitemap...`);
+  console.log(`Checking ${allUrls.length} URLs from sitemap...`);
   
   // Process URLs in batches to avoid overwhelming the server
-  for (let i = 0; i < sitemapUrls.length; i += maxConcurrent) {
-    const batch = sitemapUrls.slice(i, i + maxConcurrent);
+  for (let i = 0; i < allUrls.length; i += maxConcurrent) {
+    const batch = allUrls.slice(i, i + maxConcurrent);
     const batchResults = await Promise.all(
       batch.map(entry => checkUrl(entry.url))
     );
@@ -58,7 +67,7 @@ async function checkAllUrls() {
     results.push(...batchResults);
     
     // Add a small delay between batches
-    if (i + maxConcurrent < sitemapUrls.length) {
+    if (i + maxConcurrent < allUrls.length) {
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
   }
