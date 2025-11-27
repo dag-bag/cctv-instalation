@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   description: 'Comprehensive list of all CCTV installation and repair services across Delhi NCR locations.',
   robots: 'noindex, follow', // We want bots to follow links, but maybe not index this utility page itself high in rankings
 };
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;;
+export const fetchCache = 'force-no-store';
 export default function HtmlSitemap() {
   return (
     <div className={styles.container}>

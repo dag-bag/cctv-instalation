@@ -108,9 +108,11 @@ export default function Home() {
           <div className={styles.heroBackground}>
             <Image
               src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
-              alt="Security Camera Background"
+              alt="Professional CCTV Camera Installation and Security Services in Delhi NCR"
               fill
               priority
+              quality={85}
+              sizes="100vw"
               style={{ objectFit: 'cover' }}
             />
           </div>

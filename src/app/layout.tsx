@@ -7,12 +7,16 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 export const metadata: Metadata = {
@@ -76,6 +80,18 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2a5298" />
+        
+        {/* Geo-targeting for Local SEO */}
+        <meta name="geo.region" content="IN-DL" />
+        <meta name="geo.placename" content="Delhi" />
+        <meta name="geo.position" content="28.7041;77.1025" />
+        <meta name="ICBM" content="28.7041, 77.1025" />
+        
+        {/* Critical Resource Hints for Performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className={`${inter.variable} ${outfit.variable}`}>
         <Header />
