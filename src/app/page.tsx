@@ -45,12 +45,38 @@ export default function Home() {
     'name': BUSINESS_CONFIG.name,
     'url': 'https://www.camharbor.in',
     'logo': 'https://www.camharbor.in/logo-full.png',
-    'contactPoint': {
-      '@type': 'ContactPoint',
-      'telephone': BUSINESS_CONFIG.phone,
-      'contactType': 'customer service',
-      'areaServed': 'IN',
-      'availableLanguage': 'en'
+    'description': 'Professional CCTV installation and security system provider in Delhi NCR',
+    'foundingDate': '2014',
+    'contactPoint': [
+      {
+        '@type': 'ContactPoint',
+        'telephone': BUSINESS_CONFIG.phone,
+        'contactType': 'customer service',
+        'areaServed': 'IN',
+        'availableLanguage': ['en', 'hi'],
+        'contactOption': '24/7 Support'
+      },
+      {
+        '@type': 'ContactPoint',
+        'telephone': BUSINESS_CONFIG.phone,
+        'contactType': 'sales',
+        'areaServed': 'IN',
+        'availableLanguage': ['en', 'hi']
+      }
+    ],
+    'sameAs': [
+      'https://www.facebook.com/camharbor',
+      'https://www.instagram.com/camharbor',
+      'https://twitter.com/camharbor'
+    ],
+    'areaServed': {
+      '@type': 'GeoCircle',
+      'geoMidpoint': {
+        '@type': 'GeoCoordinates',
+        'latitude': '28.6139',
+        'longitude': '77.2090'
+      },
+      'geoRadius': '50000'
     }
   };
 

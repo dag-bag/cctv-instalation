@@ -69,10 +69,7 @@ async function getPageData(city: string, locality: string, service: string) {
 
   return {
     title: `${service} in ${locality}, ${city} | Expert Services`,
-    metaDescription: `Looking for ${service} in ${locality}, ${city}? ${richContent.description.slice(
-      0,
-      120
-    )}... Call now for a free quote!`,
+    metaDescription: `Looking for ${service} in ${locality}, ${city}? 500+ satisfied customers. Same-day service, free consultation & quote. Certified technicians. Call: +91-87662-03976`,
     heroHeading: `${service} in`,
     heroSubheading: `Secure your property in ${city} with our top-rated ${serviceLower} solutions. Fast, reliable, and affordable.`,
     features: richContent.benefits, // Use rich benefits
@@ -168,11 +165,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const data = await getPageData(city, locality, service);
 
+  const serviceImage = "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop";
+
   return {
     title: data.title,
     description: data.metaDescription,
+    keywords: `${service}, ${locality}, ${city}, CCTV installation, security camera, ${service.toLowerCase()}`,
     alternates: {
       canonical: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+    },
+    openGraph: {
+      type: "website",
+      locale: "en_IN",
+      url: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+      title: `${service} in ${locality}, ${city} | CamHarbor`,
+      description: data.metaDescription,
+      siteName: "CamHarbor",
+      images: [
+        {
+          url: serviceImage,
+          width: 1200,
+          height: 630,
+          alt: `Professional ${service} Services in ${locality}, ${city}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service} in ${locality}, ${city}`,
+      description: data.metaDescription,
+      images: [serviceImage],
     },
   };
 }
@@ -220,6 +242,26 @@ export default async function HierarchicalServicePage({ params }: Props) {
     telephone: "+91-8766203976",
     image:
       "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "127",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: data.testimonials.map((t) => ({
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: t.name,
+      },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: t.rating || 5,
+        bestRating: "5",
+      },
+      reviewBody: t.text,
+    })),
   };
 
   const serviceSchema = {
@@ -304,31 +346,63 @@ export default async function HierarchicalServicePage({ params }: Props) {
     })),
   };
 
-  // Review Schema for Rich Snippets
-  const reviewSchema = {
+  const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: service,
+    name: `${service} Package`,
+    description: `Professional ${service} service package in ${locality}, ${city}`,
+    brand: {
+      "@type": "Brand",
+      name: "CamHarbor",
+    },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "CamHarbor",
+      },
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
       reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1",
     },
-    review: data.testimonials.map((t) => ({
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        name: t.name,
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `How to get ${service} in ${locality}`,
+    description: `Step-by-step guide to getting ${service} in ${locality}`,
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Contact Us",
+        text: "Call or request quote online",
       },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.rating || 5,
-        bestRating: "5",
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Free Consultation",
+        text: "Expert visit and quote",
       },
-      reviewBody: t.text,
-    })),
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Installation",
+        text: "Professional installation",
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Testing",
+        text: "System testing and training",
+      },
+    ],
+    totalTime: "PT2H",
   };
 
   return (
@@ -341,7 +415,8 @@ export default async function HierarchicalServicePage({ params }: Props) {
             serviceSchema,
             breadcrumbSchema,
             faqSchema,
-            reviewSchema,
+            productSchema,
+            howToSchema,
           ]),
         }}
       />

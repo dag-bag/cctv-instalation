@@ -178,7 +178,7 @@ module.exports = {
       { userAgent: '*', disallow: ['/api/', '/admin/'] },
     ],
   },
-  sitemapSize: 50000,
+  sitemapSize: 20000,
   exclude: ['/server-sitemap.xml'], // Exclude server-side sitemap if any
   additionalPaths: async (config) => {
     const result = [];

@@ -55,7 +55,7 @@ export async function generateStaticParams() {
 export const metadata: Metadata = {
   title: 'HTML Sitemap - All Services & Locations',
   description: 'Comprehensive list of all CCTV installation and repair services across Delhi NCR locations.',
-  robots: 'noindex, follow',
+  robots: 'index, follow',
 };
 
 export default async function HtmlSitemapPage(props: { params: Promise<{ page: string }> }) {
@@ -84,6 +84,10 @@ export default async function HtmlSitemapPage(props: { params: Promise<{ page: s
           <h1 className={styles.sectionTitle}>Site Index - Page {page}</h1>
           <p className={styles.sectionSubtitle}>
             Complete directory of our services across all locations.
+            <br />
+            <span style={{ fontSize: '0.9em', opacity: 0.8 }}>
+              Total URLs: {allLinks.length.toLocaleString()} | Pages: {totalPages}
+            </span>
           </p>
 
           <div style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
