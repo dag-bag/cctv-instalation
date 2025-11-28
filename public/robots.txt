@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.camharbor.in
+
+# Sitemaps
+Sitemap: https://www.camharbor.in/sitemap.xml
