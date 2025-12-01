@@ -1,0 +1,498 @@
+/* Alternative UI for Query-Based Pages - Conversion Focused */
+
+.queryContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: var(--font-inter), sans-serif;
+  color: #ffffff;
+}
+
+/* Split Hero Section */
+.queryHero {
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .queryHero {
+    grid-template-columns: 1fr 1fr;
+    padding: 4rem 3rem;
+  }
+}
+
+.queryHeroLeft {
+  z-index: 10;
+  max-width: 600px;
+}
+
+.queryBadge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.queryTitle {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .queryTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.queryHighlight {
+  color: #fbbf24;
+  text-decoration: underline;
+  text-decoration-color: rgba(251, 191, 36, 0.3);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 8px;
+}
+
+.querySubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.queryCtaGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.queryPrimaryBtn {
+  background: #fbbf24;
+  color: #1f2937;
+  font-weight: 700;
+  padding: 1.25rem 2.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  transition: all 0.3s;
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+}
+
+.queryPrimaryBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(251, 191, 36, 0.6);
+}
+
+.querySecondaryBtn {
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  padding: 1.25rem 2.5rem;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 1.125rem;
+  transition: all 0.3s;
+}
+
+.querySecondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.queryTrustBadges {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.queryTrustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.queryTrustIcon {
+  font-size: 1.5rem;
+}
+
+.queryHeroRight {
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .queryHeroRight {
+    display: block;
+  }
+}
+
+.queryFormCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.queryFormTitle {
+  color: #1f2937;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.queryFormSubtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.queryFormGroup {
+  margin-bottom: 1.5rem;
+}
+
+.queryLabel {
+  display: block;
+  color: #374151;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.queryInput,
+.querySelect {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid #e5e7eb;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: #f9fafb;
+}
+
+.queryInput:focus,
+.querySelect:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+}
+
+.querySubmitBtn {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  transition: all 0.3s;
+}
+
+.querySubmitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Stats Section */
+.queryStats {
+  background: white;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.queryStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.queryStatItem {
+  color: #1f2937;
+}
+
+.queryStatNumber {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.queryStatLabel {
+  font-size: 1.1rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Process Section */
+.queryProcess {
+  padding: 5rem 1.5rem;
+  background: #f9fafb;
+}
+
+.querySectionTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.querySectionSubtitle {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.queryProcessGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.queryProcessCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  position: relative;
+}
+
+.queryProcessCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+}
+
+.queryProcessNumber {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.queryProcessIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.queryProcessTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.queryProcessDesc {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Pricing Section */
+.queryPricing {
+  padding: 5rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.queryPricingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 3rem auto 0;
+}
+
+.queryPricingCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s;
+}
+
+.queryPricingCard:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.queryPricingTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.queryPricingPrice {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  color: #fbbf24;
+}
+
+.queryPricingFeatures {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.queryPricingFeatures li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.queryPricingFeatures li:last-child {
+  border-bottom: none;
+}
+
+.queryCheckIcon {
+  color: #10b981;
+  font-size: 1.25rem;
+}
+
+/* FAQ Section */
+.queryFaq {
+  padding: 5rem 1.5rem;
+  background: white;
+}
+
+.queryFaqGrid {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.queryFaqItem {
+  background: #f9fafb;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s;
+}
+
+.queryFaqItem:hover {
+  background: #f3f4f6;
+  transform: translateX(5px);
+}
+
+.queryFaqQuestion {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.queryFaqAnswer {
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+/* CTA Footer */
+.queryCtaFooter {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  padding: 5rem 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+.queryCtaFooterTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+
+.queryCtaFooterSubtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mobile Sticky Bar */
+.queryStickyBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 769px) {
+  .queryStickyBar {
+    display: none;
+  }
+}
+
+.queryStickyBtn {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.queryStickyCallBtn {
+  background: #fbbf24;
+  color: #1f2937;
+}
+
+.queryStickyWhatsappBtn {
+  background: #10b981;
+  color: white;
+}

@@ -11,6 +11,14 @@ import localitiesData from '../data/localities.json';
 
 export const LOCALITIES: Record<string, string[]> = localitiesData;
 export const SERVICES = [
+  // Generic/Popular Services (for SEO-friendly URLs)
+  "CCTV Installation",
+  "Door Lock Installation",
+  "DVR Installation",
+  "NVR Installation",
+  "Smart Lock Installation",
+  
+  // Specific CCTV Installation Services
   "Residential CCTV Installation",
   "Commercial CCTV Installation",
   "Industrial CCTV Installation",
@@ -394,6 +402,117 @@ export function findLocation(slug: string): { city: string; locality?: string } 
   }
 
   return null;
+}
+
+// Helper to get city for a locality
+export function getCityForLocality(locality: string): string | null {
+  for (const [city, localities] of Object.entries(LOCALITIES)) {
+    if (localities.some(l => createSlug(l) === locality)) {
+      return city;
+    }
+  }
+  return null;
+}
+
+// Helper to parse query-based slug (multiple patterns)
+// Patterns:
+// 1. service-in-locality-city: cctv-installation-in-sadar-bazar-delhi
+// 2. service-locality-city: cctv-camera-installation-sadar-bazar-delhi
+// 3. locality-service: sadar-bazar-cctv-camera-service
+// 4. locality-service-type: sadar-bazar-cctv-repair
+// 5. brand-service-locality: hikvision-cctv-installation-sadar-bazar
+export function parseQuerySlug(slug: string) {
+  // Pattern 1: service-in-locality-city
+  if (slug.includes('-in-')) {
+    const parts = slug.split('-in-');
+    if (parts.length === 2) {
+      const serviceSlug = parts[0];
+      const locationPart = parts[1];
+      
+      // Find city at the end
+      const city = CITIES.find(c => locationPart.endsWith(`-${createSlug(c)}`));
+      if (city) {
+        const citySlug = createSlug(city);
+        const localitySlug = locationPart.slice(0, -(citySlug.length + 1));
+        const locality = LOCALITIES[city]?.find(l => createSlug(l) === localitySlug);
+        const service = SERVICES.find(s => createSlug(s) === serviceSlug);
+        
+        if (locality && service) {
+          return { service, locality, city, pattern: 'service-in-locality-city' };
+        }
+      }
+    }
+  }
+
+  // Pattern 2 & 3: Try to find locality in the slug
+  for (const [city, localities] of Object.entries(LOCALITIES)) {
+    for (const locality of localities) {
+      const localitySlug = createSlug(locality);
+      const citySlug = createSlug(city);
+      
+      // Pattern 2: service-locality-city
+      if (slug.endsWith(`-${localitySlug}-${citySlug}`)) {
+        const serviceSlug = slug.slice(0, -(localitySlug.length + citySlug.length + 2));
+        const service = SERVICES.find(s => createSlug(s) === serviceSlug);
+        if (service) {
+          return { service, locality, city, pattern: 'service-locality-city' };
+        }
+      }
+      
+      // Pattern 3 & 4: locality-service (starts with locality)
+      if (slug.startsWith(`${localitySlug}-`)) {
+        const serviceSlug = slug.slice(localitySlug.length + 1);
+        const service = SERVICES.find(s => createSlug(s) === serviceSlug);
+        if (service) {
+          return { service, locality, city, pattern: 'locality-service' };
+        }
+      }
+      
+      // Pattern 5: brand-service-locality (ends with locality)
+      if (slug.endsWith(`-${localitySlug}`)) {
+        const prefixSlug = slug.slice(0, -(localitySlug.length + 1));
+        const service = SERVICES.find(s => createSlug(s) === prefixSlug);
+        if (service) {
+          return { service, locality, city, pattern: 'brand-service-locality' };
+        }
+      }
+    }
+  }
+  
+  return null;
+}
+
+// Helper to generate query-based slugs (filtered for high-value combinations)
+export function generateQuerySlugs(): string[] {
+  const slugs: string[] = [];
+  
+  // Top services (most searched)
+  const topServices = SERVICES.slice(0, 100); // Top 100 services
+  
+  // For each city, get top localities
+  for (const [city, localities] of Object.entries(LOCALITIES)) {
+    const citySlug = createSlug(city);
+    const topLocalities = localities.slice(0, 50); // Top 50 localities per city
+    
+    for (const locality of topLocalities) {
+      const localitySlug = createSlug(locality);
+      
+      for (const service of topServices) {
+        const serviceSlug = createSlug(service);
+        
+        // Pattern 1: service-in-locality-city
+        slugs.push(`${serviceSlug}-in-${localitySlug}-${citySlug}`);
+        
+        // Pattern 2: service-locality-city
+        slugs.push(`${serviceSlug}-${localitySlug}-${citySlug}`);
+        
+        // Pattern 3: locality-service
+        slugs.push(`${localitySlug}-${serviceSlug}`);
+      }
+    }
+  }
+  
+  return slugs;
 }
 
 export interface ServiceContent {
