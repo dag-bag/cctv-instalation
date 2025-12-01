@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
-import { CITIES, LOCALITIES, SERVICES, createSlug } from '../../../lib/seo-data';
+import { CITIES, LOCALITIES, SERVICES, createSlug, generateQuerySlugs } from '../../../lib/seo-data';
 import styles from '../../page.module.css';
 
 const ITEMS_PER_PAGE = 1000;
@@ -37,6 +37,16 @@ function generateAllLinks() {
           category: city
         });
       });
+    });
+  });
+
+  // 2. Hyphen-based SEO Query Slugs (legacy/alternative flat routes)
+  const querySlugs = generateQuerySlugs();
+  querySlugs.forEach((slug) => {
+    links.push({
+      url: `/${slug}`,
+      label: slug,
+      category: 'SEO'
     });
   });
 
