@@ -67,14 +67,7 @@ export default function UrlTester() {
     return matchesSearch;
   });
 
-  // Group URLs by city for better organization
-  const urlsByCity = urls.reduce((acc, entry) => {
-    if (!acc[entry.city]) {
-      acc[entry.city] = [];
-    }
-    acc[entry.city].push(entry);
-    return acc;
-  }, {} as Record<string, UrlEntry[]>);
+  // Grouping logic can be added here if needed
 
   if (loading) {
     return (
@@ -104,7 +97,7 @@ export default function UrlTester() {
     <div style={styles.container}>
       <h1 style={styles.title}>URL Tester</h1>
       <p style={styles.subtitle}>
-        Click on any link to test if it's working. {urls.length} URLs available.
+        Click on any link to test if it is working. {urls.length} URLs available.
       </p>
 
       <div style={styles.searchContainer}>

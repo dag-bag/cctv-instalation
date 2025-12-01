@@ -1,5 +1,3 @@
-import { SERVICES } from './seo-data';
-
 // Detect URL pattern type
 export function detectPattern(slug: string): 'installation' | 'repair' | 'brand' | 'generic' {
   const lower = slug.toLowerCase();
@@ -139,6 +137,14 @@ export function generateInstallationContent(service: string, locality: string, c
       {
         question: `What areas near ${locality} do you cover?`,
         answer: `We serve ${locality} and all surrounding areas in ${city}. Our service area covers the entire ${city} region.`
+      },
+      {
+        question: `Do you offer warranty on ${service} in ${locality}?`,
+        answer: `Yes, we provide warranty on installation and equipment as applicable. Details are shared with your quote for ${locality}.`
+      },
+      {
+        question: `Can you visit ${locality} for a free site survey?`,
+        answer: `We provide a free site survey in ${locality} to assess camera positions, wiring routes, and network readiness.`
       }
     ]
   };
@@ -224,6 +230,14 @@ export function generateRepairContent(service: string, locality: string, city: s
       {
         question: `Can you repair all brands in ${locality}?`,
         answer: `Yes, our technicians are trained to repair all major brands including Hikvision, CP Plus, Dahua, and others commonly used in ${locality}.`
+      },
+      {
+        question: `Do you provide same-day repair in ${locality}?`,
+        answer: `Yes, we aim to provide same-day repair in ${locality} whenever scheduling allows.`
+      },
+      {
+        question: `Can you fix mobile view and remote access issues?`,
+        answer: `We resolve DVR/NVR mobile view problems, router port forwarding, and app configuration so you can view cameras remotely.`
       }
     ]
   };

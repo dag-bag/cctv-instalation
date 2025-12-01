@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint src --ext .ts,.tsx,.js",
     "generate:seo-urls": "ts-node scripts/generate-seo-urls.ts",
     "postbuild": "next-sitemap"
   },

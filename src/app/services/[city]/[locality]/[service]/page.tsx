@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import {
-  parseSlug,
   SERVICES,
   LOCALITIES,
   CITIES,
@@ -12,7 +11,7 @@ import {
   getServiceContent,
 } from "../../../../../lib/seo-data";
 import styles from "../../../../[slug]/page.module.css";
-import BookingForm from "../../../../../components/BookingForm";
+import BookingForm from "../../../../../components/BookingFormClient";
 
 type Props = {
   params: Promise<{
@@ -173,6 +172,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: `${service}, ${locality}, ${city}, CCTV installation, security camera, ${service.toLowerCase()}`,
     alternates: {
       canonical: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-video-preview': -1,
+        'max-snippet': -1,
+      },
     },
     openGraph: {
       type: "website",
@@ -426,7 +436,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
         <div className={styles.heroBackground}>
           <Image
             src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
-            alt="Professional CCTV Camera Installation Services in Delhi NCR"
+            alt={`${service} in ${locality}, ${city}`}
             fill
             priority
             quality={85}
@@ -440,12 +450,12 @@ export default async function HierarchicalServicePage({ params }: Props) {
             <span className={styles.highlight}>{locality}</span>, {city}
           </h1>
           <p className={styles.subtitle}>{data.heroSubheading}</p>
-          <button className={styles.ctaButton}>Book Service Now</button>
+          <button className={styles.ctaButton} aria-label={`Book ${service} in ${locality}`}>Book Service Now</button>
         </div>
       </header>
 
       {/* Breadcrumbs */}
-      <nav className={styles.breadcrumbs}>
+      <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <div className={styles.breadcrumbContent}>
           <Link href="/" className={styles.link}>
             Home
@@ -570,25 +580,25 @@ export default async function HierarchicalServicePage({ params }: Props) {
             >
               <h2 className={styles.sectionTitle}>How It Works</h2>
               <div className={styles.stepsGrid}>
-                <div className={styles.stepCard}>
-                  <div className={styles.stepNumber}>1</div>
-                  <h3>Book Service</h3>
-                  <p>Call us or request a quote online.</p>
+                <div className={styles.howStepCard}>
+                  <div className={styles.howStepNumber}>1</div>
+                  <h3 className={styles.howStepTitle}>Book Service</h3>
+                  <p className={styles.howStepDescription}>Call us or request a quote online.</p>
                 </div>
-                <div className={styles.stepCard}>
-                  <div className={styles.stepNumber}>2</div>
-                  <h3>Confirmation</h3>
-                  <p>We confirm your slot & technician.</p>
+                <div className={styles.howStepCard}>
+                  <div className={styles.howStepNumber}>2</div>
+                  <h3 className={styles.howStepTitle}>Confirmation</h3>
+                  <p className={styles.howStepDescription}>We confirm your slot & technician.</p>
                 </div>
-                <div className={styles.stepCard}>
-                  <div className={styles.stepNumber}>3</div>
-                  <h3>Service Delivery</h3>
-                  <p>Expert arrives and completes the job.</p>
+                <div className={styles.howStepCard}>
+                  <div className={styles.howStepNumber}>3</div>
+                  <h3 className={styles.howStepTitle}>Service Delivery</h3>
+                  <p className={styles.howStepDescription}>Expert arrives and completes the job.</p>
                 </div>
-                <div className={styles.stepCard}>
-                  <div className={styles.stepNumber}>4</div>
-                  <h3>Payment</h3>
-                  <p>Pay after satisfied service.</p>
+                <div className={styles.howStepCard}>
+                  <div className={styles.howStepNumber}>4</div>
+                  <h3 className={styles.howStepTitle}>Payment</h3>
+                  <p className={styles.howStepDescription}>Pay after satisfied service.</p>
                 </div>
               </div>
             </div>
@@ -618,8 +628,8 @@ export default async function HierarchicalServicePage({ params }: Props) {
             </div>
           </section>
 
-          {/* FAQ Section */}
-          <section className={styles.faqSection}>
+        {/* FAQ Section */}
+        <section className={styles.faqSection}>
             <div
               className={styles.container}
               style={{ background: "transparent", minHeight: "auto" }}
@@ -635,6 +645,19 @@ export default async function HierarchicalServicePage({ params }: Props) {
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* Related Problems We Fix */}
+          <section>
+            <h2 className={styles.sectionTitle}>Related Problems We Fix</h2>
+            <div className={styles.featuresGrid}>
+              {["CCTV No Signal Fix","CCTV Blur Image Fix","CCTV Recording Issue","CCTV Mobile View Setup"].map((issue, i) => (
+                <Link key={i} href={`/repairs/${createSlug(issue)}/${createSlug(city)}/${createSlug(locality)}`} className={styles.featureCard}>
+                  <span className={styles.checkIcon}>🧰</span>
+                  <span className={styles.featureText}>{issue}</span>
+                </Link>
+              ))}
             </div>
           </section>
         </div>
@@ -699,13 +722,15 @@ export default async function HierarchicalServicePage({ params }: Props) {
         </div>
       </footer>
 
+      <div className={styles.stickySpacer} aria-hidden="true"></div>
       {/* Sticky Mobile CTA */}
       <div className={styles.stickyMobileCTA}>
-        <a href="tel:+918766203976" className={styles.stickyCallBtn}>
+        <a href="tel:+918766203976" aria-label={`Call ${service} in ${locality}`} className={styles.stickyCallBtn}>
           📞 Call Now
         </a>
         <a
           href="https://wa.me/918766203976"
+          aria-label={`WhatsApp ${service} in ${locality}`}
           className={styles.stickyWhatsappBtn}
         >
           💬 WhatsApp

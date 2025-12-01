@@ -96,6 +96,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable}`}>
         <Header />
         {children}
+        <div className="globalStickySpacer" aria-hidden="true"></div>
         <Footer />
       </body>
     </html>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, SERVICES, createSlug, generateQuerySlugs } from '../../../lib/seo-data';
 import styles from '../../page.module.css';
 
@@ -66,6 +66,7 @@ export const metadata: Metadata = {
   title: 'HTML Sitemap - All Services & Locations',
   description: 'Comprehensive list of all CCTV installation and repair services across Delhi NCR locations.',
   robots: 'index, follow',
+  alternates: { canonical: 'https://www.camharbor.in/html-sitemap' },
 };
 
 export default async function HtmlSitemapPage(props: { params: Promise<{ page: string }> }) {

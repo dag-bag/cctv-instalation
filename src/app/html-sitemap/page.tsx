@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     description: 'Complete directory of CCTV installation services across Delhi NCR',
     type: 'website',
   },
+  alternates: { canonical: 'https://www.camharbor.in/html-sitemap' },
 };
 
 export default function HtmlSitemapIndex() {

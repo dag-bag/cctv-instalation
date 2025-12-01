@@ -6,7 +6,7 @@ import { join } from 'path';
 async function validateSitemap() {
   // Get all sitemap IDs
   const sitemapIds = await generateSitemaps();
-  let allUrls: any[] = [];
+  let allUrls: Array<{ url: string }> = [];
   
   // Fetch all sitemaps
   for (const { id } of sitemapIds) {

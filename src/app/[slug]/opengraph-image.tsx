@@ -73,7 +73,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               letterSpacing: 2,
             }}
           >
-            India's Best Service Provider
+            India&rsquo;s Best Service Provider
           </div>
           <div
             style={{

@@ -1,9 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, SERVICES, createSlug } from '../../../../lib/seo-data';
 import styles from '../../../[slug]/page.module.css'; // Reusing styles
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 type Props = {
   params: Promise<{
@@ -105,16 +108,35 @@ export default async function LocalityPage({ params }: Props) {
     }))
   };
 
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    'name': 'CamHarbor',
+    'telephone': '+91-8766203976',
+    'areaServed': { '@type': 'City', 'name': `${locality}, ${city}` },
+    'priceRange': '₹₹',
+    'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }
+  };
+
   return (
     <div className={styles.container}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, itemListSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, itemListSchema, localBusinessSchema]) }}
       />
 
       {/* Hero Section */}
       <header className={styles.hero}>
-        <div className={styles.heroBackground}></div>
+        <div className={styles.heroBackground}>
+          <Image
+            src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
+            alt={`CCTV Services in ${locality}, ${city}`}
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: 'cover', opacity: 0.15 }}
+          />
+        </div>
         <div className={styles.heroContent}>
           <h1 className={styles.title}>
             Services in <span className={styles.highlight}>{locality}</span>, {city}
@@ -125,11 +147,10 @@ export default async function LocalityPage({ params }: Props) {
         </div>
       </header>
 
-      {/* Breadcrumbs */}
-      <nav className={styles.breadcrumbs}>
+      <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <div className={styles.breadcrumbContent}>
-          <Link href="/" className={styles.link}>Home</Link> &gt;{' '}
-          <Link href={`/services/${citySlug}`} className={styles.link}>{city}</Link> &gt;{' '}
+          <Link href="/" className={styles.link} aria-label="Go to Home">Home</Link> &gt;{' '}
+          <Link href={`/services/${citySlug}`} className={styles.link} aria-label={`Explore services in ${city}`}>{city}</Link> &gt;{' '}
           <span className={styles.activeBreadcrumb}>{locality}</span>
         </div>
       </nav>
@@ -146,6 +167,7 @@ export default async function LocalityPage({ params }: Props) {
                     key={index} 
                     href={`/services/${citySlug}/${localitySlug}/${serviceSlug}`}
                     className={styles.featureCard}
+                    aria-label={`Explore ${service} in ${locality}, ${city}`}
                     style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
                   >
                     <span className={styles.checkIcon}>🛡️</span>
@@ -183,6 +205,26 @@ export default async function LocalityPage({ params }: Props) {
           </section>
         </div>
       </main>
+      <section style={{ marginTop: '4rem' }}>
+        <h2 className={styles.sectionTitle}>Nearby Localities in {city}</h2>
+        <div className={styles.featuresGrid}>
+          {(LOCALITIES[city] || [])
+            .filter(l => l !== locality)
+            .slice(0, 12)
+            .map((l, i) => (
+              <Link
+                key={i}
+                href={`/services/${citySlug}/${createSlug(l)}`}
+                className={styles.featureCard}
+                aria-label={`Explore services in ${l}, ${city}`}
+                style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+              >
+                <span className={styles.checkIcon}>📍</span>
+                <span className={styles.featureText}>{l}</span>
+              </Link>
+            ))}
+        </div>
+      </section>
     </div>
   );
 }

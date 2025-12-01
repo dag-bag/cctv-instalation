@@ -3,7 +3,16 @@ import { CITIES, LOCALITIES, SERVICES, createSlug } from '../../../lib/seo-data'
 
 export async function GET() {
   try {
-    const urls: any[] = [];
+    interface UrlEntry {
+      city: string;
+      cityName: string;
+      locality: string;
+      localityName: string;
+      service: string;
+      serviceName: string;
+      url: string;
+    }
+    const urls: UrlEntry[] = [];
 
     // 1. City Pages: /services/[city]
     CITIES.forEach(city => {

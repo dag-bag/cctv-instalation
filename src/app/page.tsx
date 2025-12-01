@@ -112,6 +112,7 @@ export default function Home() {
     },
     'url': 'https://www.camharbor.in',
     'priceRange': '₹₹',
+    'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' },
     'openingHoursSpecification': [
       {
         '@type': 'OpeningHoursSpecification',

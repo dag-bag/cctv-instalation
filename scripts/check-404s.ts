@@ -34,7 +34,7 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
 async function checkAllUrls() {
   // Get all sitemap IDs
   const sitemapIds = await generateSitemaps();
-  let allUrls: any[] = [];
+  let allUrls: Array<{ url: string }> = [];
   
   // Fetch all sitemaps
   for (const { id } of sitemapIds) {
@@ -51,8 +51,8 @@ async function checkAllUrls() {
   for (let i = 0; i < allUrls.length; i += maxConcurrent) {
     const batch = allUrls.slice(i, i + maxConcurrent);
     const batchResults = await Promise.all(
-      batch.map(entry => checkUrl(entry.url))
-    );
+      batch.map((entry: { url: string }) => checkUrl(entry.url)
+    ));
     
     // Log progress
     batchResults.forEach(result => {

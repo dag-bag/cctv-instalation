@@ -16,6 +16,7 @@ import {
   generateInstallationContent,
   generateRepairContent,
   generateBrandContent,
+  getServiceCategory,
 } from "../../lib/content-generator";
 import styles from "./page.module.css";
 
@@ -24,6 +25,10 @@ type Props = {
     slug: string;
   }>;
 };
+
+type FAQItem = { question: string; answer: string };
+type StepItem = { number: number; title: string; description: string };
+type SectionItem = { title: string; content: string; points?: string[]; steps?: StepItem[] };
 
 async function getPageData(service: string, locality: string, city: string, slug: string) {
   const pattern = detectPattern(slug);
@@ -121,9 +126,7 @@ export default async function SlugPage({ params }: Props) {
     const data = await getPageData(service, locality, city, slug);
     const citySlug = createSlug(city);
     const localitySlug = createSlug(locality);
-    const serviceSlug = createSlug(service);
-
-    const schemas = [
+    const schemas: Array<Record<string, unknown>> = [
       {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
@@ -139,7 +142,7 @@ export default async function SlugPage({ params }: Props) {
       {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        mainEntity: data.faq.map((f: any) => ({
+        mainEntity: (data.faq as FAQItem[]).map((f) => ({
           "@type": "Question",
           name: f.question,
           acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -153,20 +156,31 @@ export default async function SlugPage({ params }: Props) {
         "@type": "HowTo",
         name: `How to Get ${service} in ${locality}`,
         description: data.sections[1].content,
-        step: data.sections[1].steps.map((step: any) => ({
+        step: (data.sections[1].steps as StepItem[]).map((step) => ({
           "@type": "HowToStep",
           position: step.number,
           name: step.title,
           text: step.description,
         })),
-      } as any);
+      });
     }
+
+    const category = getServiceCategory(service);
+    const related = SERVICES.filter(s => getServiceCategory(s) === category).slice(0, 12);
+
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.camharbor.in/" },
+        { "@type": "ListItem", position: 2, name: city, item: `https://www.camharbor.in/services/${citySlug}` },
+        { "@type": "ListItem", position: 3, name: locality, item: `https://www.camharbor.in/${slug}` }
+      ]
+    });
 
     return (
       <div className={styles.container}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />
-
-        {/* Hero Section */}
         <header className={styles.hero}>
           <div className={styles.heroBackground}>
             <Image
@@ -183,230 +197,164 @@ export default async function SlugPage({ params }: Props) {
             <h1 className={styles.title}>{data.heroTitle}</h1>
             <p className={styles.subtitle}>{data.heroSubtitle}</p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <a href="tel:+918766203976" className={styles.ctaButton}>Call: +91-87662-03976</a>
-              <a href="https://wa.me/918766203976" className={styles.ctaButton} style={{ background: '#10b981' }}>WhatsApp Us</a>
+              <a href="tel:+918766203976" aria-label={`Call for ${service} in ${locality}`} className={styles.ctaButton}>Call: +91-87662-03976</a>
+              <a href="https://wa.me/918766203976" aria-label={`WhatsApp for ${service} in ${locality}`} className={styles.ctaButton} style={{ background: '#10b981' }}>WhatsApp Us</a>
             </div>
           </div>
         </header>
-
-        {/* Breadcrumbs */}
-        <nav className={styles.breadcrumbs}>
+        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
           <div className={styles.breadcrumbContent}>
             <Link href="/" className={styles.link}>Home</Link> &gt;{" "}
             <Link href={`/services/${citySlug}`} className={styles.link}>{city}</Link> &gt;{" "}
             <span className={styles.activeBreadcrumb}>{locality}</span>
           </div>
         </nav>
-
-        {/* Main Content - Full Width for SEO */}
-        <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '4rem 1.5rem' }}>
-          
-          {/* Introduction - SEO Rich Content */}
-          <article style={{ marginBottom: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Complete Guide to {service} in {locality}, {city}</h2>
-            <div className={styles.text}>
-              <p>
-                Looking for professional <strong>{service.toLowerCase()}</strong> in <strong>{locality}</strong>? 
-                You've come to the right place. We are the leading provider of {service.toLowerCase()} services in {locality}, {city}, 
-                with over 500+ successful installations and a 4.9-star rating from satisfied customers across the region.
-              </p>
-              <p>
-                Our team of certified technicians specializes in providing comprehensive security solutions tailored to the unique needs 
-                of {locality} residents and businesses. Whether you're looking to secure your home, office, retail store, or industrial facility, 
-                we have the expertise and experience to deliver a solution that meets your specific requirements and budget.
-              </p>
-              <p>
-                In this comprehensive guide, we'll cover everything you need to know about {service.toLowerCase()} in {locality}, including 
-                the installation process, pricing, benefits, common issues, and frequently asked questions. By the end of this guide, you'll 
-                have all the information you need to make an informed decision about your security needs.
-              </p>
-            </div>
-            <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-              <a href="tel:+918766203976" className={styles.ctaButton}>Get Free Consultation →</a>
-            </div>
-          </article>
-
-          {/* Dynamic Sections */}
-          {data.sections.map((section: any, idx: number) => (
-            <section key={idx} style={{ marginBottom: '4rem' }}>
-              <h2 className={styles.sectionTitle}>{section.title}</h2>
+        <main className={styles.main}>
+          <div className={styles.contentSection}>
+            <article style={{ marginBottom: '4rem' }}>
+              <h2 className={styles.sectionTitle}>Complete Guide to {service} in {locality}, {city}</h2>
               <div className={styles.text}>
-                <p>{section.content}</p>
+                <p>Looking for professional <strong>{service.toLowerCase()}</strong> in <strong>{locality}</strong>?</p>
+                <p>We provide {service.toLowerCase()} across {locality}, {city} with same-day availability and strong warranty support.</p>
+                <p>See process, pricing, benefits, nearby coverage, and FAQs tailored for {locality}.</p>
               </div>
-
-              {section.points && (
-                <div className={styles.featuresGrid}>
-                  {section.points.map((point: string, i: number) => (
-                    <div key={i} className={styles.featureCard}>
-                      <span className={styles.checkIcon}>
-                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                      </span>
-                      <span className={styles.featureText}>{point}</span>
-                    </div>
-                  ))}
+              <div style={{ textAlign: 'center', margin: '2rem 0' }}>
+                <a href="tel:+918766203976" aria-label={`Get free consultation for ${service} in ${locality}`} className={styles.ctaButton}>Get Free Consultation →</a>
+              </div>
+            </article>
+            {(data.sections as SectionItem[]).map((section, idx: number) => (
+              <section key={idx} style={{ marginBottom: '4rem' }}>
+                <h2 className={styles.sectionTitle}>{section.title}</h2>
+                <div className={styles.text}>
+                  <p>{section.content}</p>
                 </div>
-              )}
-
-              {section.steps && (
-                <div className={styles.stepsContainer}>
-                  {section.steps.map((step: any, i: number) => (
-                    <div key={i} className={styles.stepCard}>
-                      <div className={styles.stepNumber}>{step.number}</div>
-                      <div className={styles.stepContent}>
-                        <h3 className={styles.stepTitle}>{step.title}</h3>
-                        <p className={styles.stepDescription}>{step.description}</p>
+                {section.points && (
+                  <div className={styles.featuresGrid}>
+                    {section.points.map((point: string, i: number) => (
+                      <div key={i} className={styles.featureCard}>
+                        <span className={styles.checkIcon}>
+                          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        </span>
+                        <span className={styles.featureText}>{point}</span>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                )}
+                {section.steps && (
+                  <div className={styles.stepsContainer}>
+                    {(section.steps as StepItem[]).map((step, i: number) => (
+                      <div key={i} className={styles.stepCard}>
+                        <div className={styles.stepNumber}>{step.number}</div>
+                        <div className={styles.stepContent}>
+                          <h3 className={styles.stepTitle}>{step.title}</h3>
+                          <p className={styles.stepDescription}>{step.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
+            ))}
+            <section style={{ marginBottom: '4rem' }}>
+              <h2 className={styles.sectionTitle}>Transparent Pricing in {locality}</h2>
+              <div className={styles.pricingSection}>
+                <div className={styles.pricingTable}>
+                  {category === 'cctv' && (
+                    <>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>2 Camera Setup</span><button className={styles.pricingButton}>Get Price</button></div>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>4 Camera Setup</span><button className={styles.pricingButton}>Get Price</button></div>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>8 Camera Setup</span><button className={styles.pricingButton}>Get Price</button></div>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>DVR/NVR Configuration</span><button className={styles.pricingButton}>Get Price</button></div>
+                    </>
+                  )}
+                  {category === 'lock' && (
+                    <>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>Fingerprint Lock Installation</span><button className={styles.pricingButton}>Get Price</button></div>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>Smart WiFi Lock Setup</span><button className={styles.pricingButton}>Get Price</button></div>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>Access Control with EM Lock</span><button className={styles.pricingButton}>Get Price</button></div>
+                    </>
+                  )}
+                  {category === 'dvr' && (
+                    <>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>4 Channel Recorder Setup</span><button className={styles.pricingButton}>Get Price</button></div>
+                      <div className={styles.pricingRow}><span className={styles.pricingItem}>8/16 Channel NVR Configuration</span><button className={styles.pricingButton}>Get Price</button></div>
+                    </>
+                  )}
                 </div>
-              )}
-
-              {idx === 1 && (
-                <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-                  <a href="tel:+918766203976" className={styles.ctaButton}>Book Your Installation Today →</a>
-                </div>
-              )}
-            </section>
-          ))}
-
-          {/* Why Choose Us - Extended SEO Content */}
-          <section style={{ marginBottom: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Why {locality} Residents Trust Us for {service}</h2>
-            <div className={styles.text}>
-              <p>
-                When it comes to {service.toLowerCase()} in {locality}, experience and expertise matter. We've been serving the {city} region 
-                for over a decade, building a reputation for quality workmanship, reliable service, and customer satisfaction. Here's what sets us apart:
-              </p>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#f8fafc', marginTop: '2rem', marginBottom: '1rem' }}>
-                Local Expertise in {locality}
-              </h3>
-              <p>
-                We understand the unique security challenges faced by residents and businesses in {locality}. Our team has completed hundreds of 
-                installations in this area, giving us intimate knowledge of local building codes, common security concerns, and the best solutions 
-                for different property types in {locality}.
-              </p>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#f8fafc', marginTop: '2rem', marginBottom: '1rem' }}>
-                Certified and Experienced Technicians
-              </h3>
-              <p>
-                All our technicians are fully certified and have undergone rigorous training in the latest security technologies. With an average 
-                of 10+ years of experience, they can handle any installation challenge, from simple residential setups to complex commercial systems.
-              </p>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#f8fafc', marginTop: '2rem', marginBottom: '1rem' }}>
-                Quality Equipment and Materials
-              </h3>
-              <p>
-                We only use ISI-marked cables, genuine branded equipment, and high-quality components that meet international standards. This ensures 
-                your system operates reliably for years to come and minimizes the need for repairs or replacements.
-              </p>
-            </div>
-            <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-              <a href="https://wa.me/918766203976" className={styles.ctaButton}>Chat on WhatsApp →</a>
-            </div>
-          </section>
-
-          {/* Local Context */}
-          {data.localContext && (
-            <section className={styles.localSection} style={{ marginBottom: '4rem' }}>
-              <h3 className={styles.sectionTitle}>{data.localContext.title}</h3>
-              <div className={styles.text}>
-                <p>{data.localContext.content}</p>
-                <p>
-                  Our local presence in {locality} means faster response times, better understanding of your needs, and ongoing support 
-                  whenever you need it. We're not just a service provider – we're your neighbors, committed to keeping our community safe and secure.
-                </p>
+                <div className={styles.pricingNote}>Pricing varies by site and brand. Get an exact quote.</div>
               </div>
             </section>
-          )}
-
-          {/* Benefits Section - More SEO Content */}
-          <section style={{ marginBottom: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Key Benefits of Professional {service} in {locality}</h2>
-            <div className={styles.text}>
-              <p>
-                Investing in professional {service.toLowerCase()} offers numerous benefits beyond just security. Here's what you can expect:
-              </p>
-            </div>
-            <div className={styles.featuresGrid}>
-              {data.richContent.benefits.map((benefit: string, i: number) => (
-                <div key={i} className={styles.featureCard}>
-                  <span className={styles.checkIcon}>
-                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                  </span>
-                  <span className={styles.featureText}>{benefit}</span>
-                </div>
-              ))}
-            </div>
-            <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-              <a href="tel:+918766203976" className={styles.ctaButton}>Request Free Quote →</a>
-            </div>
-          </section>
-
-          {/* Nearby Areas - Internal Linking for SEO */}
-          <section style={{ marginBottom: '4rem' }}>
-            <h2 className={styles.sectionTitle}>We Also Serve Areas Near {locality}</h2>
-            <div className={styles.text}>
-              <p>
-                In addition to {locality}, we provide {service.toLowerCase()} services throughout {city} and surrounding areas. 
-                Our service coverage includes:
-              </p>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
-              {data.nearbyLocalities.map((loc: string, i: number) => (
-                <Link
-                  key={i}
-                  href={`/${createSlug(loc)}-${serviceSlug}`}
-                  className={styles.relatedLink}
-                  style={{
-                    display: 'block',
-                    padding: '1rem',
-                    background: 'rgba(30, 41, 59, 0.5)',
-                    borderRadius: '0.75rem',
-                    border: '1px solid rgba(255, 255, 255, 0.05)',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  {service} in {loc}
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* FAQ Section */}
-          <section className={styles.faqSection}>
-            <h2 className={styles.sectionTitle}>Frequently Asked Questions About {service} in {locality}</h2>
-            <div className={styles.faqGrid}>
-              {data.faq.map((faq: any, index: number) => (
-                <div key={index} className={styles.faqItem}>
-                  <h3>{faq.question}</h3>
-                  <p>{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Final CTA */}
-          <section style={{ textAlign: 'center', marginTop: '5rem', padding: '3rem', background: 'rgba(30, 41, 59, 0.5)', borderRadius: '1rem' }}>
-            <h2 className={styles.sectionTitle}>Ready to Secure Your Property in {locality}?</h2>
-            <p className={styles.text} style={{ maxWidth: '700px', margin: '0 auto 2rem' }}>
-              Don't wait until it's too late. Contact us today for a free consultation and quote for {service.toLowerCase()} in {locality}. 
-              Our team is ready to help you choose the perfect security solution for your needs.
-            </p>
+            <section style={{ marginBottom: '4rem' }}>
+              <h2 className={styles.sectionTitle}>Safety Standards We Follow</h2>
+              <div className={styles.safetyGrid}>
+                <div className={styles.safetyCard}><div className={styles.safetyIcon}>🛡️</div><h4>ISI Marked Cables</h4><p>Certified materials for reliability.</p></div>
+                <div className={styles.safetyCard}><div className={styles.safetyIcon}>⚡</div><h4>Proper Earthing</h4><p>Protected from surges.</p></div>
+                <div className={styles.safetyCard}><div className={styles.safetyIcon}>🔧</div><h4>Neat Wiring</h4><p>Clean installation practices.</p></div>
+                <div className={styles.safetyCard}><div className={styles.safetyIcon}>🔒</div><h4>Secure Network</h4><p>Best practices for remote access.</p></div>
+              </div>
+            </section>
+            <section className={styles.faqSection}>
+              <h2 className={styles.sectionTitle}>FAQs About {service} in {locality}</h2>
+              <div className={styles.faqGrid}>
+                {(data.faq as FAQItem[]).map((faq, index: number) => (
+                  <div key={index} className={styles.faqItem}>
+                    <h3>{faq.question}</h3>
+                    <p>{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section style={{ textAlign: 'center', marginTop: '5rem', padding: '3rem', background: 'rgba(30, 41, 59, 0.5)', borderRadius: '1rem' }}>
+              <h2 className={styles.sectionTitle}>Ready to Secure Your Property in {locality}?</h2>
+              <p className={styles.text} style={{ maxWidth: '700px', margin: '0 auto 2rem' }}>Contact us for a free consultation and quote for {service.toLowerCase()} in {locality}.</p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <a href="tel:+918766203976" className={styles.ctaButton}>Call Now: +91-87662-03976</a>
-              <a href="https://wa.me/918766203976" className={styles.ctaButton} style={{ background: '#10b981' }}>WhatsApp Us</a>
+              <a href="tel:+918766203976" aria-label={`Call now for ${service} in ${locality}`} className={styles.ctaButton}>Call Now: +91-87662-03976</a>
+              <a href="https://wa.me/918766203976" aria-label={`WhatsApp now for ${service} in ${locality}`} className={styles.ctaButton} style={{ background: '#10b981' }}>WhatsApp Us</a>
             </div>
-          </section>
+            </section>
+          </div>
+          <aside className={styles.sidebar}>
+            <div className={styles.bookingCard}>
+              <div className={styles.cardTitle}>Book {service} in {locality}</div>
+              <form>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Name</label>
+                  <input className={styles.input} type="text" placeholder="Your name" />
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Phone</label>
+                  <input className={styles.input} type="tel" placeholder="+91" />
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Service</label>
+                  <select className={styles.select} defaultValue={service}>
+                    {[service, ...related.filter(s => s !== service)].slice(0, 6).map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+                <button className={styles.submitButton} type="button">Request Callback</button>
+                <div className={styles.secureText}>No spam. Secure form.</div>
+              </form>
+            </div>
+            <div className={styles.relatedServices}>
+              <div className={styles.relatedTitle}>Related Services</div>
+              <ul className={styles.relatedList}>
+                {related.map((s) => (
+                  <li key={s}>
+                    <Link className={styles.relatedLink} href={`/${createSlug(s)}-in-${localitySlug}-${citySlug}`}>{s} in {locality}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
         </main>
-
-        {/* Mobile Sticky CTA */}
+        <div className={styles.stickySpacer} aria-hidden="true"></div>
         <div className={styles.stickyMobileCTA}>
-          <a href="tel:+918766203976" className={styles.stickyCallBtn}>📞 Call Now</a>
-          <a href="https://wa.me/918766203976" className={styles.stickyWhatsappBtn}>💬 WhatsApp</a>
+          <a href="tel:+918766203976" aria-label={`Call ${service} in ${locality}`} className={styles.stickyCallBtn}>📞 Call Now</a>
+          <a href="https://wa.me/918766203976" aria-label={`WhatsApp ${service} in ${locality}`} className={styles.stickyWhatsappBtn}>💬 WhatsApp</a>
         </div>
       </div>
     );
