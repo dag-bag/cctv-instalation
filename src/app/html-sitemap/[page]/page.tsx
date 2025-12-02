@@ -10,6 +10,26 @@ const ITEMS_PER_PAGE = 1000;
 // Helper to generate all routes (same as sitemap.ts but returning objects for display)
 function generateAllLinks() {
   const links: { url: string; label: string; category: string }[] = [];
+  const BRANDS = [
+    'Hikvision','CP Plus','Dahua','Honeywell','Bosch','Panasonic','Godrej','Samsung','Sony','Tiandy','Uniview','Ezviz'
+  ];
+  const REPAIR_ISSUES = [
+    'camera-not-working','no-signal','blur-image','recording-issue','mobile-view-setup','dvr-hard-disk-replacement','password-reset','online-configuration','cable-repair','power-supply-repair'
+  ];
+
+  // Top-level indexes
+  links.push({ url: '/brands', label: 'Brands', category: 'Index' });
+  links.push({ url: '/repairs', label: 'Repairs', category: 'Index' });
+
+  // Brand and repair issue index pages
+  BRANDS.forEach((brand) => {
+    const brandSlug = createSlug(brand);
+    links.push({ url: `/brands/${brandSlug}`, label: `${brand} (Cities)`, category: 'Brands' });
+  });
+
+  REPAIR_ISSUES.forEach((issue) => {
+    links.push({ url: `/repairs/${issue}`, label: `${issue.replace(/-/g,' ')} (Cities)`, category: 'Repairs' });
+  });
 
   // 1. Static & City Pages
   CITIES.forEach((city) => {
@@ -18,6 +38,15 @@ function generateAllLinks() {
       url: `/services/${citySlug}`,
       label: `${city} Services`,
       category: city
+    });
+
+    // Brand-city and repair-city pages
+    BRANDS.forEach((brand) => {
+      const brandSlug = createSlug(brand);
+      links.push({ url: `/brands/${brandSlug}/${citySlug}`, label: `${brand} in ${city}`, category: city });
+    });
+    REPAIR_ISSUES.forEach((issue) => {
+      links.push({ url: `/repairs/${issue}/${citySlug}`, label: `${issue.replace(/-/g,' ')} in ${city}`, category: city });
     });
 
     const localities = LOCALITIES[city] || [];
@@ -34,6 +63,23 @@ function generateAllLinks() {
         links.push({
           url: `/services/${citySlug}/${localitySlug}/${serviceSlug}`,
           label: `${service} in ${locality}`,
+          category: city
+        });
+      });
+
+      BRANDS.forEach((brand) => {
+        const brandSlug = createSlug(brand);
+        links.push({
+          url: `/brands/${brandSlug}/${citySlug}/${localitySlug}`,
+          label: `${brand} in ${locality}`,
+          category: city
+        });
+      });
+
+      REPAIR_ISSUES.forEach((issue) => {
+        links.push({
+          url: `/repairs/${issue}/${citySlug}/${localitySlug}`,
+          label: `${issue.replace(/-/g,' ')} in ${locality}`,
           category: city
         });
       });

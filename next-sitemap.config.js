@@ -223,6 +223,14 @@ const CITIES = [
   "Surveillance Storage"
 ];
 
+const BRANDS = [
+  'Hikvision','CP Plus','Dahua','Honeywell','Bosch','Panasonic','Godrej','Samsung','Sony','Tiandy','Uniview','Ezviz'
+];
+
+const REPAIR_ISSUES = [
+  'camera-not-working','no-signal','blur-image','recording-issue','mobile-view-setup','dvr-hard-disk-replacement','password-reset','online-configuration','cable-repair','power-supply-repair'
+];
+
 function createSlug(text) {
   return text
     .toLowerCase()
@@ -244,6 +252,21 @@ module.exports = {
   additionalPaths: async (config) => {
     const result = [];
 
+    // Index pages
+    result.push({ loc: `/brands`, changefreq: 'weekly', priority: 0.6, lastmod: new Date().toISOString() });
+    result.push({ loc: `/repairs`, changefreq: 'weekly', priority: 0.6, lastmod: new Date().toISOString() });
+
+    // Brand pages (cities list)
+    for (const brand of BRANDS) {
+      const brandSlug = createSlug(brand);
+      result.push({ loc: `/brands/${brandSlug}`, changefreq: 'weekly', priority: 0.7, lastmod: new Date().toISOString() });
+    }
+
+    // Repair issue pages (cities list)
+    for (const issue of REPAIR_ISSUES) {
+      result.push({ loc: `/repairs/${issue}`, changefreq: 'weekly', priority: 0.7, lastmod: new Date().toISOString() });
+    }
+
     // 1. City Pages
     for (const city of CITIES) {
       const citySlug = createSlug(city);
@@ -253,6 +276,17 @@ module.exports = {
         priority: 0.9,
         lastmod: new Date().toISOString(),
       });
+
+      // Brand-city pages
+      for (const brand of BRANDS) {
+        const brandSlug = createSlug(brand);
+        result.push({ loc: `/brands/${brandSlug}/${citySlug}`, changefreq: 'weekly', priority: 0.75, lastmod: new Date().toISOString() });
+      }
+
+      // Repair-city pages
+      for (const issue of REPAIR_ISSUES) {
+        result.push({ loc: `/repairs/${issue}/${citySlug}`, changefreq: 'weekly', priority: 0.75, lastmod: new Date().toISOString() });
+      }
 
       // 2. Locality Pages
       const localities = localitiesData[city] || [];
@@ -270,6 +304,25 @@ module.exports = {
           const serviceSlug = createSlug(service);
           result.push({
             loc: `/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: new Date().toISOString(),
+          });
+        }
+
+        for (const brand of BRANDS) {
+          const brandSlug = createSlug(brand);
+          result.push({
+            loc: `/brands/${brandSlug}/${citySlug}/${localitySlug}`,
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: new Date().toISOString(),
+          });
+        }
+
+        for (const issue of REPAIR_ISSUES) {
+          result.push({
+            loc: `/repairs/${issue}/${citySlug}/${localitySlug}`,
             changefreq: 'monthly',
             priority: 0.7,
             lastmod: new Date().toISOString(),

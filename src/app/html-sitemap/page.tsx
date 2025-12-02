@@ -9,15 +9,18 @@ const ITEMS_PER_PAGE = 1000;
 // Calculate total links
 function getTotalLinks() {
   let total = 0;
+  const BRANDS = ['Hikvision','CP Plus','Dahua','Honeywell','Bosch','Panasonic','Godrej','Samsung','Sony','Tiandy','Uniview','Ezviz'];
+  const REPAIR_ISSUES = ['camera-not-working','no-signal','blur-image','recording-issue','mobile-view-setup','dvr-hard-disk-replacement','password-reset','online-configuration','cable-repair','power-supply-repair'];
   CITIES.forEach((city) => {
-    total++; // City page
+    total++;
     const localities = LOCALITIES[city] || [];
     localities.forEach(() => {
-      total++; // Locality page
-      total += SERVICES.length; // Service pages
+      total++;
+      total += SERVICES.length;
+      total += BRANDS.length;
+      total += REPAIR_ISSUES.length;
     });
   });
-  // Include hyphen-based SEO query slugs
   total += generateQuerySlugs().length;
   return total;
 }
