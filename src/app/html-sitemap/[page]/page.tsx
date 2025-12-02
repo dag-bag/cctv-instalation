@@ -16,10 +16,14 @@ function generateAllLinks() {
   const REPAIR_ISSUES = [
     'camera-not-working','no-signal','blur-image','recording-issue','mobile-view-setup','dvr-hard-disk-replacement','password-reset','online-configuration','cable-repair','power-supply-repair'
   ];
+  const INDUSTRIES = [
+    'Hospitals & Clinics','Schools & Colleges','Restaurants & Cafes','Retail Stores','Warehouses & Manufacturing','Offices & Corporate','Hotels & Guesthouses','Construction Sites','Event Venues & Auditoriums','Housing Societies','Smart Homes','Temples & Religious Places','Transport Hubs','Banks & ATMs','Gyms & Fitness Centers','Parking Lots','Car Dealerships','Co-Working Spaces','Fuel Stations & Petrol Pumps','Salons & Spas','Coaching Centers','Markets & Street Food','IT Parks & Tech Hubs','Wedding Halls & Banquets','Pharmacies & Medical Stores','Jewelry Stores','E-commerce Warehouses'
+  ];
 
   // Top-level indexes
   links.push({ url: '/brands', label: 'Brands', category: 'Index' });
   links.push({ url: '/repairs', label: 'Repairs', category: 'Index' });
+  links.push({ url: '/industries', label: 'Industries', category: 'Index' });
 
   // Brand and repair issue index pages
   BRANDS.forEach((brand) => {
@@ -29,6 +33,11 @@ function generateAllLinks() {
 
   REPAIR_ISSUES.forEach((issue) => {
     links.push({ url: `/repairs/${issue}`, label: `${issue.replace(/-/g,' ')} (Cities)`, category: 'Repairs' });
+  });
+
+  INDUSTRIES.forEach((ind) => {
+    const indSlug = createSlug(ind);
+    links.push({ url: `/industries/${indSlug}`, label: `${ind} (Cities)`, category: 'Industries' });
   });
 
   // 1. Static & City Pages
@@ -47,6 +56,11 @@ function generateAllLinks() {
     });
     REPAIR_ISSUES.forEach((issue) => {
       links.push({ url: `/repairs/${issue}/${citySlug}`, label: `${issue.replace(/-/g,' ')} in ${city}`, category: city });
+    });
+    // Industry-city pages
+    INDUSTRIES.forEach((ind) => {
+      const indSlug = createSlug(ind);
+      links.push({ url: `/industries/${indSlug}/${citySlug}`, label: `${ind} in ${city}`, category: city });
     });
 
     const localities = LOCALITIES[city] || [];
@@ -83,6 +97,15 @@ function generateAllLinks() {
           category: city
         });
       });
+      // Industry-locality pages
+      INDUSTRIES.forEach((ind) => {
+        const indSlug = createSlug(ind);
+        links.push({
+          url: `/industries/${indSlug}/${citySlug}/${localitySlug}`,
+          label: `${ind} in ${locality}`,
+          category: city
+        });
+      });
     });
   });
 
@@ -115,9 +138,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.camharbor.in/html-sitemap' },
 };
 
-export default async function HtmlSitemapPage(props: { params: Promise<{ page: string }> }) {
-  const params = await props.params;
-  const page = parseInt(params.page);
+export default function HtmlSitemapPage(props: { params: { page: string } }) {
+  const page = parseInt(props.params.page);
   
   if (isNaN(page) || page < 1) {
     notFound();

@@ -229,6 +229,303 @@ export const SERVICES = [
   "Surveillance Storage"
 ];
 
+export const INDUSTRIES = [
+  'Hospitals & Clinics',
+  'Schools & Colleges',
+  'Restaurants & Cafes',
+  'Retail Stores',
+  'Warehouses & Manufacturing',
+  'Offices & Corporate',
+  'Hotels & Guesthouses',
+  'Construction Sites',
+  'Event Venues & Auditoriums',
+  'Housing Societies',
+  'Smart Homes',
+  'Temples & Religious Places',
+  'Transport Hubs',
+  'Banks & ATMs',
+  'Gyms & Fitness Centers',
+  'Parking Lots',
+  'Car Dealerships',
+  'Co-Working Spaces',
+  'Fuel Stations & Petrol Pumps',
+  'Salons & Spas',
+  'Coaching Centers',
+  'Markets & Street Food',
+  'IT Parks & Tech Hubs',
+  'Wedding Halls & Banquets',
+  'Pharmacies & Medical Stores',
+  'Jewelry Stores',
+  'E-commerce Warehouses'
+];
+
+export interface IndustryContent {
+  heroImage: string;
+  description: string;
+  features: string[];
+  faqs: { question: string; answer: string }[];
+}
+
+export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
+  'Hospitals & Clinics': {
+    heroImage: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200&auto=format&fit=crop',
+    description: 'Medical-grade surveillance for patient safety, sterile zones, pharmacies, and ICUs.',
+    features: ['ICU monitoring','Pharmacy security','Visitor tracking','Emergency response'],
+    faqs: [
+      { question: 'Is footage compliant with privacy?', answer: 'We configure restricted access and retention per policy.' },
+      { question: 'Do cameras support low-light?', answer: 'Yes, with IR and Starlight options for wards and corridors.' }
+    ]
+  },
+  'Schools & Colleges': {
+    heroImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop',
+    description: 'Campus-wide visibility for entrances, classrooms, playgrounds, and exam halls.',
+    features: ['Anti-bullying coverage','Exam integrity','Playground safety','Attendance integration'],
+    faqs: [
+      { question: 'Can parents view live feeds?', answer: 'Role-based remote view is supported where policy permits.' },
+      { question: 'Do you cover hostel areas?', answer: 'Yes, with access-controlled viewing and audit logs.' }
+    ]
+  },
+  'Restaurants & Cafes': {
+    heroImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop',
+    description: 'Front-of-house and kitchen surveillance to improve safety, hygiene, and operations.',
+    features: ['Cash counter safety','Kitchen hygiene','Staff areas','Remote owner view'],
+    faqs: [
+      { question: 'Can cameras resist heat/grease?', answer: 'We use enclosures rated for kitchen environments.' },
+      { question: 'Do you integrate with POS?', answer: 'Yes, overlay options can align cameras with transaction points.' }
+    ]
+  },
+  'Retail Stores': {
+    heroImage: 'https://images.unsplash.com/photo-1542831371-d531d36971e6?q=80&w=1200&auto=format&fit=crop',
+    description: 'Shrinkage control and customer safety with strategic aisles and checkout coverage.',
+    features: ['Aisle coverage','Checkout lanes','Entrance analytics','Parking safety'],
+    faqs: [
+      { question: 'Do you support people counting?', answer: 'Yes, selected cameras provide footfall analytics.' },
+      { question: 'Is storage scalable?', answer: 'NVR and cloud options allow retention growth.' }
+    ]
+  },
+  'Warehouses & Manufacturing': {
+    heroImage: 'https://images.unsplash.com/photo-1581092580495-0b1be1b1541a?q=80&w=1200&auto=format&fit=crop',
+    description: 'Inventory and process visibility, loading bays, and compliance monitoring.',
+    features: ['Bay monitoring','Perimeter cameras','Worker safety','Production audits'],
+    faqs: [
+      { question: 'Do you support outdoor coverage?', answer: 'Yes, weatherproof PoE cameras for yards and perimeters.' },
+      { question: 'Any license plate recognition?', answer: 'Optional LPR for gate entries and fleets.' }
+    ]
+  },
+  'Offices & Corporate': {
+    heroImage: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop',
+    description: 'Lobby, corridors, server rooms, and access-controlled spaces for corporate security.',
+    features: ['Lobby coverage','Badge integration','Server room monitoring','Visitor logs'],
+    faqs: [
+      { question: 'GDPR-like policies?', answer: 'We implement access scopes, audit logs, and retention rules.' },
+      { question: 'Is remote view secure?', answer: 'Encrypted channels with strong authentication.' }
+    ]
+  },
+  'Hotels & Guesthouses': {
+    heroImage: 'https://images.unsplash.com/photo-1439130433244-6b4bd8492d70?q=80&w=1200&auto=format&fit=crop',
+    description: 'Lobby, corridors, lifts, parking—guest and staff safety with discreet coverage.',
+    features: ['Lobby/lifts','Corridor coverage','Parking safety','Back-of-house'],
+    faqs: [
+      { question: 'Do you track valet areas?', answer: 'Yes, lane and handover coverage for valet desks.' },
+      { question: 'Is privacy respected?', answer: 'No cameras in rooms; only common areas as per policy.' }
+    ]
+  },
+  'Construction Sites': {
+    heroImage: 'https://images.unsplash.com/photo-1556909212-20d2333d66d6?q=80&w=1200&auto=format&fit=crop',
+    description: 'Site progress, material protection, and safety oversight in hazardous zones.',
+    features: ['Progress monitoring','Material protection','Hazard alerts','Gate LPR'],
+    faqs: [
+      { question: 'Power on remote sites?', answer: 'Solar and 4G options available for temporary setups.' },
+      { question: 'Mobile view for managers?', answer: 'Yes, app access for multi-site dashboards.' }
+    ]
+  },
+  'Event Venues & Auditoriums': {
+    heroImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+    description: 'Crowd control and incident visibility for large gatherings and weddings.',
+    features: ['Crowd analytics','Perimeter control','Vendor monitoring','Emergency exits'],
+    faqs: [
+      { question: 'Do you offer highlight reels?', answer: 'Optional recording segregation for selected feeds.' },
+      { question: 'Any temporary deployment?', answer: 'Yes, quick-deploy kits for events.' }
+    ]
+  },
+  'Housing Societies': {
+    heroImage: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
+    description: 'Gate control, common areas, parking and lifts for resident safety.',
+    features: ['Gate entries','Lift cameras','Play areas','Parking lanes'],
+    faqs: [
+      { question: 'Can RWA access dashboards?', answer: 'Yes, multi-admin role-based dashboards.' },
+      { question: 'Integration with intercom?', answer: 'Supported with VDP systems.' }
+    ]
+  }
+  ,
+  'Smart Homes': {
+    heroImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop',
+    description: 'Connected cameras, doorbells, and locks integrated with home automation.',
+    features: ['App control','Doorbell cameras','Smart locks','Cloud storage'],
+    faqs: [
+      { question: 'Can I control devices by phone?', answer: 'Yes, iOS/Android apps with secure login.' },
+      { question: 'Do you support Alexa/Google?', answer: 'Voice assistants supported via compatible hubs.' }
+    ]
+  },
+  'Temples & Religious Places': {
+    heroImage: 'https://images.unsplash.com/photo-1496317556649-f930d733eea0?q=80&w=1200&auto=format&fit=crop',
+    description: 'Crowd, donation rooms, and entry gates with respectful coverage policies.',
+    features: ['Donation room safety','Entry queues','Perimeter monitoring','Night coverage'],
+    faqs: [
+      { question: 'Is recording discreet?', answer: 'We place cameras per committee guidance and policy.' },
+      { question: 'Can trustees view feeds?', answer: 'Role-based remote view is provided.' }
+    ]
+  },
+  'Transport Hubs': {
+    heroImage: 'https://images.unsplash.com/photo-1525351483943-4f4b2b1b8683?q=80&w=1200&auto=format&fit=crop',
+    description: 'Stations, bus depots, and terminals with LPR and crowd analytics.',
+    features: ['Gate LPR','Platform coverage','Crowd heatmaps','Incident review'],
+    faqs: [
+      { question: 'Do you cover large areas?', answer: 'PTZ and multi-lens cameras for wide coverage.' },
+      { question: 'Retention length?', answer: 'Configurable on NVR/cloud per compliance.' }
+    ]
+  },
+  'Banks & ATMs': {
+    heroImage: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200&auto=format&fit=crop',
+    description: 'Vault-adjacent zones, teller counters, entries, and ATM kiosks with audit trails.',
+    features: ['Teller counters','ATM kiosks','Server room','Access logs'],
+    faqs: [
+      { question: 'Do you meet compliance?', answer: 'We align recording and retention with policy.' },
+      { question: 'Any tamper alerts?', answer: 'Yes, motion/tamper alerts via supported models.' }
+    ]
+  },
+  'Gyms & Fitness Centers': {
+    heroImage: 'https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop',
+    description: 'Reception, workout zones, lockers, and parking with privacy-aware placement.',
+    features: ['Reception desk','Locker area entrances','Parking','Access control'],
+    faqs: [
+      { question: 'Are cameras in changing rooms?', answer: 'No, only at entrances respecting privacy.' },
+      { question: 'Mobile view for owners?', answer: 'Yes, secure multi-user access.' }
+    ]
+  },
+  'Parking Lots': {
+    heroImage: 'https://images.unsplash.com/photo-1519643398871-8f0fae8290bd?q=80&w=1200&auto=format&fit=crop',
+    description: 'Lane coverage, entries/exits, and LPR for efficient parking operations.',
+    features: ['Lane cameras','Entry/exit','LPR','Incident review'],
+    faqs: [
+      { question: 'Night performance?', answer: 'Color night vision/Starlight options available.' },
+      { question: 'Data export?', answer: 'Clips export and logs per incident.' }
+    ]
+  },
+  'Car Dealerships': {
+    heroImage: 'https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1200&auto=format&fit=crop',
+    description: 'Showrooms, yards, and delivery bays with customer-safe experience.',
+    features: ['Showroom floor','Delivery bay','Yard coverage','Cash desk'],
+    faqs: [
+      { question: 'Do you cover test-drive lanes?', answer: 'Perimeter and entry cameras can monitor lanes.' },
+      { question: 'Warranty support?', answer: 'Manufacturer and installer warranty is provided.' }
+    ]
+  },
+  'Co-Working Spaces': {
+    heroImage: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
+    description: 'Lobbies, hot desks, meeting rooms, and access-controlled zones.',
+    features: ['Lobby','Access control','Meeting rooms','Server racks'],
+    faqs: [
+      { question: 'Badge integration?', answer: 'Supported via access control systems.' },
+      { question: 'Privacy for cabins?', answer: 'Common areas only; private cabins per policy.' }
+    ]
+  },
+  'Fuel Stations & Petrol Pumps': {
+    heroImage: 'https://images.unsplash.com/photo-1487956387771-9ff19f1f6f81?q=80&w=1200&auto=format&fit=crop',
+    description: 'Forecourt, cash counters, and ingress/egress with weatherproof cameras.',
+    features: ['Forecourt lanes','Cash counter','Ingress/egress','LPR'],
+    faqs: [
+      { question: 'Explosion-proof gear?', answer: 'We use appropriate rated enclosures for safety.' },
+      { question: 'Outdoor durability?', answer: 'Weatherproof cameras with IR for night.' }
+    ]
+  },
+  'Salons & Spas': {
+    heroImage: 'https://images.unsplash.com/photo-1502773862418-c7f2a6df2eb3?q=80&w=1200&auto=format&fit=crop',
+    description: 'Reception, cash counter, and corridors with privacy-aware placement.',
+    features: ['Reception','Cash counter','Corridors','Waiting area'],
+    faqs: [
+      { question: 'Private rooms?', answer: 'No cameras inside therapy rooms; entrances only.' },
+      { question: 'Owner remote view?', answer: 'Yes, secure access with audit logs.' }
+    ]
+  },
+  'Coaching Centers': {
+    heroImage: 'https://images.unsplash.com/photo-1513258496099-48168024b6ff?q=80&w=1200&auto=format&fit=crop',
+    description: 'Classrooms, entrances, and exam halls to ensure discipline and safety.',
+    features: ['Classrooms','Exam halls','Entrances','Attendance integration'],
+    faqs: [
+      { question: 'Do you record classes?', answer: 'Optional recording per institute policy.' },
+      { question: 'Can parents view feeds?', answer: 'Role-based access if permitted.' }
+    ]
+  },
+  'Markets & Street Food': {
+    heroImage: 'https://images.unsplash.com/photo-1516685304081-de7947d419d6?q=80&w=1200&auto=format&fit=crop',
+    description: 'Stalls, cash points, and crowd flow with ruggedized outdoor cameras.',
+    features: ['Stall coverage','Cash points','Crowd flow','Perimeter'],
+    faqs: [
+      { question: 'Portable setups?', answer: 'Quick-deploy kits available for temporary stalls.' },
+      { question: 'Power backup?', answer: 'UPS/inverter options for continuity.' }
+    ]
+  },
+  'IT Parks & Tech Hubs': {
+    heroImage: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop',
+    description: 'Lobby, corridors, server rooms, parking—enterprise-grade deployment.',
+    features: ['Lobby','Badge access','Server rooms','Parking'],
+    faqs: [
+      { question: 'GDPR-like compliance?', answer: 'Access scopes and audit trails implemented.' },
+      { question: 'Multi-tenant?', answer: 'Zones per tenant with role-based access.' }
+    ]
+  },
+  'Wedding Halls & Banquets': {
+    heroImage: 'https://images.unsplash.com/photo-1524578271613-d550eacf7ae9?q=80&w=1200&auto=format&fit=crop',
+    description: 'Entry gates, stage, dining and parking with crowd visibility.',
+    features: ['Stage view','Dining area','Entry gates','Parking'],
+    faqs: [
+      { question: 'Temporary setups?', answer: 'Yes, rapid deployments for events.' },
+      { question: 'Highlight segregation?', answer: 'Optional feed segregation available.' }
+    ]
+  },
+  'Pharmacies & Medical Stores': {
+    heroImage: 'https://images.unsplash.com/photo-1586074296815-aef0a54fba94?q=80&w=1200&auto=format&fit=crop',
+    description: 'Counters, storage, and entrances with theft deterrence.',
+    features: ['Counter view','Storage shelves','Entrance','Audit logs'],
+    faqs: [
+      { question: 'Low-light areas?', answer: 'IR options for night coverage.' },
+      { question: 'Billing integration?', answer: 'POS alignment possible for counters.' }
+    ]
+  },
+  'Jewelry Stores': {
+    heroImage: 'https://images.unsplash.com/photo-1516637090014-cb1ab0a62b71?q=80&w=1200&auto=format&fit=crop',
+    description: 'Counters, safes, entries with high-resolution and audit trails.',
+    features: ['High-res lenses','Safe areas','Entry gates','Audit logs'],
+    faqs: [
+      { question: 'Do you support 4K?', answer: 'Yes, 4K cameras for critical zones.' },
+      { question: 'Any panic integration?', answer: 'Integration with alarm systems possible.' }
+    ]
+  },
+  'E-commerce Warehouses': {
+    heroImage: 'https://images.unsplash.com/photo-1587547133148-1e4fdc4f0f7b?q=80&w=1200&auto=format&fit=crop',
+    description: 'Inbound/outbound docks, racks, and packing stations with process visibility.',
+    features: ['Dock cameras','Rack aisles','Packing stations','Gate LPR'],
+    faqs: [
+      { question: 'Do you support analytics?', answer: 'Yes, heatmaps and motion analytics on select models.' },
+      { question: 'Outdoor yards?', answer: 'Weatherproof PoE for yards.' }
+    ]
+  }
+};
+
+export function getIndustryContent(industryName: string): IndustryContent {
+  if (INDUSTRY_CONTENT[industryName]) return INDUSTRY_CONTENT[industryName];
+  return {
+    heroImage: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop',
+    description: 'Tailored surveillance designed for your industry’s operations and safety.',
+    features: ['Strategic coverage','Role-based access','Mobile view','Warranty support'],
+    faqs: [
+      { question: 'Do you provide AMC?', answer: 'Yes, annual maintenance contracts with scheduled health checks.' },
+      { question: 'Is the system scalable?', answer: 'Modular NVR/camera upgrades and cloud retention.' }
+    ]
+  };
+}
+
 // export const SERVICES = [
 //   // --- CCTV Installation Services ---
 //   'Residential CCTV Installation',

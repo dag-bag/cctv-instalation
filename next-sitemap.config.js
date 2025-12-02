@@ -231,6 +231,10 @@ const REPAIR_ISSUES = [
   'camera-not-working','no-signal','blur-image','recording-issue','mobile-view-setup','dvr-hard-disk-replacement','password-reset','online-configuration','cable-repair','power-supply-repair'
 ];
 
+const INDUSTRIES = [
+  'Hospitals & Clinics','Schools & Colleges','Restaurants & Cafes','Retail Stores','Warehouses & Manufacturing','Offices & Corporate','Hotels & Guesthouses','Construction Sites','Event Venues & Auditoriums','Housing Societies','Smart Homes','Temples & Religious Places','Transport Hubs','Banks & ATMs','Gyms & Fitness Centers','Parking Lots','Car Dealerships','Co-Working Spaces','Fuel Stations & Petrol Pumps','Salons & Spas','Coaching Centers','Markets & Street Food','IT Parks & Tech Hubs','Wedding Halls & Banquets','Pharmacies & Medical Stores','Jewelry Stores','E-commerce Warehouses'
+];
+
 function createSlug(text) {
   return text
     .toLowerCase()
@@ -255,6 +259,7 @@ module.exports = {
     // Index pages
     result.push({ loc: `/brands`, changefreq: 'weekly', priority: 0.6, lastmod: new Date().toISOString() });
     result.push({ loc: `/repairs`, changefreq: 'weekly', priority: 0.6, lastmod: new Date().toISOString() });
+    result.push({ loc: `/industries`, changefreq: 'weekly', priority: 0.6, lastmod: new Date().toISOString() });
 
     // Brand pages (cities list)
     for (const brand of BRANDS) {
@@ -265,6 +270,12 @@ module.exports = {
     // Repair issue pages (cities list)
     for (const issue of REPAIR_ISSUES) {
       result.push({ loc: `/repairs/${issue}`, changefreq: 'weekly', priority: 0.7, lastmod: new Date().toISOString() });
+    }
+
+    // Industry pages (cities list)
+    for (const ind of INDUSTRIES) {
+      const indSlug = createSlug(ind);
+      result.push({ loc: `/industries/${indSlug}`, changefreq: 'weekly', priority: 0.7, lastmod: new Date().toISOString() });
     }
 
     // 1. City Pages
@@ -304,6 +315,16 @@ module.exports = {
           const serviceSlug = createSlug(service);
           result.push({
             loc: `/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: new Date().toISOString(),
+          });
+        }
+
+        for (const ind of INDUSTRIES) {
+          const indSlug = createSlug(ind);
+          result.push({
+            loc: `/industries/${indSlug}/${citySlug}/${localitySlug}`,
             changefreq: 'monthly',
             priority: 0.7,
             lastmod: new Date().toISOString(),

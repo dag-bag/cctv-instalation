@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { createSlug } from '@/lib/seo-data';
 import styles from '../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
@@ -48,4 +47,3 @@ export default function RepairsIndexPage() {
     </div>
   );
 }
-

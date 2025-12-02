@@ -51,14 +51,6 @@ export default async function BrandPage({ params }: Props) {
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }
   };
 
-  const productSchema = {
-    '@context': 'https://schema.org', '@type': 'Product',
-    'name': `${brand} CCTV Systems`,
-    'brand': { '@type': 'Brand', 'name': brand },
-    'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.8', 'reviewCount': '250' },
-    'offers': { '@type': 'AggregateOffer', 'priceCurrency': 'INR', 'availability': 'https://schema.org/InStock' }
-  };
-
   return (
     <div className={styles.container}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, localBusinessSchema]) }} />
