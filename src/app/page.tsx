@@ -9,9 +9,9 @@ import styles from "./page.module.css";
 
 // Metadata for homepage
 export const metadata: Metadata = {
-  title: `${BUSINESS_CONFIG.name} - Professional CCTV Installation & Repair Services in Delhi`,
-  description: "Expert CCTV installation, repair & maintenance services across Delhi. 500+ installations, 24/7 support, affordable rates. Free consultation & same-day service available.",
-  keywords: "CCTV installation Delhi, CCTV repair Delhi, security camera installation, CCTV services Delhi, home security Delhi",
+  title: `${BUSINESS_CONFIG.name} - CCTV Camera Installation & Repair Services in Delhi NCR`,
+  description: "Top-rated CCTV installation, repair & security services in Delhi NCR. 500+ happy customers. Best prices, expert technicians & 24/7 support. Call now for a free quote!",
+  keywords: "CCTV installation Delhi, CCTV repair Delhi, security camera installation, CCTV services Delhi, home security Delhi, best cctv camera installation, cctv camera price delhi",
   openGraph: {
     title: `${BUSINESS_CONFIG.name} - CCTV Installation & Repair in Delhi`,
     description: "Professional CCTV services across Delhi. 500+ happy customers, 10+ years experience. Call for free consultation!",

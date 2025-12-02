@@ -73,21 +73,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const serviceImage = "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=1200&auto=format&fit=crop";
 
     const title = data.pattern === 'brand' && data.brandName
-      ? `${data.brandName} ${service} in ${locality}, ${city} | Authorized Partner`
+      ? `${data.brandName} ${service} in ${locality}, ${city}`
       : data.pattern === 'repair'
-      ? `${service} in ${locality}, ${city} | 24/7 Emergency Service`
-      : `${service} in ${locality}, ${city} | Professional Installation`;
+      ? `${service} in ${locality}, ${city}`
+      : `${service} in ${locality}, ${city}`;
 
     const description = data.pattern === 'brand' && data.brandName
-      ? `Authorized ${data.brandName} ${service.toLowerCase()} in ${locality}. Genuine products, expert installation, full warranty. Call +91-87662-03976`
+      ? `Looking for authorized ${data.brandName} ${service.toLowerCase()} in ${locality}? We offer genuine products, expert installation & full warranty. Best prices in ${city}. Call +91-87662-03976`
       : data.pattern === 'repair'
-      ? `Fast ${service.toLowerCase()} in ${locality}. 2-hour response time, same-day repair. Emergency service available 24/7. Call +91-87662-03976`
-      : `Professional ${service.toLowerCase()} in ${locality}, ${city}. 500+ installations, same-day service, 1-year warranty. Free quote. Call +91-87662-03976`;
+      ? `Need fast ${service.toLowerCase()} in ${locality}? We offer 24/7 emergency repair, 2-hour response time & same-day service. Expert technicians. Call +91-87662-03976 now!`
+      : `Looking for the best ${service.toLowerCase()} in ${locality}, ${city}? We offer top-rated installation, 500+ happy customers, same-day service & 1-year warranty. Free quote. Call +91-87662-03976`;
 
     return {
       title,
       description,
-      keywords: `${service}, ${locality}, ${city}, ${service.toLowerCase()}, security camera, CCTV installation, ${data.brandName || ''}`.trim(),
+      keywords: `${service}, ${locality}, ${city}, Best ${service} in ${locality}, ${service} near me, ${service.toLowerCase()} price, ${data.brandName || ''} dealer ${locality}, professional ${service.toLowerCase()}`,
       alternates: { canonical: `https://www.camharbor.in/${slug}` },
       openGraph: {
         type: "website",

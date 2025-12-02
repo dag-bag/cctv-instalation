@@ -29,13 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const title = `CCTV Camera Installation & Repair in ${city} | CamHarbor`;
-  const description = `Looking for professional CCTV installation in ${city}? We offer expert security camera services, repair, and maintenance across all localities in ${city}. Call now!`;
+  const title = `CCTV Camera Installation & Repair in ${city}`;
+  const description = `Leading CCTV installation and security camera services in ${city}. We serve all localities with expert technicians, best prices & 24/7 support. Book your service today! Call +91-87662-03976.`;
 
   return {
     title,
     description,
-    keywords: [`CCTV installation ${city}`, `CCTV repair ${city}`, `security camera installation ${city}`, `CCTV camera price ${city}`],
+    keywords: [`CCTV installation ${city}`, `CCTV repair ${city}`, `security camera installation ${city}`, `CCTV camera price ${city}`, `best cctv company in ${city}`, `cctv camera dealers in ${city}`],
     openGraph: {
       title,
       description,

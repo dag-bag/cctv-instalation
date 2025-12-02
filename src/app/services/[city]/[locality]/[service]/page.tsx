@@ -166,10 +166,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const serviceImage = "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop";
 
+  // SEO Optimized Title & Description
+  const title = `${service} in ${locality}, ${city}`;
+  const description = `Looking for the best ${service} in ${locality}, ${city}? We offer top-rated installation, repair & maintenance. 500+ happy customers. Same-day service, free consultation & quote. Call +91-87662-03976 now!`;
+
   return {
-    title: data.title,
-    description: data.metaDescription,
-    keywords: `${service}, ${locality}, ${city}, CCTV installation, security camera, ${service.toLowerCase()}`,
+    title,
+    description,
+    keywords: `${service}, ${locality}, ${city}, Best ${service} in ${locality}, ${service} near me, CCTV installation ${city}, security camera ${locality}, ${service.toLowerCase()} price, professional ${service.toLowerCase()}`,
     alternates: {
       canonical: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
     },
@@ -188,8 +192,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       locale: "en_IN",
       url: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
-      title: `${service} in ${locality}, ${city} | CamHarbor`,
-      description: data.metaDescription,
+      title,
+      description,
       siteName: "CamHarbor",
       images: [
         {
@@ -202,8 +206,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${service} in ${locality}, ${city}`,
-      description: data.metaDescription,
+      title,
+      description,
       images: [serviceImage],
     },
   };

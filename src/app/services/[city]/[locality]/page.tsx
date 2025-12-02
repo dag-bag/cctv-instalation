@@ -36,13 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const title = `CCTV Installation in ${locality}, ${city} | Best Security Services`;
-  const description = `Expert CCTV camera installation, repair, and security systems in ${locality}, ${city}. Fast service, best prices, and certified technicians. Book now!`;
+  const title = `CCTV Installation in ${locality}, ${city}`;
+  const description = `Expert CCTV camera installation & security services in ${locality}, ${city}. Trusted by thousands. Affordable rates, certified technicians & 24/7 support. Call +91-87662-03976 now!`;
 
   return {
     title,
     description,
-    keywords: [`CCTV installation ${locality}`, `CCTV repair ${locality}`, `security systems ${locality}`, `camera installation ${city}`],
+    keywords: [`CCTV installation ${locality}`, `CCTV repair ${locality}`, `security systems ${locality}`, `camera installation ${city}`, `best cctv camera ${locality}`, `cctv camera price ${locality}`],
     openGraph: {
       title,
       description,
