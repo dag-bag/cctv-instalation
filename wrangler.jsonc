@@ -2,6 +2,6 @@
   "name": "camharbor-pages",
   "compatibility_date": "2025-12-03",
   "assets": {
-    "directory": ".next/static"
+    "directory": ".vercel/output/static"
   }
 }

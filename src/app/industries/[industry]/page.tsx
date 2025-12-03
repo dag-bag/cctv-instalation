@@ -7,22 +7,22 @@ import styles from '../../[slug]/page.module.css';
 export const dynamic = 'force-static';
 export const revalidate = false;
 
-type Props = { params: { industry: string } };
+type Props = { params: Promise<{ industry: string }> };
 
 function findOriginalFromSlug(slug: string, list: string[]): string | undefined {
   return list.find(item => createSlug(item) === slug);
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const { industry: industrySlug } = params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { industry: industrySlug } = await params;
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
   const title = `${industry} CCTV Solutions | Cities in Delhi NCR`;
   const description = `Browse cities where we provide ${industry} surveillance solutions.`;
   return { title, description, alternates: { canonical: `https://www.camharbor.in/industries/${industrySlug}` } };
 }
 
-export default function IndustryCityListPage({ params }: Props) {
-  const { industry: industrySlug } = params;
+export default async function IndustryCityListPage({ params }: Props) {
+  const { industry: industrySlug } = await params;
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
   const breadcrumbSchema = {
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',

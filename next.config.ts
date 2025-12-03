@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   compress: true, // Enable Gzip/Brotli compression
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

@@ -138,8 +138,9 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.camharbor.in/html-sitemap' },
 };
 
-export default function HtmlSitemapPage(props: { params: { page: string } }) {
-  const page = parseInt(props.params.page);
+export default async function HtmlSitemapPage({ params }: Props) {
+  const { page: pageStr } = await params;
+  const page = parseInt(pageStr);
   
   if (isNaN(page) || page < 1) {
     notFound();
@@ -215,3 +216,4 @@ export default function HtmlSitemapPage(props: { params: { page: string } }) {
     </div>
   );
 }
+type Props = { params: Promise<{ page: string }> };
