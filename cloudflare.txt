@@ -1,155 +1,38 @@
-2025-12-02T20:31:08.955Z	Initializing build environment...
-2025-12-02T20:31:10.143Z	Success: Finished initializing build environment
-2025-12-02T20:31:10.498Z	Cloning repository...
-2025-12-02T20:31:18.314Z	Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
-2025-12-02T20:31:18.316Z	Restoring from dependencies cache
-2025-12-02T20:31:18.319Z	Restoring from build output cache
-2025-12-02T20:31:18.677Z	Installing project dependencies: npm clean-install --progress=false
-2025-12-02T20:31:46.035Z	
-2025-12-02T20:31:46.036Z	added 455 packages, and audited 456 packages in 27s
-2025-12-02T20:31:46.045Z	
-2025-12-02T20:31:46.045Z	143 packages are looking for funding
-2025-12-02T20:31:46.046Z	  run `npm fund` for details
-2025-12-02T20:31:46.046Z	
-2025-12-02T20:31:46.049Z	2 vulnerabilities (1 low, 1 moderate)
-2025-12-02T20:31:46.050Z	
-2025-12-02T20:31:46.050Z	To address all issues, run:
-2025-12-02T20:31:46.051Z	  npm audit fix
-2025-12-02T20:31:46.054Z	
-2025-12-02T20:31:46.057Z	Run `npm audit` for details.
-2025-12-02T20:31:46.254Z	Executing user build command: npm run build
-2025-12-02T20:31:52.928Z	
-2025-12-02T20:31:52.928Z	> cctv-instalation@0.1.0 build
-2025-12-02T20:31:52.928Z	> next build
-2025-12-02T20:31:52.928Z	
-2025-12-02T20:31:53.227Z	[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
-2025-12-02T20:31:58.523Z	⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
-2025-12-02T20:31:58.529Z	Attention: Next.js now collects completely anonymous telemetry regarding usage.
-2025-12-02T20:31:58.529Z	This information is used to shape Next.js' roadmap and prioritize features.
-2025-12-02T20:31:58.531Z	You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-2025-12-02T20:31:58.532Z	https://nextjs.org/telemetry
-2025-12-02T20:31:58.532Z	
-2025-12-02T20:31:58.548Z	   ▲ Next.js 16.0.0 (Turbopack)
-2025-12-02T20:31:58.549Z	
-2025-12-02T20:31:58.701Z	   Creating an optimized production build ...
-2025-12-02T20:31:58.881Z	[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
-2025-12-02T20:32:07.814Z	 ✓ Compiled successfully in 8.5s
-2025-12-02T20:32:07.820Z	   Running TypeScript ...
-2025-12-02T20:32:13.348Z	   Collecting page data ...
-2025-12-02T20:32:13.518Z	[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
-2025-12-02T20:32:13.885Z	 ⚠ Using edge runtime on a page currently disables static generation for that page
-2025-12-02T20:32:14.011Z	   Generating static pages (0/14) ...
-2025-12-02T20:32:14.125Z	[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
-2025-12-02T20:32:14.388Z	   Generating static pages (3/14) 
-2025-12-02T20:32:14.586Z	   Generating static pages (6/14) 
-2025-12-02T20:32:14.936Z	   Generating static pages (10/14) 
-2025-12-02T20:32:14.938Z	 ✓ Generating static pages (14/14) in 926.2ms
-2025-12-02T20:32:14.956Z	   Finalizing page optimization ...
-2025-12-02T20:32:14.970Z	
-2025-12-02T20:32:14.972Z	Route (app)
-2025-12-02T20:32:14.972Z	┌ ○ /
-2025-12-02T20:32:14.972Z	├ ○ /_not-found
-2025-12-02T20:32:14.972Z	├ ƒ /[slug]
-2025-12-02T20:32:14.973Z	├ ƒ /[slug]/opengraph-image
-2025-12-02T20:32:14.973Z	├ ƒ /api/contact
-2025-12-02T20:32:14.973Z	├ ƒ /api/generate-content
-2025-12-02T20:32:14.973Z	├ ƒ /api/locations
-2025-12-02T20:32:14.973Z	├ ○ /apple-icon.png
-2025-12-02T20:32:14.973Z	├ ○ /brands
-2025-12-02T20:32:14.973Z	├ ○ /brands/[brand]
-2025-12-02T20:32:14.973Z	├ ○ /brands/[brand]/[city]
-2025-12-02T20:32:14.974Z	├ ○ /brands/[brand]/[city]/[locality]
-2025-12-02T20:32:14.974Z	├ ○ /html-sitemap
-2025-12-02T20:32:14.974Z	├ ƒ /html-sitemap/[page]
-2025-12-02T20:32:14.974Z	├ ○ /icon.png
-2025-12-02T20:32:14.974Z	├ ○ /industries
-2025-12-02T20:32:14.974Z	├ ○ /industries/[industry]
-2025-12-02T20:32:14.974Z	├ ○ /industries/[industry]/[city]
-2025-12-02T20:32:14.974Z	├ ○ /industries/[industry]/[city]/[locality]
-2025-12-02T20:32:14.975Z	├ ○ /repairs
-2025-12-02T20:32:14.975Z	├ ○ /repairs/[issue]
-2025-12-02T20:32:14.975Z	├ ○ /repairs/[issue]/[city]
-2025-12-02T20:32:14.975Z	├ ○ /repairs/[issue]/[city]/[locality]
-2025-12-02T20:32:14.975Z	├ ○ /services/[city]
-2025-12-02T20:32:14.975Z	├ ○ /services/[city]/[locality]
-2025-12-02T20:32:14.975Z	├ ƒ /services/[city]/[locality]/[service]
-2025-12-02T20:32:14.975Z	└ ○ /url-tester
-2025-12-02T20:32:14.975Z	
-2025-12-02T20:32:14.975Z	
-2025-12-02T20:32:14.975Z	○  (Static)   prerendered as static content
-2025-12-02T20:32:14.975Z	ƒ  (Dynamic)  server-rendered on demand
-2025-12-02T20:32:14.978Z	
-2025-12-02T20:32:15.051Z	
-2025-12-02T20:32:15.051Z	> cctv-instalation@0.1.0 postbuild
-2025-12-02T20:32:15.051Z	> next-sitemap
-2025-12-02T20:32:15.051Z	
-2025-12-02T20:32:15.137Z	✨ [next-sitemap] Loading next-sitemap config: file:///opt/buildhome/repo/next-sitemap.config.js
-2025-12-02T20:32:17.088Z	✅ [next-sitemap] Generation completed
-2025-12-02T20:32:17.089Z	┌───────────────┬────────┐
-2025-12-02T20:32:17.089Z	│ (index)       │ Values │
-2025-12-02T20:32:17.089Z	├───────────────┼────────┤
-2025-12-02T20:32:17.089Z	│ indexSitemaps │ 1      │
-2025-12-02T20:32:17.089Z	│ sitemaps      │ 15     │
-2025-12-02T20:32:17.089Z	└───────────────┴────────┘
-2025-12-02T20:32:17.089Z	-----------------------------------------------------
-2025-12-02T20:32:17.089Z	 SITEMAP INDICES 
-2025-12-02T20:32:17.089Z	-----------------------------------------------------
-2025-12-02T20:32:17.089Z	
-2025-12-02T20:32:17.089Z	   ○ https://www.camharbor.in/sitemap.xml
-2025-12-02T20:32:17.089Z	
-2025-12-02T20:32:17.089Z	
-2025-12-02T20:32:17.089Z	-----------------------------------------------------
-2025-12-02T20:32:17.089Z	 SITEMAPS 
-2025-12-02T20:32:17.089Z	-----------------------------------------------------
-2025-12-02T20:32:17.089Z	
-2025-12-02T20:32:17.089Z	   ○ https://www.camharbor.in/sitemap-0.xml
-2025-12-02T20:32:17.089Z	   ○ https://www.camharbor.in/sitemap-1.xml
-2025-12-02T20:32:17.089Z	   ○ https://www.camharbor.in/sitemap-2.xml
-2025-12-02T20:32:17.089Z	     ...
-2025-12-02T20:32:17.091Z	   ○ https://www.camharbor.in/sitemap-13.xml
-2025-12-02T20:32:17.091Z	   ○ https://www.camharbor.in/sitemap-14.xml
-2025-12-02T20:32:17.091Z	
-2025-12-02T20:32:17.091Z	
-2025-12-02T20:32:17.145Z	Success: Build command completed
-2025-12-02T20:32:17.281Z	Executing user deploy command: npx wrangler deploy
-2025-12-02T20:32:30.517Z	npm warn exec The following package was not found and will be installed: wrangler@4.51.0
-2025-12-02T20:32:40.489Z	
-2025-12-02T20:32:40.490Z	 ⛅️ wrangler 4.51.0
-2025-12-02T20:32:40.490Z	───────────────────
-2025-12-02T20:32:40.516Z	
-2025-12-02T20:32:40.595Z	✘ [ERROR] Missing entry-point to Worker script or to assets directory
-2025-12-02T20:32:40.596Z	
-2025-12-02T20:32:40.596Z	  
-2025-12-02T20:32:40.596Z	  If there is code to deploy, you can either:
-2025-12-02T20:32:40.597Z	  - Specify an entry-point to your Worker script via the command line (ex: `npx wrangler deploy src/index.ts`)
-2025-12-02T20:32:40.597Z	  - Or create a "wrangler.jsonc" file containing:
-2025-12-02T20:32:40.597Z	  
-2025-12-02T20:32:40.597Z	  ```
-2025-12-02T20:32:40.597Z	  {
-2025-12-02T20:32:40.597Z	    "name": "worker-name",
-2025-12-02T20:32:40.597Z	    "compatibility_date": "2025-12-02",
-2025-12-02T20:32:40.598Z	    "main": "src/index.ts"
-2025-12-02T20:32:40.598Z	  }
-2025-12-02T20:32:40.598Z	  ```
-2025-12-02T20:32:40.598Z	  
-2025-12-02T20:32:40.598Z	  
-2025-12-02T20:32:40.598Z	  If are uploading a directory of assets, you can either:
-2025-12-02T20:32:40.598Z	  - Specify the path to the directory of assets via the command line: (ex: `npx wrangler deploy --assets=./dist`)
-2025-12-02T20:32:40.598Z	  - Or create a "wrangler.jsonc" file containing:
-2025-12-02T20:32:40.598Z	  
-2025-12-02T20:32:40.598Z	  ```
-2025-12-02T20:32:40.598Z	  {
-2025-12-02T20:32:40.599Z	    "name": "worker-name",
-2025-12-02T20:32:40.599Z	    "compatibility_date": "2025-12-02",
-2025-12-02T20:32:40.599Z	    "assets": {
-2025-12-02T20:32:40.599Z	      "directory": "./dist"
-2025-12-02T20:32:40.599Z	    }
-2025-12-02T20:32:40.600Z	  }
-2025-12-02T20:32:40.600Z	  ```
-2025-12-02T20:32:40.600Z	  
-2025-12-02T20:32:40.602Z	
-2025-12-02T20:32:40.602Z	
-2025-12-02T20:32:40.621Z	
-2025-12-02T20:32:40.621Z	Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
-2025-12-02T20:32:40.636Z	🪵  Logs were written to "/opt/buildhome/.config/.wrangler/logs/wrangler-2025-12-02_20-32-39_853.log"
-2025-12-02T20:32:45.232Z	Failed: error occurred while running deploy command
+{
+  "name": "cctv-instalation",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src --ext .ts,.tsx,.js",
+    "generate:seo-urls": "ts-node scripts/generate-seo-urls.ts",
+    "postbuild": "next-sitemap && npx @cloudflare/next-on-pages@latest",
+    "pages:build": "npx @cloudflare/next-on-pages@latest",
+    "deploy:cf": "wrangler pages deploy .vercel/output/static"
+  },
+  "dependencies": {
+    "next": "15.4.1",
+    "next-sitemap": "^4.2.3",
+    "nodemailer": "^7.0.10",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.24",
+    "@types/nodemailer": "^7.0.4",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "axios": "^1.13.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.1",
+    "@cloudflare/next-on-pages": "1.13.16",
+    "wrangler": "^3.78.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "@vercel/nft": "0.29.0"
+  }
+}
