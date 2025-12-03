@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx,.js",
     "generate:seo-urls": "ts-node scripts/generate-seo-urls.ts",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "pages:build": "npx @cloudflare/next-on-pages@latest build",
+    "deploy:cf": "wrangler pages deploy .vercel/output/static"
   },
   "dependencies": {
     "next": "16.0.0",
@@ -25,6 +27,7 @@
     "axios": "^1.13.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
+    "@cloudflare/next-on-pages": "^1.13.1",
     "ts-node": "^10.9.2",
     "typescript": "^5"
   }
