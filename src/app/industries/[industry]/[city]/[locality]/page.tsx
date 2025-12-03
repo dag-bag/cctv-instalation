@@ -8,14 +8,14 @@ import styles from '../../../../[slug]/page.module.css';
 export const dynamic = 'force-static';
 export const revalidate = false;
 
-type Props = { params: Promise<{ industry: string; city: string; locality: string }> };
+type Props = { params: { industry: string; city: string; locality: string } };
 
 function findOriginalFromSlug(slug: string, list: string[]): string | undefined {
   return list.find(item => createSlug(item) === slug);
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { industry: industrySlug, city: citySlug, locality: localitySlug } = await params;
+export function generateMetadata({ params }: Props): Metadata {
+  const { industry: industrySlug, city: citySlug, locality: localitySlug } = params;
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
   const city = findOriginalFromSlug(citySlug, CITIES) || citySlug;
   const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []) || localitySlug;
@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function IndustryDetailPage({ params }: Props) {
-  const { industry: industrySlug, city: citySlug, locality: localitySlug } = await params;
+export default function IndustryDetailPage({ params }: Props) {
+  const { industry: industrySlug, city: citySlug, locality: localitySlug } = params;
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
   const city = findOriginalFromSlug(citySlug, CITIES) || citySlug;
   const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []) || localitySlug;
