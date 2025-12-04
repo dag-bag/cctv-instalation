@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { CITIES, LOCALITIES, createSlug } from '@/lib/seo-data';
 import styles from '../../../[slug]/page.module.css';
 
+export const runtime = 'edge';
 export const dynamic = 'force-static';
 export const revalidate = false;
 

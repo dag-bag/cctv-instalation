@@ -13,6 +13,8 @@ import {
 import styles from "../../../../[slug]/page.module.css";
 import BookingForm from "../../../../../components/BookingFormClient";
 
+export const runtime = 'edge';
+
 type Props = {
   params: Promise<{
     city: string;

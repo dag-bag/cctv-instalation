@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { CITIES, LOCALITIES, INDUSTRIES, createSlug, getIndustryContent } from '@/lib/seo-data';
 import styles from '../../../../[slug]/page.module.css';
 
+export const runtime = 'edge';
 export const dynamic = 'force-static';
 export const revalidate = false;
 

@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, SERVICES, createSlug, generateQuerySlugs } from '../../../lib/seo-data';
 import styles from '../../page.module.css';
 
+export const runtime = 'edge';
+
 const ITEMS_PER_PAGE = 1000;
 
 // Helper to generate all routes (same as sitemap.ts but returning objects for display)

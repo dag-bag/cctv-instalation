@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, createSlug } from '../../../lib/seo-data';
 import styles from '../../[slug]/page.module.css'; // Reusing styles
+export const runtime = 'edge';
 export const dynamic = 'force-static';
 export const revalidate = false;
 
