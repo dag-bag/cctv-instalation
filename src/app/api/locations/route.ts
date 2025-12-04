@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { CITIES, LOCALITIES, SERVICES, createSlug } from '../../../lib/seo-data';
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     interface UrlEntry {

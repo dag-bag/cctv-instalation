@@ -20,6 +20,8 @@ import {
 } from "../../lib/content-generator";
 import styles from "./page.module.css";
 
+export const runtime = 'edge';
+
 type Props = {
   params: Promise<{
     slug: string;
