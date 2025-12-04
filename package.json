@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next-sitemap",
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx,.js",
     "generate:seo-urls": "ts-node scripts/generate-seo-urls.ts",
-    "postbuild": "next-sitemap && npx @cloudflare/next-on-pages@latest",
     "pages:build": "npx @cloudflare/next-on-pages@latest",
     "deploy:cf": "wrangler pages deploy .vercel/output/static"
   },
