@@ -10,8 +10,17 @@ import {
   createSlug,
   getServiceContent,
 } from "../../../../../lib/seo-data";
+import { generateAllServiceRoutes } from "../../../../../lib/route-generator";
 import styles from "../../../../[slug]/page.module.css";
 import BookingForm from "../../../../../components/BookingFormClient";
+
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+// Generate static params for all service combinations (~230,000 routes)
+export function generateStaticParams() {
+  return generateAllServiceRoutes();
+}
 
 type Props = {
   params: Promise<{

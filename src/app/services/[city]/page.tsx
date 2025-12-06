@@ -4,9 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, createSlug } from '../../../lib/seo-data';
+import { generateServiceCityRoutes } from '../../../lib/route-generator';
 import styles from '../../[slug]/page.module.css'; // Reusing styles
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+// Generate static params for all cities
+export function generateStaticParams() {
+  return generateServiceCityRoutes();
+}
+
 
 type Props = {
   params: Promise<{

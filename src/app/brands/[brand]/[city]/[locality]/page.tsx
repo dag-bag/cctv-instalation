@@ -3,9 +3,15 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CITIES, LOCALITIES, SERVICES, createSlug } from '@/lib/seo-data';
+import { generateBrandLocalityRoutes } from '@/lib/route-generator';
 import styles from '../../../../[slug]/page.module.css';
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateBrandLocalityRoutes();
+}
+
 
 type Props = {
   params: Promise<{ brand: string; city: string; locality: string }>

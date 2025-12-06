@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'export', // Enable static HTML export
+  trailingSlash: true, // Add trailing slashes to all routes for static export
   compress: true, // Enable Gzip/Brotli compression
   images: {
+    // unoptimized: true, // Required for static export as image optimization requires a server
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
@@ -11,53 +14,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ],
-      },
-    ];
-  },
-  async rewrites() {
-    return [
-      // Pattern 2: /service/location → /location/service
-      // This allows users to browse by service first
-      {
-        source: '/:service(installation-services|repair-services|maintenance-services|upgrade-services|wireless-cctv-installation|ip-camera-installation|dome-camera-installation|bullet-camera-installation|ptz-camera-installation|nvr-dvr-installation|electrician-services|home-automation|intercom-installation|biometric-installation|access-control-installation|alarm-system-installation|video-door-phone|network-cabling|wifi-installation|solar-cctv-installation)/:location',
-        destination: '/:location/:service',
-      },
-    ];
-  },
+  // Note: headers() and rewrites() are not supported with output: 'export'
+  // These features require a server and are removed for static export
 };
 
 export default nextConfig;

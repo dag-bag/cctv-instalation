@@ -18,7 +18,16 @@ import {
   generateBrandContent,
   getServiceCategory,
 } from "../../lib/content-generator";
+import { generateLegacySlugRoutes } from "../../lib/route-generator";
 import styles from "./page.module.css";
+
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateLegacySlugRoutes();
+}
+
 
 type Props = {
   params: Promise<{

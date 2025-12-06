@@ -2,10 +2,15 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { CITIES, LOCALITIES, createSlug } from '@/lib/seo-data';
+import { generateBrandCityRoutes } from '@/lib/route-generator';
 import styles from '../../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateBrandCityRoutes();
+}
 
 type Props = { params: Promise<{ brand: string; city: string }> };
 

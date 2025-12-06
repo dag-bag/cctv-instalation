@@ -122,14 +122,17 @@ function generateAllLinks() {
   return links;
 }
 
-// export async function generateStaticParams() {
-//   const allLinks = generateAllLinks();
-//   const totalPages = Math.ceil(allLinks.length / ITEMS_PER_PAGE);
+export async function generateStaticParams() {
+  const allLinks = generateAllLinks();
+  const totalPages = Math.ceil(allLinks.length / ITEMS_PER_PAGE);
   
-//   return Array.from({ length: totalPages }, (_, i) => ({
-//     page: (i + 1).toString(),
-//   }));
-// }
+  return Array.from({ length: totalPages }, (_, i) => ({
+    page: (i + 1).toString(),
+  }));
+}
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: 'HTML Sitemap - All Services & Locations',

@@ -2,10 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { CITIES, createSlug } from '@/lib/seo-data';
+import { generateRepairIssueRoutes } from '@/lib/route-generator';
 import styles from '../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateRepairIssueRoutes();
+}
+
 
 type Props = { params: Promise<{ issue: string }> };
 

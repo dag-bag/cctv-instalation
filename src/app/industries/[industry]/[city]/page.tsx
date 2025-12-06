@@ -2,10 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { CITIES, LOCALITIES, INDUSTRIES, createSlug } from '@/lib/seo-data';
+import { generateIndustryCityRoutes } from '@/lib/route-generator';
 import styles from '../../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateIndustryCityRoutes();
+}
+
 
 type Props = { params: { industry: string; city: string } };
 

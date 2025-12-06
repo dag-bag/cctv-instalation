@@ -3,9 +3,15 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CITIES, LOCALITIES, createSlug } from '@/lib/seo-data';
+import { generateRepairLocalityRoutes } from '@/lib/route-generator';
 import styles from '../../../../[slug]/page.module.css';
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateRepairLocalityRoutes();
+}
+
 
 type Props = { params: Promise<{ issue: string; city: string; locality: string }> };
 

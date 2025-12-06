@@ -3,10 +3,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { CITIES, LOCALITIES, INDUSTRIES, createSlug, getIndustryContent } from '@/lib/seo-data';
+import { generateIndustryLocalityRoutes } from '@/lib/route-generator';
 import styles from '../../../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
+
+export function generateStaticParams() {
+  return generateIndustryLocalityRoutes();
+}
+
 
 type Props = { params: { industry: string; city: string; locality: string } };
 
