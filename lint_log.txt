@@ -1,0 +1,20 @@
+
+> cctv-instalation@0.1.0 lint
+> eslint src --ext .ts,.tsx,.js
+
+
+Oops! Something went wrong! :(
+
+ESLint: 9.38.0
+
+TypeError: Plugin "" not found.
+    at findPluginConfig (C:\Users\Dell\Documents\GitHub\cctv-instalation\node_modules\@eslint\config-helpers\dist\cjs\index.cjs:259:9)
+    at C:\Users\Dell\Documents\GitHub\cctv-instalation\node_modules\@eslint\config-helpers\dist\cjs\index.cjs:430:25
+    at Array.map (<anonymous>)
+    at processExtends (C:\Users\Dell\Documents\GitHub\cctv-instalation\node_modules\@eslint\config-helpers\dist\cjs\index.cjs:428:36)
+    at C:\Users\Dell\Documents\GitHub\cctv-instalation\node_modules\@eslint\config-helpers\dist\cjs\index.cjs:504:38
+    at Array.flatMap (<anonymous>)
+    at processConfigList (C:\Users\Dell\Documents\GitHub\cctv-instalation\node_modules\@eslint\config-helpers\dist\cjs\index.cjs:504:20)
+    at defineConfig (C:\Users\Dell\Documents\GitHub\cctv-instalation\node_modules\@eslint\config-helpers\dist\cjs\index.cjs:540:9)
+    at file:///C:/Users/Dell/Documents/GitHub/cctv-instalation/eslint.config.mjs?mtime=1767037852545:5:22
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
