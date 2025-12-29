@@ -162,8 +162,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-
-  const serviceImage = "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop";
+  const serviceImage =
+    "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop";
 
   // SEO Optimized Title & Description
   const title = `${service} in ${locality}, ${city}`;
@@ -182,9 +182,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       googleBot: {
         index: true,
         follow: true,
-        'max-image-preview': 'large',
-        'max-video-preview': -1,
-        'max-snippet': -1,
+        "max-image-preview": "large",
+        "max-video-preview": -1,
+        "max-snippet": -1,
       },
     },
     openGraph: {
@@ -453,7 +453,12 @@ export default async function HierarchicalServicePage({ params }: Props) {
             <span className={styles.highlight}>{locality}</span>, {city}
           </h1>
           <p className={styles.subtitle}>{data.heroSubheading}</p>
-          <button className={styles.ctaButton} aria-label={`Book ${service} in ${locality}`}>Book Service Now</button>
+          <button
+            className={styles.ctaButton}
+            aria-label={`Book ${service} in ${locality}`}
+          >
+            Book Service Now
+          </button>
         </div>
       </header>
 
@@ -487,8 +492,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
                 </strong>{" "}
                 trust us for their security needs. We provide top-notch{" "}
                 {service.toLowerCase()} with a focus on quality, speed, and
-                reliability. Whether it&apos;s a residential complex or a commercial
-                establishment in {locality}, our expert team is ready to assist.
+                reliability. Whether it&apos;s a residential complex or a
+                commercial establishment in {locality}, our expert team is ready
+                to assist.
               </p>
             </div>
 
@@ -563,7 +569,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
               {data.testimonials.map((t, index) => (
                 <div key={index} className={styles.testimonialCard}>
                   <div className={styles.testimonialRating}>
-                    {'⭐'.repeat(t.rating || 5)}
+                    {"⭐".repeat(t.rating || 5)}
                   </div>
                   <p className={styles.testimonialText}>&quot;{t.text}&quot;</p>
                   <div className={styles.testimonialAuthor}>
@@ -586,22 +592,30 @@ export default async function HierarchicalServicePage({ params }: Props) {
                 <div className={styles.howStepCard}>
                   <div className={styles.howStepNumber}>1</div>
                   <h3 className={styles.howStepTitle}>Book Service</h3>
-                  <p className={styles.howStepDescription}>Call us or request a quote online.</p>
+                  <p className={styles.howStepDescription}>
+                    Call us or request a quote online.
+                  </p>
                 </div>
                 <div className={styles.howStepCard}>
                   <div className={styles.howStepNumber}>2</div>
                   <h3 className={styles.howStepTitle}>Confirmation</h3>
-                  <p className={styles.howStepDescription}>We confirm your slot & technician.</p>
+                  <p className={styles.howStepDescription}>
+                    We confirm your slot & technician.
+                  </p>
                 </div>
                 <div className={styles.howStepCard}>
                   <div className={styles.howStepNumber}>3</div>
                   <h3 className={styles.howStepTitle}>Service Delivery</h3>
-                  <p className={styles.howStepDescription}>Expert arrives and completes the job.</p>
+                  <p className={styles.howStepDescription}>
+                    Expert arrives and completes the job.
+                  </p>
                 </div>
                 <div className={styles.howStepCard}>
                   <div className={styles.howStepNumber}>4</div>
                   <h3 className={styles.howStepTitle}>Payment</h3>
-                  <p className={styles.howStepDescription}>Pay after satisfied service.</p>
+                  <p className={styles.howStepDescription}>
+                    Pay after satisfied service.
+                  </p>
                 </div>
               </div>
             </div>
@@ -631,8 +645,8 @@ export default async function HierarchicalServicePage({ params }: Props) {
             </div>
           </section>
 
-        {/* FAQ Section */}
-        <section className={styles.faqSection}>
+          {/* FAQ Section */}
+          <section className={styles.faqSection}>
             <div
               className={styles.container}
               style={{ background: "transparent", minHeight: "auto" }}
@@ -655,8 +669,19 @@ export default async function HierarchicalServicePage({ params }: Props) {
           <section>
             <h2 className={styles.sectionTitle}>Related Problems We Fix</h2>
             <div className={styles.featuresGrid}>
-              {["CCTV No Signal Fix","CCTV Blur Image Fix","CCTV Recording Issue","CCTV Mobile View Setup"].map((issue, i) => (
-                <Link key={i} href={`/repairs/${createSlug(issue)}/${createSlug(city)}/${createSlug(locality)}`} className={styles.featureCard}>
+              {[
+                "CCTV No Signal Fix",
+                "CCTV Blur Image Fix",
+                "CCTV Recording Issue",
+                "CCTV Mobile View Setup",
+              ].map((issue, i) => (
+                <Link
+                  key={i}
+                  href={`/repairs/${createSlug(issue)}/${createSlug(
+                    city
+                  )}/${createSlug(locality)}`}
+                  className={styles.featureCard}
+                >
                   <span className={styles.checkIcon}>🧰</span>
                   <span className={styles.featureText}>{issue}</span>
                 </Link>
@@ -728,7 +753,11 @@ export default async function HierarchicalServicePage({ params }: Props) {
       <div className={styles.stickySpacer} aria-hidden="true"></div>
       {/* Sticky Mobile CTA */}
       <div className={styles.stickyMobileCTA}>
-        <a href="tel:+918766203976" aria-label={`Call ${service} in ${locality}`} className={styles.stickyCallBtn}>
+        <a
+          href="tel:+918766203976"
+          aria-label={`Call ${service} in ${locality}`}
+          className={styles.stickyCallBtn}
+        >
           📞 Call Now
         </a>
         <a
@@ -742,3 +771,5 @@ export default async function HierarchicalServicePage({ params }: Props) {
     </div>
   );
 }
+export const dynamic = "force-static";
+export const revalidate = false;
