@@ -1,16 +1,45 @@
-import Link from 'next/link';
+
+import { getImageProps } from 'next/image';
 import { BUSINESS_CONFIG } from '@/config/business';
 import styles from './Header.module.css';
+import Link from './Link';
 
 export default function Header() {
+  const common = { alt: BUSINESS_CONFIG.name, priority: true };
+  
+  const {
+    props: { srcSet: desktopSrcSet, ...rest },
+  } = getImageProps({
+    ...common,
+    width: 160,
+    height: 40,
+    src: '/logo/desktop.webp',
+  });
+
+  const {
+    props: { srcSet: mobileSrcSet },
+  } = getImageProps({
+    ...common,
+    width: 40,
+    height: 40,
+    src: '/logo/mobile.webp',
+  });
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
+        <div className={styles.logoWrapper}>
           <picture>
-            <source media="(max-width: 768px)" srcSet="/logo-icon.png" />
-            <img src="/logo-full.png" alt={BUSINESS_CONFIG.name} height={40} className={styles.logoImage} />
+            <source media="(max-width: 768px)" srcSet={mobileSrcSet} />
+            <source media="(min-width: 769px)" srcSet={desktopSrcSet} />
+            <img 
+              {...rest} 
+              className={styles.logoImage} 
+              alt={BUSINESS_CONFIG.name}
+            />
           </picture>
+        </div>
         </Link>
         
         <nav className={styles.nav}>
@@ -35,7 +64,7 @@ export default function Header() {
           </div>
 
           <Link href="/" className={styles.navLink}>Home</Link>
-          <Link href="/services/delhi" className={styles.navLink}>Services</Link>
+          <Link href="/services" className={styles.navLink}>Services</Link>
           <Link href="/html-sitemap" className={styles.navLink}>Site Index</Link>
           <a href={`tel:${BUSINESS_CONFIG.phone}`} className={styles.ctaButton}>
             Call Now
