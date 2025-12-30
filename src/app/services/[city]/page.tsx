@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, createSlug } from '../../../lib/seo-data';
+import { getImageUrl, getImageAlt } from '../../../config/images';
 import styles from '../../[slug]/page.module.css'; // Reusing styles
 export const dynamic = 'force-static';
 export const revalidate = false;
@@ -113,8 +114,8 @@ export default async function CityPage({ params }: Props) {
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
-            alt={`CCTV Installation and Security Services in ${city}`}
+            src={getImageUrl('default', 'hero', 2070)}
+            alt={getImageAlt('default', 'hero', { city })}
             fill
             priority
             sizes="100vw"

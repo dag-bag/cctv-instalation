@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { CITIES, LOCALITIES, INDUSTRIES, createSlug, getIndustryContent } from '@/lib/seo-data';
+import { getImageUrl, getImageAlt } from '@/config/images';
 import styles from '../../../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
@@ -60,8 +61,8 @@ export default async function IndustryDetailPage({ params }: Props) {
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src={content.heroImage}
-            alt={`${industry} CCTV solutions in ${locality}, ${city}`}
+            src={getImageUrl(industry, 'industry', 2070)}
+            alt={getImageAlt(industry, 'industry', { city, locality })}
             fill
             priority
             sizes="100vw"

@@ -11,6 +11,7 @@ import {
   SERVICES,
   LOCALITIES,
 } from "../../lib/seo-data";
+import { getImageUrl, getImageAlt } from "../../config/images";
 import {
   detectPattern,
   generateInstallationContent,
@@ -70,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (queryParsed) {
     const { service, locality, city } = queryParsed;
     const data = await getPageData(service, locality, city, slug);
-    const serviceImage = "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=1200&auto=format&fit=crop";
+    const serviceImage = getImageUrl(service, 'service', 1200);
 
     const title = data.pattern === 'brand' && data.brandName
       ? `${data.brandName} ${service} in ${locality}, ${city}`
@@ -184,8 +185,8 @@ export default async function SlugPage({ params }: Props) {
         <header className={styles.hero}>
           <div className={styles.heroBackground}>
             <Image
-              src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
-              alt={`${service} in ${locality}, ${city}`}
+              src={getImageUrl(service, 'service', 2070)}
+              alt={getImageAlt(service, 'service', { city, locality, service })}
               fill
               priority
               quality={85}

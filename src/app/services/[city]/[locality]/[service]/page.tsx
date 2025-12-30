@@ -10,6 +10,7 @@ import {
   createSlug,
   getServiceContent,
 } from "../../../../../lib/seo-data";
+import { getImageUrl, getImageAlt } from "../../../../../config/images";
 import styles from "../../../../[slug]/page.module.css";
 import BookingForm from "../../../../../components/BookingFormClient";
 
@@ -162,8 +163,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const serviceImage =
-    "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop";
+  // Get SEO-friendly image for the service
+  const serviceImage = getImageUrl(service, 'service', 2070);
 
   // SEO Optimized Title & Description
   const title = `${service} in ${locality}, ${city} - Best Price & Quick Service`;
@@ -438,8 +439,8 @@ export default async function HierarchicalServicePage({ params }: Props) {
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
-            alt={`${service} in ${locality}, ${city}`}
+            src={getImageUrl(service, 'service', 2070)}
+            alt={getImageAlt(service, 'service', { city, locality, service })}
             fill
             priority
             quality={85}

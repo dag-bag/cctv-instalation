@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CITIES, LOCALITIES, createSlug } from '@/lib/seo-data';
+import { getImageUrl, getImageAlt } from '@/config/images';
 import styles from '../../../../[slug]/page.module.css';
 export const dynamic = 'force-static';
 export const revalidate = false;
@@ -70,8 +71,8 @@ export default async function RepairPage({ params }: Props) {
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src="https://images.unsplash.com/photo-1606220280722-06c6cc8dd2d8?q=80&w=1200&auto=format&fit=crop"
-            alt={`CCTV repair service for ${issue.replace(/-/g,' ')} in ${locality}, ${city}`}
+            src={getImageUrl('cctvRepair', 'hero', 2070)}
+            alt={getImageAlt('cctvRepair', 'hero', { city, locality, service: issue.replace(/-/g,' ') })}
             fill
             priority
             sizes="100vw"

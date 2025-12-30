@@ -165,7 +165,7 @@ export default async function ServicesIndexPage() {
               Popular Locality Examples
             </h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem 1.2rem" }}>
-              {serviceExamples.map((example, idx) => (
+              {serviceExamples.map((example) => (
                 <Link
                   key={example.slug}
                   href={example.slug}

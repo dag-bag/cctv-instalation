@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { CITIES, LOCALITIES, SERVICES, createSlug } from "@/lib/seo-data";
 import { BUSINESS_CONFIG } from "@/config/business";
+import { getImageUrl, getImageAlt } from "@/config/images";
 import CTAButtons from "@/components/CTAButtons";
 import FloatingCTA from "@/components/FloatingCTA";
 import styles from "./page.module.css";
@@ -134,8 +135,8 @@ export default function Home() {
         <section className={styles.hero}>
           <div className={styles.heroBackground}>
             <Image
-              src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop"
-              alt="Professional CCTV Camera Installation and Security Services in Delhi NCR"
+              src={getImageUrl('default', 'hero', 2070)}
+              alt={getImageAlt('default', 'hero')}
               fill
               priority
               quality={85}

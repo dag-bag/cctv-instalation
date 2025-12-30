@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CITIES, LOCALITIES, SERVICES, createSlug } from '@/lib/seo-data';
+import { getImageUrl, getImageAlt } from '@/config/images';
 import styles from '../../../../[slug]/page.module.css';
 export const dynamic = 'force-static';
 export const revalidate = false;
@@ -57,8 +58,8 @@ export default async function BrandPage({ params }: Props) {
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src="https://images.unsplash.com/photo-1517511620798-cec17d1bb8ea?q=80&w=1200&auto=format&fit=crop"
-            alt={`${brand} CCTV and security installation in ${locality}, ${city}`}
+            src={getImageUrl('brandInstallation', 'hero', 2070)}
+            alt={getImageAlt('brandInstallation', 'hero', { city, locality, service: brand })}
             fill
             priority
             sizes="100vw"
