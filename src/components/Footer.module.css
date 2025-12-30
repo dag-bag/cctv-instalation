@@ -61,10 +61,73 @@
   color: #3b82f6;
 }
 
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.socialLink:hover {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.reviewButton {
+  margin-top: 1.5rem;
+}
+
+.reviewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.reviewLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.4);
+}
+
+.reviewIcon {
+  font-size: 1.2rem;
+}
+
 .copyright {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 2rem;
   text-align: center;
   font-size: 0.875rem;
   color: #64748b;
+}
+
+.trustBadge {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.trustBadge strong {
+  color: #10b981;
+  font-weight: 600;
 }

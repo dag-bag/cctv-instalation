@@ -12,13 +12,17 @@ export const BUSINESS_CONFIG = {
   defaultDescription: "Professional CCTV installation and repair services in Delhi. 24/7 support, expert technicians, affordable rates.",
   keywords: "CCTV installation, CCTV repair, security camera, surveillance system, Delhi",
   
-  // Social Links (Optional)
+  // Social Links
   social: {
-    facebook: "",
-    instagram: "",
-    twitter: "",
+    youtube: "https://www.youtube.com/@CamHarbor",
+    twitter: "https://x.com/CamHarbor304",
+    instagram: "https://www.instagram.com/camharbor/",
+    facebook: "https://www.facebook.com/people/Camharbor/61584745400134/",
     linkedin: "",
   },
+  
+  // Google My Business Review Link
+  googleReview: "https://g.page/r/CUHFqTZBjDyIEBI/review",
   
   // Service Hours
   hours: {

@@ -366,3 +366,4 @@ export default async function SlugPage({ params }: Props) {
   const { city, locality, service } = flatParsed;
   permanentRedirect(`/services/${createSlug(city)}/${createSlug(locality)}/${createSlug(service)}`);
 }
+export const dynamic = "force-static";

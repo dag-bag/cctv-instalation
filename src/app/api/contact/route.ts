@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, service } = body;
+    const { name, phone, service, email, message } = body;
 
     // Validate input
     if (!name || !phone || !service) {
@@ -26,11 +26,23 @@ export async function POST(request: Request) {
     });
 
     // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'virenderkumar23435@gmail.com', // User's email
-      subject: `New Service Request: ${service}`,
-      text: `
+    const subject = email || message 
+      ? `New Contact Form Submission: ${service}` 
+      : `New Service Request: ${service}`;
+    
+    const emailText = email || message
+      ? `
+        New Contact Form Submission
+        
+        Name: ${name}
+        Email: ${email || 'Not provided'}
+        Phone: ${phone}
+        Service: ${service}
+        Message: ${message || 'No message provided'}
+        
+        Please contact the customer ASAP.
+      `
+      : `
         New Booking Request
         
         Name: ${name}
@@ -38,15 +50,34 @@ export async function POST(request: Request) {
         Service: ${service}
         
         Please contact the customer ASAP.
-      `,
-      html: `
+      `;
+
+    const emailHtml = email || message
+      ? `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email || 'Not provided'}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        ${message ? `<p><strong>Message:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>` : ''}
+        <br/>
+        <p><em>Please contact the customer ASAP.</em></p>
+      `
+      : `
         <h2>New Booking Request</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Service:</strong> ${service}</p>
         <br/>
         <p><em>Please contact the customer ASAP.</em></p>
-      `,
+      `;
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: 'virenderkumar23435@gmail.com', // User's email
+      subject: subject,
+      text: emailText,
+      html: emailHtml,
     };
 
     // Send email

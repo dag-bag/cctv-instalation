@@ -207,13 +207,44 @@ function generateAllLinks() {
 //   }));
 // }
 
-export const metadata: Metadata = {
-  title: "HTML Sitemap - All Services & Locations",
-  description:
-    "Comprehensive list of all CCTV installation and repair services across Delhi NCR locations.",
-  robots: "index, follow",
-  alternates: { canonical: "https://www.camharbor.in/html-sitemap" },
-};
+export async function generateMetadata({ params }: { params: { page: string } }): Promise<Metadata> {
+  const pageNum = parseInt(params.page || "1", 10);
+  const page = isNaN(pageNum) || pageNum < 1 ? 1 : pageNum;
+
+  const title =
+    page === 1
+      ? "HTML Sitemap - All Services & Locations"
+      : `HTML Sitemap Page ${page} - All Services & Locations`;
+
+  const description =
+    page === 1
+      ? "Comprehensive list of all CCTV installation and repair services across Delhi NCR locations."
+      : `Sitemap page ${page} - All CCTV installation and repair services across Delhi NCR locations. Browse services, brands, and localities.`;
+
+  // set canonical to /html-sitemap if on page 1, else /html-sitemap/[page]
+  const canonical =
+    page === 1
+      ? `https://www.camharbor.in/html-sitemap`
+      : `https://www.camharbor.in/html-sitemap/${page}`;
+
+  return {
+    title,
+    description,
+    robots: "index, follow",
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: canonical,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function HtmlSitemapPage(props: {
   params: Promise<{ page: string }>;

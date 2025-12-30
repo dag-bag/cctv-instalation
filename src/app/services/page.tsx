@@ -3,21 +3,21 @@ import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { CITIES, LOCALITIES, createSlug, SERVICES } from '@/lib/seo-data';
 import styles from './page.module.css';
-// import { getCities } from '@/lib/api';
 import { CityData } from '@/types/city';
 import { getCities } from '@/lib/api';
 
+// Stronger SEO meta: targeting CCTV installation, city, locality
 export const metadata: Metadata = {
-  title: 'Services by City | CamHarbor',
+  title: 'CCTV Installation, Repair & Security Services in All Cities & Localities | CamHarbor',
   description:
-    'Browse CCTV installation, repair, access control, and security services by city. Select your city to view localities and book certified technicians.',
+    'Find the best CCTV installation, security camera repair, access control, video door phone, and all security system services by city and locality. Book certified technicians in Delhi, Gurgaon, Noida, Ghaziabad & 100+ areas. Same-day visit, transparent pricing, 24/7 support. Start by choosing your city and locality to discover top-rated security solutions for homes, apartments, offices, shops and factories.',
   alternates: { canonical: 'https://www.camharbor.in/services' },
   openGraph: {
     type: 'website',
     url: 'https://www.camharbor.in/services',
-    title: 'Services by City',
+    title: 'CCTV, Security & Electrical Services by City & Locality',
     description:
-      'Explore our security services directory. Select a city to view localities and book experts.',
+      'Search trusted CCTV installation, security repair, biometric access, and AMC services across Delhi NCR. Choose your city and locality for the best experts near you.',
   },
   robots: {
     index: true,
@@ -30,6 +30,8 @@ export default async function ServicesIndexPage() {
   const apiCities: CityData[] = citiesResponse.data || [];
   const displayCities = apiCities.length > 0 ? apiCities.map(c => c.name) : CITIES;
   const apiCityByName = (name: string) => apiCities.find(c => c.name === name);
+
+  // SEO: Add main keyword-rich structured data for cities/services/localities
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -66,6 +68,17 @@ export default async function ServicesIndexPage() {
       priceSpecification: { "@type": "PriceSpecification", priceCurrency: "INR" }
     }))
   };
+
+  // SEO CONTENT BLOCKS
+  const serviceExamples = [
+    { slug: '/services/delhi/adarsh-nagar/cctv-installation', label: 'CCTV Installation in Adarsh Nagar, Delhi' },
+    { slug: '/services/gurgaon/sector-56/access-control', label: 'Access Control in Sector 56, Gurgaon' },
+    { slug: '/services/noida/sector-62/security-camera-repair', label: 'Security Camera Repair in Sector 62, Noida' },
+    { slug: '/services/ghaziabad/indirapuram/video-door-phone', label: 'Video Door Phone in Indirapuram, Ghaziabad' },
+    { slug: '/services/delhi/rohini/amc', label: 'CCTV AMC Services in Rohini, Delhi' },
+    { slug: '/services/faridabad/sector-15/electrical-services', label: 'Electrical Services in Sector 15, Faridabad' },
+  ];
+
   return (
     <div className={styles.container}>
       <script
@@ -74,13 +87,22 @@ export default async function ServicesIndexPage() {
           __html: JSON.stringify([breadcrumbSchema, itemListCitiesSchema, offerCatalogSchema]),
         }}
       />
+
       <header className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>Security Services by City</h1>
-          <p className={styles.subtitle}>
-            Choose your city to view supported localities and book certified CCTV and security experts.
+          <h1 className={styles.title} style={{ marginBottom: 8 }}>
+            CCTV Installation & Security Services By City & Locality
+          </h1>
+          <p className={styles.subtitle} style={{ fontWeight: 500 }}>
+            Discover trusted CCTV installation, security system repair, biometric access control, door phone, and general electrical services for 100+ cities and localities across Delhi NCR.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <ul style={{ marginTop: 12, fontSize: '1.04rem', paddingLeft: 18, color: "#64748b" }}>
+            <li>🏙️ Book certified technicians for CCTV, security, and electrical work in your own locality</li>
+            <li>🗺️ Transparent rates, 1-year warranty, genuine spare parts, and 24/7 emergency support</li>
+            <li>✅ Serving homes, apartments, retail stores, schools, offices, and factories</li>
+            <li>🔍 Search by city and locality below, or browse <Link href="/repairs" style={{ color: '#0ea5e9', textDecoration: 'underline' }}>all repairs & AMC</Link></li>
+          </ul>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.7rem' }}>
             <Link href="/security" className={styles.ctaButton} aria-label="Open Security index">
               Security Index
             </Link>
@@ -104,7 +126,7 @@ export default async function ServicesIndexPage() {
         <div className={styles.breadcrumbContent}>
           <Link href="/" className={styles.link}>
             Home
-          </Link>{' '}
+          </Link>{" "}
           &gt; <span className={styles.activeBreadcrumb}>Services</span>
         </div>
       </nav>
@@ -137,15 +159,43 @@ export default async function ServicesIndexPage() {
             </div>
           </section>
 
-          <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Popular Services</h2>
+          {/* SEO: Examples for Google site-links & topics */}
+          <section style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
+            <h2 className={styles.sectionTitle} style={{ fontSize: "1.25rem", color: "#10b981" }}>
+              Popular Locality Examples
+            </h2>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem 1.2rem" }}>
+              {serviceExamples.map((example, idx) => (
+                <Link
+                  key={example.slug}
+                  href={example.slug}
+                  className={styles.featureCard}
+                  aria-label={example.label}
+                  style={{
+                    minWidth: 220,
+                    background: "#f1f5f9",
+                    color: "#334155",
+                    textDecoration: "none",
+                    border: "1px solid #e2e8f0"
+                  }}
+                >
+                  <span style={{ marginRight: 8, fontSize: "1.18em" }}>⭐</span>
+                  <span>{example.label}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2 className={styles.sectionTitle}>Popular Security Services</h2>
             <div className={styles.featuresGrid}>
               {SERVICES.slice(0, 12).map((service, i) => (
                 <Link
                   key={i}
-                  href={`/security/${createSlug(service)}`}
+                  href={`/services/delhi/adarsh-nagar/${createSlug(service)}`}
+                  // For SEO and ranking: Show Delhi/Adarsh-Nagar as default example city/locality
                   className={styles.featureCard}
-                  aria-label={`View cities for ${service}`}
+                  aria-label={`View ${service} in Delhi, Adarsh Nagar and all cities`}
                   style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
                 >
                   <span className={styles.checkIcon}>🛡️</span>
@@ -153,63 +203,86 @@ export default async function ServicesIndexPage() {
                 </Link>
               ))}
             </div>
+            <div style={{ marginTop: "1.5rem", color: "#64748b", fontSize: "1.04rem" }}>
+              <strong>Get top-rated CCTV, security, and access control services in every locality!</strong><br />
+              Browse detailed <Link href="/services/delhi/adarsh-nagar/cctv-installation" style={{ color: "#0ea5e9", textDecoration: "underline" }}>CCTV Installation in Adarsh Nagar, Delhi</Link> and other specific city+locality services for your area.<br />
+              <span style={{ fontSize: "0.92em" }}>Not finding your city/locality? We serve the NCR and all major metros/cities — just <Link href="/contact" style={{ color: "#0ea5e9" }}>contact us</Link> for a free quote.</span>
+            </div>
           </section>
 
-          <section style={{ marginTop: '4rem' }}>
+          <section style={{ marginTop: '3.5rem' }}>
             <h2 className={styles.sectionTitle}>Our Service Guarantees</h2>
             <div className={styles.featuresGrid}>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>🛡️</span>
                 <h3>1-Year Installation Warranty</h3>
-                <p>Comprehensive coverage on labor and parts</p>
+                <p>Comprehensive coverage for CCTV and electrical work, on labor and parts</p>
               </div>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>⚡</span>
                 <h3>2-Hour Emergency Response</h3>
-                <p>Priority assistance for critical incidents</p>
+                <p>Fast assistance across all localities for breakdown, urgent repairs or threats</p>
               </div>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>✅</span>
                 <h3>Certified Technicians</h3>
-                <p>Background verified and brand-trained experts</p>
+                <p>Background verified and brand-trained experts with 5+ years experience</p>
               </div>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>💬</span>
                 <h3>24/7 Support</h3>
-                <p>Always-on helpline for quick help</p>
+                <p>Always-on helpline & WhatsApp for booking, emergencies & support. Call now: <a href="tel:+918766203976" style={{ color: "#0284c7" }}>+91-87662-03976</a></p>
               </div>
             </div>
           </section>
 
-          <section style={{ marginTop: '4rem' }}>
+          <section style={{ marginTop: '3.5rem' }}>
             <h2 className={styles.sectionTitle}>How It Works</h2>
             <div className={styles.featuresGrid}>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>📍</span>
-                <h3>Select Your City</h3>
-                <p>Pick your location to view localities</p>
+                <h3>Select Your City & Locality</h3>
+                <p>Find your exact location to view in-depth offerings and book online</p>
               </div>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>🛠️</span>
                 <h3>Choose a Service</h3>
-                <p>Installation, repair, access control and more</p>
+                <p>CCTV, access control, alarm, repair, AMC, electrical and more</p>
               </div>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>📅</span>
                 <h3>Schedule a Visit</h3>
-                <p>Same-day and next-day appointments</p>
+                <p>Same-day and next-day appointments available — zero hidden charges</p>
               </div>
               <div className={styles.featureCard}>
                 <span className={styles.featureIconLarge}>✅</span>
                 <h3>Get It Done</h3>
-                <p>Verified experts deliver guaranteed work</p>
+                <p>Work with trusted, reviewed and guaranteed technicians near you</p>
               </div>
             </div>
           </section>
 
+          {/* SEO RICH CONTENT */}
+          <section style={{ marginTop: '3rem', background: "#f2f6fa", padding: "2rem 1.2rem 1.5rem", borderRadius: 8 }}>
+            <h2 className={styles.sectionTitle} style={{ color: "#0284c7", fontSize: "1.22rem" }}>
+              Why Book CCTV & Security Services by City and Locality?
+            </h2>
+            <div style={{ fontSize: "1.06rem", color: "#475569", maxWidth: 700 }}>
+              <p>
+                </p><ul style={{ marginBottom: 8, paddingLeft: 22 }}>
+                  <li>✔️ <strong>Ranked #1 for CCTV and Security Services</strong>: Our platform connects you to thousands of customers across {displayCities.length}+ cities, with every locality covered. All services—from consultation and installation to maintenance & support—are available at your doorstep.</li>
+                  <li>✔️ <strong>Verified Technicians, Assured Guarantee</strong>: All work carries our 1-year installation/labor warranty. Every technician is thoroughly vetted, experienced and background-verified for your security.</li>
+                  <li>✔️ <strong>Price Transparency</strong>: View indicative pricing on popular services, request advance quotes, and pay after job completion. No hidden charges!</li>
+                  <li>✔️ <strong>24/7 Emergency Support</strong>: Our team is always on standby to help, whether it is a midnight security breakdown or an urgent repair. Book on WhatsApp or call <a href="tel:+918766203976" style={{ color: "#0ea5e9", textDecoration: "underline" }}>+91-87662-03976</a></li>
+                  <li>✔️ <strong>Trusted by Apartments, Shops & Offices</strong>: We are the go-to provider for residential societies, schools, clinics, showrooms, warehouses and industry complexes in Delhi NCR.</li>
+                </ul>
+              <p>
+                <b>Your city, your locality, your service—get the best!</b> Scroll up to pick your city (like Delhi, Gurgaon, Noida...) and get specialized, <strong>local</strong> CCTV & security experts. For any custom requirement or if your locality isn't listed, just <Link href="/contact" style={{ color: "#0ea5e9", textDecoration: "underline" }}>contact us</Link> and we'll arrange a visit within 24 hours.
+              </p>
+            </div>
+          </section>
         </div>
       </main>
     </div>
   );
 }
-
