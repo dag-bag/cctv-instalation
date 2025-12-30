@@ -207,7 +207,7 @@ function generateAllLinks() {
 //   }));
 // }
 
-export async function generateMetadata({ params }: { params: { page: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ page: string }> }): Promise<Metadata> {
   const { page } = await params;
   const title = `HTML Sitemap Page ${page} - All Services & Locations`;
   const description =
