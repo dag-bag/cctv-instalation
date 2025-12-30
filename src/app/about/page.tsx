@@ -3,7 +3,6 @@ import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { BUSINESS_CONFIG } from '@/config/business';
 import styles from './page.module.css';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'About Us - Professional CCTV Installation & Security Services | CamHarbor',
@@ -42,51 +41,29 @@ export default function AboutPage() {
       <main className={styles.main}>
         {/* Our Story Section */}
         <section className={styles.section}>
-          <div className={styles.contentGrid}>
-            <div className={styles.textContent}>
-              <h2 className={styles.sectionTitle}>Our Story</h2>
-              <p className={styles.text}>
-                CamHarbor was founded with a simple yet powerful vision: to make professional security 
-                solutions accessible to everyone. What started as a small venture has grown into one of 
-                Delhi NCR's most trusted names in CCTV installation and security services.
-              </p>
-              <p className={styles.text}>
-                Over the years, we've installed thousands of security cameras, helped hundreds of businesses 
-                protect their assets, and provided peace of mind to countless families. Our commitment to 
-                quality, transparency, and customer satisfaction has been the cornerstone of our success.
-              </p>
-              <p className={styles.text}>
-                Today, we serve customers across Delhi, Gurgaon, Noida, Ghaziabad, Faridabad, and beyond, 
-                offering comprehensive security solutions that combine cutting-edge technology with expert 
-                installation and reliable support.
-              </p>
-            </div>
-            <div className={styles.imageWrapper}>
-              <Image
-                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop"
-                alt="Professional security camera installation"
-                width={800}
-                height={600}
-                className={styles.image}
-                unoptimized
-              />
-            </div>
+          <div className={styles.textContent}>
+            <h2 className={styles.sectionTitle}>Our Story</h2>
+            <p className={styles.text}>
+              CamHarbor was founded with a simple yet powerful vision: to make professional security 
+              solutions accessible to everyone. What started as a small venture has grown into one of 
+              Delhi NCR's most trusted names in CCTV installation and security services.
+            </p>
+            <p className={styles.text}>
+              Over the years, we've installed thousands of security cameras, helped hundreds of businesses 
+              protect their assets, and provided peace of mind to countless families. Our commitment to 
+              quality, transparency, and customer satisfaction has been the cornerstone of our success.
+            </p>
+            <p className={styles.text}>
+              Today, we serve customers across Delhi, Gurgaon, Noida, Ghaziabad, Faridabad, and beyond, 
+              offering comprehensive security solutions that combine cutting-edge technology with expert 
+              installation and reliable support.
+            </p>
           </div>
         </section>
 
         {/* Founder Section */}
         <section className={styles.section}>
           <div className={styles.founderCard}>
-            <div className={styles.founderImageWrapper}>
-              <Image
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
-                alt="Virender Kumar - Founder of CamHarbor"
-                width={400}
-                height={400}
-                className={styles.founderImage}
-                unoptimized
-              />
-            </div>
             <div className={styles.founderContent}>
               <h2 className={styles.sectionTitle}>Meet Our Founder</h2>
               <h3 className={styles.founderName}>Virender Kumar</h3>
@@ -105,6 +82,17 @@ export default function AboutPage() {
                 commercial establishments. This philosophy drives our mission to provide top-quality security 
                 solutions at competitive prices, backed by reliable support and service.
               </p>
+              <div className={styles.socialLink}>
+                <a
+                  href="https://www.instagram.com/maihu_vicky/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.instagramLink}
+                >
+                  <span className={styles.socialIcon}>📷</span>
+                  <span>Follow on Instagram</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
