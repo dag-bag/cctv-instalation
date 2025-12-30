@@ -116,7 +116,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>8. Children's Privacy</h2>
+            <h2>8. Children&apos;s Privacy</h2>
             <p>
               Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately.
             </p>
@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
           <section className={styles.section}>
             <h2>9. Changes to This Privacy Policy</h2>
             <p>
-              We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated policy on this page and updating the "Last Updated" date.
+              We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated policy on this page and updating the &quot;Last Updated&quot; date.
             </p>
             <p>
               We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.

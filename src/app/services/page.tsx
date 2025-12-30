@@ -277,7 +277,7 @@ export default async function ServicesIndexPage() {
                   <li>✔️ <strong>Trusted by Apartments, Shops & Offices</strong>: We are the go-to provider for residential societies, schools, clinics, showrooms, warehouses and industry complexes in Delhi NCR.</li>
                 </ul>
               <p>
-                <b>Your city, your locality, your service—get the best!</b> Scroll up to pick your city (like Delhi, Gurgaon, Noida...) and get specialized, <strong>local</strong> CCTV & security experts. For any custom requirement or if your locality isn't listed, just <Link href="/contact" style={{ color: "#0ea5e9", textDecoration: "underline" }}>contact us</Link> and we'll arrange a visit within 24 hours.
+                <b>Your city, your locality, your service—get the best!</b> Scroll up to pick your city (like Delhi, Gurgaon, Noida...) and get specialized, <strong>local</strong> CCTV & security experts. For any custom requirement or if your locality isn&apos;t listed, just <Link href="/contact" style={{ color: "#0ea5e9", textDecoration: "underline" }}>contact us</Link> and we&apos;ll arrange a visit within 24 hours.
               </p>
             </div>
           </section>

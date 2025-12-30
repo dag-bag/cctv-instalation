@@ -3,7 +3,6 @@ import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { BUSINESS_CONFIG } from '@/config/business';
 import styles from './page.module.css';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Why Choose CamHarbor? | Best CCTV Installation Service in Delhi NCR',
@@ -128,7 +127,7 @@ export default function WhyChooseUsPage() {
           <h1 className={styles.title}>Why Choose CamHarbor?</h1>
           <p className={styles.subtitle}>
             We are the best, genuine, and most trusted CCTV installation service in Delhi NCR. 
-            Here's why thousands of customers choose us over others.
+            Here&apos;s why thousands of customers choose us over others.
           </p>
         </div>
       </header>

@@ -27,7 +27,7 @@ export default function ContactPage() {
         <div className={styles.heroContent}>
           <h1 className={styles.title}>Get In Touch With Us</h1>
           <p className={styles.subtitle}>
-            Have questions about our CCTV installation and security services? We're here to help! 
+            Have questions about our CCTV installation and security services? We&apos;re here to help! 
             Reach out to us and our team will get back to you within 24 hours.
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function ContactPage() {
         <div className={styles.introContent}>
           <p>
             At CamHarbor, we understand that choosing the right security solution for your home or business is an important decision. 
-            Whether you're looking for CCTV camera installation, access control systems, security system repairs, or annual maintenance 
+            Whether you&apos;re looking for CCTV camera installation, access control systems, security system repairs, or annual maintenance 
             contracts, our expert team is ready to assist you every step of the way. We serve customers across Delhi, Gurgaon, Noida, 
             and the entire Delhi NCR region, providing professional security solutions tailored to your specific needs.
           </p>
@@ -46,7 +46,7 @@ export default function ContactPage() {
             Our experienced security consultants are available to discuss your requirements, provide detailed information about our 
             services, answer any technical questions, and offer free, no-obligation quotes. We believe in transparent communication 
             and will help you understand the best security options available for your property, budget, and security goals. From 
-            initial consultation to installation and ongoing support, we're committed to delivering exceptional service and peace of mind.
+            initial consultation to installation and ongoing support, we&apos;re committed to delivering exceptional service and peace of mind.
           </p>
         </div>
       </section>
@@ -86,7 +86,7 @@ export default function ContactPage() {
                   {BUSINESS_CONFIG.email}
                 </a>
               </p>
-              <p className={styles.infoSubtext}>We'll respond within 24 hours</p>
+              <p className={styles.infoSubtext}>We&apos;ll respond within 24 hours</p>
             </div>
 
             <div className={styles.infoCard}>
@@ -141,9 +141,9 @@ export default function ContactPage() {
           <section className={styles.featuresSection}>
             <h2 className={styles.sectionTitle}>Why Contact Us?</h2>
             <p className={styles.sectionDescription}>
-              When you reach out to CamHarbor, you're connecting with a team of security professionals dedicated to protecting 
+              When you reach out to CamHarbor, you&apos;re connecting with a team of security professionals dedicated to protecting 
               what matters most to you. We offer comprehensive security solutions including CCTV installation, dome camera setup, 
-              access control systems, and ongoing maintenance services. Our commitment to excellence means you'll receive personalized 
+              access control systems, and ongoing maintenance services. Our commitment to excellence means you&apos;ll receive personalized 
               attention, detailed project planning, and reliable support throughout your security journey.
             </p>
             <div className={styles.featuresGrid}>
@@ -151,16 +151,16 @@ export default function ContactPage() {
                 <div className={styles.featureIcon}>⚡</div>
                 <h3>Fast Response</h3>
                 <p>
-                  We understand that security concerns can't wait. Our team responds to all inquiries within 24 hours, 
-                  and we're available 24/7 for emergency situations. Whether you need immediate assistance or are planning 
-                  a future installation, we're here to help promptly.
+                  We understand that security concerns can&apos;t wait. Our team responds to all inquiries within 24 hours, 
+                  and we&apos;re available 24/7 for emergency situations. Whether you need immediate assistance or are planning 
+                  a future installation, we&apos;re here to help promptly.
                 </p>
               </div>
               <div className={styles.featureCard}>
                 <div className={styles.featureIcon}>🎯</div>
                 <h3>Expert Advice</h3>
                 <p>
-                  Our certified security consultants have years of experience in the industry. They'll assess your property, 
+                  Our certified security consultants have years of experience in the industry. They&apos;ll assess your property, 
                   understand your security requirements, and recommend the most effective solutions tailored to your specific 
                   needs, budget, and property layout.
                 </p>
@@ -178,9 +178,9 @@ export default function ContactPage() {
                 <div className={styles.featureIcon}>🛡️</div>
                 <h3>Trusted Service</h3>
                 <p>
-                  With years of experience serving thousands of satisfied customers across Delhi NCR, we've built a reputation 
+                  With years of experience serving thousands of satisfied customers across Delhi NCR, we&apos;ve built a reputation 
                   for reliability, quality workmanship, and exceptional customer service. Our track record speaks for itself, 
-                  and we're committed to maintaining the highest standards.
+                  and we&apos;re committed to maintaining the highest standards.
                 </p>
               </div>
             </div>

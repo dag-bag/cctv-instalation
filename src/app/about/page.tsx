@@ -45,7 +45,7 @@ export default function AboutPage() {
             <h2 className={styles.sectionTitle}>Our Story</h2>
             <p className={styles.text}>
               CamHarbor started with a simple goal. We want to make security easy for everyone. 
-              What began as a small business is now one of Delhi NCR's trusted security companies.
+              What began as a small business is now one of Delhi NCR&apos;s trusted security companies.
             </p>
             <p className={styles.text}>
               We have installed thousands of security cameras. We help businesses protect their property. 
@@ -108,7 +108,7 @@ export default function AboutPage() {
               <div className={styles.missionIcon}>👁️</div>
               <h3 className={styles.missionTitle}>Our Vision</h3>
               <p className={styles.missionText}>
-                We want to be India's most trusted security company. We are known for new ideas, quality 
+                We want to be India&apos;s most trusted security company. We are known for new ideas, quality 
                 work, and putting customers first. We see a future where every home and business has 
                 reliable, smart security.
               </p>

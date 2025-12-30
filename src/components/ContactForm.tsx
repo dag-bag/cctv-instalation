@@ -75,14 +75,14 @@ export default function ContactForm() {
     <div className={styles.formCard}>
       <h2 className={styles.sectionTitle}>Send Us a Message</h2>
       <p className={styles.sectionDescription}>
-        Fill out the form below and we'll respond as soon as possible.
+        Fill out the form below and we&apos;ll respond as soon as possible.
       </p>
 
       {isSubmitted ? (
         <div className={styles.successMessage}>
           <div className={styles.successIcon}>✓</div>
           <h3>Message Sent Successfully!</h3>
-          <p>We've received your message and will get back to you within 24 hours.</p>
+          <p>We&apos;ve received your message and will get back to you within 24 hours.</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className={styles.form}>
