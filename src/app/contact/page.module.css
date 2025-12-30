@@ -60,6 +60,32 @@
   line-height: 1.6;
 }
 
+/* Introduction Section */
+.introSection {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+}
+
+.introContent {
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.introContent p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.introContent p:last-child {
+  margin-bottom: 0;
+}
+
 /* Breadcrumbs */
 .breadcrumbs {
   background: rgba(15, 23, 42, 0.8);

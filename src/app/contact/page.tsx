@@ -33,6 +33,24 @@ export default function ContactPage() {
         </div>
       </header>
 
+      {/* Introduction Section */}
+      <section className={styles.introSection}>
+        <div className={styles.introContent}>
+          <p>
+            At CamHarbor, we understand that choosing the right security solution for your home or business is an important decision. 
+            Whether you're looking for CCTV camera installation, access control systems, security system repairs, or annual maintenance 
+            contracts, our expert team is ready to assist you every step of the way. We serve customers across Delhi, Gurgaon, Noida, 
+            and the entire Delhi NCR region, providing professional security solutions tailored to your specific needs.
+          </p>
+          <p>
+            Our experienced security consultants are available to discuss your requirements, provide detailed information about our 
+            services, answer any technical questions, and offer free, no-obligation quotes. We believe in transparent communication 
+            and will help you understand the best security options available for your property, budget, and security goals. From 
+            initial consultation to installation and ongoing support, we're committed to delivering exceptional service and peace of mind.
+          </p>
+        </div>
+      </section>
+
       <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <div className={styles.breadcrumbContent}>
           <Link href="/" className={styles.link}>Home</Link> &gt;{' '}
@@ -98,6 +116,11 @@ export default function ContactPage() {
           {/* Business Hours Section */}
           <section className={styles.hoursSection}>
             <h2 className={styles.sectionTitle}>Business Hours</h2>
+            <p className={styles.sectionDescription}>
+              Our customer service team is available during regular business hours to assist with inquiries, schedule consultations, 
+              and provide support. For urgent security issues or emergency repairs, we offer 24/7 emergency services to ensure 
+              your security systems are always operational when you need them most.
+            </p>
             <div className={styles.hoursCard}>
               <div className={styles.hoursItem}>
                 <span className={styles.hoursDay}>Monday - Friday</span>
@@ -117,26 +140,48 @@ export default function ContactPage() {
           {/* Why Choose Us Section */}
           <section className={styles.featuresSection}>
             <h2 className={styles.sectionTitle}>Why Contact Us?</h2>
+            <p className={styles.sectionDescription}>
+              When you reach out to CamHarbor, you're connecting with a team of security professionals dedicated to protecting 
+              what matters most to you. We offer comprehensive security solutions including CCTV installation, dome camera setup, 
+              access control systems, and ongoing maintenance services. Our commitment to excellence means you'll receive personalized 
+              attention, detailed project planning, and reliable support throughout your security journey.
+            </p>
             <div className={styles.featuresGrid}>
               <div className={styles.featureCard}>
                 <div className={styles.featureIcon}>⚡</div>
                 <h3>Fast Response</h3>
-                <p>We respond to all inquiries within 24 hours, often much sooner.</p>
+                <p>
+                  We understand that security concerns can't wait. Our team responds to all inquiries within 24 hours, 
+                  and we're available 24/7 for emergency situations. Whether you need immediate assistance or are planning 
+                  a future installation, we're here to help promptly.
+                </p>
               </div>
               <div className={styles.featureCard}>
                 <div className={styles.featureIcon}>🎯</div>
                 <h3>Expert Advice</h3>
-                <p>Get professional guidance on the best security solutions for your needs.</p>
+                <p>
+                  Our certified security consultants have years of experience in the industry. They'll assess your property, 
+                  understand your security requirements, and recommend the most effective solutions tailored to your specific 
+                  needs, budget, and property layout.
+                </p>
               </div>
               <div className={styles.featureCard}>
                 <div className={styles.featureIcon}>💰</div>
                 <h3>Free Quotes</h3>
-                <p>No obligation free quotes for all our services.</p>
+                <p>
+                  Get detailed, transparent pricing with no hidden costs. We provide comprehensive, no-obligation quotes for 
+                  all our services, including installation, repairs, and maintenance contracts. Our competitive pricing ensures 
+                  you get the best value for your investment.
+                </p>
               </div>
               <div className={styles.featureCard}>
                 <div className={styles.featureIcon}>🛡️</div>
                 <h3>Trusted Service</h3>
-                <p>Years of experience serving thousands of satisfied customers.</p>
+                <p>
+                  With years of experience serving thousands of satisfied customers across Delhi NCR, we've built a reputation 
+                  for reliability, quality workmanship, and exceptional customer service. Our track record speaks for itself, 
+                  and we're committed to maintaining the highest standards.
+                </p>
               </div>
             </div>
           </section>
