@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
   const city = findOriginalFromSlug(citySlug, CITIES) || citySlug;
   const title = `${industry} in ${city} | Localities`;
-  const description = `Browse localities in ${city} for ${industry} deployments.`;
+  const description = `Professional ${industry.toLowerCase()} CCTV solutions across all localities in ${city}. Custom security systems, expert installation, 24/7 support & warranty. Free consultation & quote. Call now!`;
   return { title, description, alternates: { canonical: `https://www.camharbor.in/industries/${industrySlug}/${citySlug}` } };
 }
 

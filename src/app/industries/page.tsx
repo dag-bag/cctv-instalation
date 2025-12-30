@@ -9,7 +9,7 @@ export const revalidate = false;
 
 export const metadata: Metadata = {
   title: 'Industries We Serve',
-  description: 'Sector-specific CCTV solutions for Delhi NCR across industries.',
+  description: 'Specialized CCTV solutions for hospitals, schools, retail, warehouses, offices & more across Delhi NCR. Custom security systems with expert installation, 24/7 support & warranty. Free consultation!',
   alternates: { canonical: 'https://www.camharbor.in/industries' },
 };
 

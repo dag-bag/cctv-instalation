@@ -211,7 +211,7 @@ export async function generateMetadata({ params }: { params: { page: string } })
   const { page } = await params;
   const title = `HTML Sitemap Page ${page} - All Services & Locations`;
   const description =
-    `Sitemap page ${page} - All CCTV installation and repair services across Delhi NCR locations. Browse services, brands, and localities.`;
+    `Page ${page} of our site map. Find CCTV services in Delhi NCR. Browse by city, area, or service.`;
 
   // set canonical to /html-sitemap if on page 1, else /html-sitemap/[page]
   const canonical =
@@ -272,8 +272,9 @@ export default async function HtmlSitemapPage(props: {
         <div className={styles.content}>
           <h1 className={styles.sectionTitle}>Site Index - Page {page}</h1>
           <p className={styles.sectionSubtitle}>
-            Find all our CCTV and security services. Browse by city, area, or service type. 
-            We help with camera installation, repairs, and access control across Delhi NCR.
+            Find all our CCTV services. Browse by city, area, or service.
+            <br />
+            We install cameras. We fix cameras. We help with access control. We work in all of Delhi NCR.
             <br />
             <span style={{ fontSize: "0.9em", opacity: 0.8 }}>
               Total URLs: {allLinks.length.toLocaleString()} | Pages:{" "}

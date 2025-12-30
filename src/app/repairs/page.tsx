@@ -10,7 +10,7 @@ const REPAIR_ISSUES = ['camera-not-working','no-signal','blur-image','recording-
 
 export const metadata: Metadata = {
   title: 'CCTV Repairs | Common Issues We Fix',
-  description: 'Browse common CCTV repair issues and select your city and locality.',
+  description: 'Fast CCTV repair services across Delhi NCR. Fix camera issues, no signal, blur images, recording problems & more. Same-day service, genuine parts, warranty included. Call now!',
   alternates: { canonical: 'https://www.camharbor.in/repairs' },
 };
 
