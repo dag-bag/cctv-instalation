@@ -10,7 +10,7 @@ export const revalidate = false;
 const BRANDS = ['Hikvision','CP Plus','Dahua','Honeywell','Bosch','Panasonic','Godrej','Samsung','Sony','Tiandy','Uniview','Ezviz'];
 
 export const metadata: Metadata = {
-  title: 'Brands We Install | CamHarbor',
+  title: 'Brands We Install',
   description: 'Explore CCTV brands we install and support across Delhi NCR.',
   alternates: { canonical: 'https://www.camharbor.in/brands' },
 };

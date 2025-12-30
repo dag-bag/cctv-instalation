@@ -6,14 +6,14 @@ import styles from './page.module.css';
 import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Get in Touch | CamHarbor',
+  title: 'Contact Us - Get in Touch',
   description:
     'Contact CamHarbor for professional CCTV installation and security services. Call us, email us, or fill out our contact form. We respond within 24 hours.',
   alternates: { canonical: 'https://www.camharbor.in/contact' },
   openGraph: {
     type: 'website',
     url: 'https://www.camharbor.in/contact',
-    title: 'Contact Us - CamHarbor Security Services',
+    title: 'Contact Us - Security Services',
     description:
       'Get in touch with CamHarbor for CCTV installation and security solutions. Available 24/7 for emergencies.',
   },

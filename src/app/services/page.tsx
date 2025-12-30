@@ -8,7 +8,7 @@ import { getCities } from '@/lib/api';
 
 // Stronger SEO meta: targeting CCTV installation, city, locality
 export const metadata: Metadata = {
-  title: 'CCTV Installation, Repair & Security Services in All Cities & Localities | CamHarbor',
+  title: 'CCTV Installation, Repair & Security Services in All Cities & Localities',
   description:
     'Find the best CCTV installation, security camera repair, access control, video door phone, and all security system services by city and locality. Book certified technicians in Delhi, Gurgaon, Noida, Ghaziabad & 100+ areas. Same-day visit, transparent pricing, 24/7 support. Start by choosing your city and locality to discover top-rated security solutions for homes, apartments, offices, shops and factories.',
   alternates: { canonical: 'https://www.camharbor.in/services' },

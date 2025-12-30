@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { issue, city: citySlug, locality: localitySlug } = await params;
   const city = findOriginalFromSlug(citySlug, CITIES) || citySlug;
   const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []) || localitySlug;
-  const title = `${issue.replace(/-/g,' ')} Repair in ${locality}, ${city} | CamHarbor`;
+  const title = `${issue.replace(/-/g,' ')} Repair in ${locality}, ${city}`;
   const description = `Fast onsite repair for ${issue.replace(/-/g,' ')} in ${locality}, ${city}. Quick diagnosis, DVR/NVR checks, cable fixes, and testing.`;
   return {
     title,

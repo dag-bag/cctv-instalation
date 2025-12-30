@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brand, city: citySlug, locality: localitySlug } = await params;
   const city = findOriginalFromSlug(citySlug, CITIES) || citySlug;
   const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []) || localitySlug;
-  const title = `${brand} Installation in ${locality}, ${city} | CamHarbor`;
+  const title = `${brand} Installation in ${locality}, ${city}`;
   const description = `Authorized ${brand} installation and setup in ${locality}, ${city}. Genuine products, expert technicians, mobile view configuration, and warranty.`;
   return {
     title,

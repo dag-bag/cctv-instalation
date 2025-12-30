@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
   const city = findOriginalFromSlug(citySlug, CITIES) || citySlug;
   const locality = findOriginalFromSlug(localitySlug, LOCALITIES[city] || []) || localitySlug;
-  const title = `${industry} in ${locality}, ${city} | CamHarbor`;
+  const title = `${industry} in ${locality}, ${city}`;
   const description = `Sector-specific CCTV deployment for ${industry} across ${locality}, ${city}. Planning, installation, and secure remote view.`;
   return {
     title,

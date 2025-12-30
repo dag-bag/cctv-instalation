@@ -8,7 +8,7 @@ export const dynamic = 'force-static';
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  title: 'Industries We Serve | CamHarbor',
+  title: 'Industries We Serve',
   description: 'Sector-specific CCTV solutions for Delhi NCR across industries.',
   alternates: { canonical: 'https://www.camharbor.in/industries' },
 };
