@@ -123,7 +123,7 @@ export default async function CityPage({ params }: Props) {
         </div>
         <div className={styles.heroContent}>
           <h1 className={styles.title}>
-            Security Services in <span className={styles.highlight}>{city}</span>
+            CCTV Installation and Security Services in <span className={styles.highlight}>{city}</span>
           </h1>
           <p className={styles.subtitle}>
             Professional CCTV installation and security solutions across {city}. Select your locality below.
