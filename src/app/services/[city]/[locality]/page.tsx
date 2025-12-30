@@ -158,7 +158,7 @@ export default async function LocalityPage({ params }: Props) {
       <main className={styles.main}>
         <div className={styles.contentSection} style={{ width: '100%' }}>
           <section>
-            <h2 className={styles.sectionTitle}>Available Services</h2>
+            <h2 className={styles.sectionTitle}>Available Services in {locality}, {city}</h2>
             <div className={styles.featuresGrid}>
               {SERVICES.map((service, index) => {
                 const serviceSlug = createSlug(service);

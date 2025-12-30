@@ -587,7 +587,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
               className={styles.container}
               style={{ background: "transparent", minHeight: "auto" }}
             >
-              <h2 className={styles.sectionTitle}>How It Works</h2>
+              <h2 className={styles.sectionTitle}>How {service} Works in {locality}</h2>
               <div className={styles.stepsGrid}>
                 <div className={styles.howStepCard}>
                   <div className={styles.howStepNumber}>1</div>
@@ -652,7 +652,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
               style={{ background: "transparent", minHeight: "auto" }}
             >
               <h2 className={styles.sectionTitle}>
-                Frequently Asked Questions
+                Frequently Asked Questions About {service} in {locality}
               </h2>
               <div className={styles.faqGrid}>
                 {data.faq.map((faq, index) => (
@@ -667,7 +667,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Related Problems We Fix */}
           <section>
-            <h2 className={styles.sectionTitle}>Related Problems We Fix</h2>
+            <h2 className={styles.sectionTitle}>Related {service} Problems We Fix in {locality}</h2>
             <div className={styles.featuresGrid}>
               {[
                 "CCTV No Signal Fix",
