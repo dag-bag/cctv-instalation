@@ -10,8 +10,8 @@ export const revalidate = false;
 const BRANDS = ['Hikvision','CP Plus','Dahua','Honeywell','Bosch','Panasonic','Godrej','Samsung','Sony','Tiandy','Uniview','Ezviz'];
 
 export const metadata: Metadata = {
-  title: 'Brands We Install',
-  description: 'Explore CCTV brands we install and support across Delhi NCR.',
+  title: 'Authorized CCTV Brands Installation in Delhi NCR | Hikvision, CP Plus, Dahua & More | CamHarbor',
+  description: 'Authorized dealer for top CCTV brands including Hikvision, CP Plus, Dahua, Honeywell, Bosch, Panasonic, Samsung, Sony & more. Genuine products with warranty. Expert installation across Delhi, Gurgaon, Noida.',
   alternates: { canonical: 'https://www.camharbor.in/brands' },
 };
 
