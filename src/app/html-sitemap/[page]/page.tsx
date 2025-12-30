@@ -208,24 +208,14 @@ function generateAllLinks() {
 // }
 
 export async function generateMetadata({ params }: { params: { page: string } }): Promise<Metadata> {
-  const pageNum = parseInt(params.page || "1", 10);
-  const page = isNaN(pageNum) || pageNum < 1 ? 1 : pageNum;
-
-  const title =
-    page === 1
-      ? "HTML Sitemap - All Services & Locations"
-      : `HTML Sitemap Page ${page} - All Services & Locations`;
-
+  const { page } = await params;
+  const title = `HTML Sitemap Page ${page} - All Services & Locations`;
   const description =
-    page === 1
-      ? "Comprehensive list of all CCTV installation and repair services across Delhi NCR locations."
-      : `Sitemap page ${page} - All CCTV installation and repair services across Delhi NCR locations. Browse services, brands, and localities.`;
+    `Sitemap page ${page} - All CCTV installation and repair services across Delhi NCR locations. Browse services, brands, and localities.`;
 
   // set canonical to /html-sitemap if on page 1, else /html-sitemap/[page]
   const canonical =
-    page === 1
-      ? `https://www.camharbor.in/html-sitemap`
-      : `https://www.camharbor.in/html-sitemap/${page}`;
+    `https://www.camharbor.in/html-sitemap/${page}`;
 
   return {
     title,
