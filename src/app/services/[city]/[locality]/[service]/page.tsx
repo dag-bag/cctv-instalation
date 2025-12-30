@@ -166,7 +166,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop";
 
   // SEO Optimized Title & Description
-  const title = `${service} in ${locality}, ${city}`;
+  const title = `${service} in ${locality}, ${city} - Best Price & Quick Service`;
   const description = `Looking for the best ${service} in ${locality}, ${city}? We offer top-rated installation, repair & maintenance. 500+ happy customers. Same-day service, free consultation & quote. Call +91-87662-03976 now!`;
 
   return {

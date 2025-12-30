@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const title = `CCTV Installation in ${locality}, ${city}`;
+  const title = `Security Services in ${locality}, ${city} - CCTV Installation & Repair`;
   const description = `Expert CCTV camera installation & security services in ${locality}, ${city}. Trusted by thousands. Affordable rates, certified technicians & 24/7 support. Call +91-87662-03976 now!`;
 
   return {
