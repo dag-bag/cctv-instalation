@@ -209,9 +209,9 @@ function generateAllLinks() {
 
 export async function generateMetadata({ params }: { params: Promise<{ page: string }> }): Promise<Metadata> {
   const { page } = await params;
-  const title = `HTML Sitemap Page ${page} - All Services & Locations`;
+  const title = `Site Map Page ${page} - All Services`;
   const description =
-    `Page ${page} of our site map. Find CCTV services in Delhi NCR. Browse by city, area, or service.`;
+    `Page ${page} of our site map. Find CCTV services. Pick a city or area.`;
 
   // set canonical to /html-sitemap if on page 1, else /html-sitemap/[page]
   const canonical =
@@ -270,15 +270,14 @@ export default async function HtmlSitemapPage(props: {
     <div className={styles.container}>
       <main className={styles.section}>
         <div className={styles.content}>
-          <h1 className={styles.sectionTitle}>Site Index - Page {page}</h1>
+          <h1 className={styles.sectionTitle}>Site Map - Page {page}</h1>
           <p className={styles.sectionSubtitle}>
-            Find all our CCTV services. Browse by city, area, or service.
+            Find all our CCTV services. Pick a city or area.
             <br />
-            We install cameras. We fix cameras. We help with access control. We work in all of Delhi NCR.
+            We install cameras. We fix cameras. We work in Delhi NCR.
             <br />
             <span style={{ fontSize: "0.9em", opacity: 0.8 }}>
-              Total URLs: {allLinks.length.toLocaleString()} | Pages:{" "}
-              {totalPages}
+              Total links: {allLinks.length.toLocaleString()}. Total pages: {totalPages}.
             </span>
           </p>
 
@@ -311,8 +310,32 @@ export default async function HtmlSitemapPage(props: {
             )}
           </div>
 
-          {Object.entries(linksByCategory).map(([category, links]) => (
-            <section key={category} style={{ marginBottom: "3rem" }}>
+          {Object.entries(linksByCategory).map(([category, links], categoryIndex) => {
+            // Calculate the position of this category section on the current page
+            const firstLinkInCategory = links[0];
+            const firstLinkGlobalIndex = allLinks.findIndex(link => 
+              link.url === firstLinkInCategory.url && link.label === firstLinkInCategory.label
+            );
+            const categoryStartIndex = firstLinkGlobalIndex + 1; // 1-based index
+            const categoryEndIndex = categoryStartIndex + links.length - 1;
+            const totalInCategory = allLinks.filter(link => link.category === category).length;
+            
+            // Create simple H2 heading for each page and category
+            let categoryTitle = "";
+            if (category === "Index") {
+              categoryTitle = `Main Pages - Page ${page}`;
+            } else if (category === "Brands") {
+              categoryTitle = `CCTV Brands - Page ${page}`;
+            } else if (category === "Repairs") {
+              categoryTitle = `Repair Services - Page ${page}`;
+            } else if (category === "SEO") {
+              categoryTitle = `Search Pages - Page ${page}`;
+            } else {
+              categoryTitle = `${category} Services - Page ${page}`;
+            }
+            
+            return (
+            <section key={`${category}-${page}-${categoryIndex}`} style={{ marginBottom: "3rem" }}>
               <h2 style={{ 
                 fontSize: "1.5rem", 
                 fontWeight: 600, 
@@ -321,11 +344,7 @@ export default async function HtmlSitemapPage(props: {
                 borderBottom: "2px solid #3b82f6",
                 paddingBottom: "0.5rem"
               }}>
-                {category === "Index" ? "Main Pages" : 
-                 category === "Brands" ? "CCTV Brands" :
-                 category === "Repairs" ? "Repair Services" :
-                 category === "SEO" ? "Search Pages" :
-                 `${category} Services`}
+                {categoryTitle}
               </h2>
               <div
                 style={{
@@ -348,7 +367,8 @@ export default async function HtmlSitemapPage(props: {
                 ))}
               </div>
             </section>
-          ))}
+            );
+          })}
 
           <div
             style={{

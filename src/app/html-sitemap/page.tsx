@@ -28,12 +28,12 @@ function getTotalLinks() {
 }
 
 export const metadata: Metadata = {
-  title: 'HTML Sitemap - All CCTV Installation Services & Locations | Complete Site Index',
-  description: 'Complete HTML sitemap of all CCTV installation, repair, and security camera services across Delhi NCR. Browse all cities, localities, and services for easy navigation and SEO.',
+  title: 'Site Map - All CCTV Services | CamHarbor',
+  description: 'Find all CCTV services. Browse by city or area. We work in Delhi NCR.',
   robots: 'index, follow',
   openGraph: {
-    title: 'HTML Sitemap - All CCTV Services & Locations',
-    description: 'Complete directory of CCTV installation services across Delhi NCR',
+    title: 'Site Map - All CCTV Services',
+    description: 'Find all CCTV services by city and area',
     type: 'website',
   },
   alternates: { canonical: 'https://www.camharbor.in/html-sitemap' },
@@ -50,12 +50,12 @@ export default function HtmlSitemapIndex() {
     <div className={styles.container}>
       <main className={styles.section}>
         <div className={styles.content}>
-          <h1 className={styles.sectionTitle}>HTML Sitemap</h1>
+          <h1 className={styles.sectionTitle}>Site Map</h1>
           <p className={styles.sectionSubtitle}>
-            Complete directory of all our CCTV installation and repair services across Delhi NCR.
+            Find all our CCTV services. Pick a city or area.
             <br />
             <span style={{ fontSize: '0.9em', opacity: 0.8 }}>
-              Total URLs: <strong>{totalLinks.toLocaleString()}</strong> | Organized across <strong>{totalPages}</strong> pages
+              Total links: <strong>{totalLinks.toLocaleString()}</strong>. Total pages: <strong>{totalPages}</strong>.
             </span>
           </p>
 
@@ -112,9 +112,9 @@ export default function HtmlSitemapIndex() {
             }}
           >
             <p style={{ fontSize: '0.9rem', opacity: 0.8, margin: '0' }}>
-              📍 All <strong>{totalLinks.toLocaleString()}</strong> service pages are organized across {totalPages} sitemap pages for optimal performance and SEO.
+              We have <strong>{totalLinks.toLocaleString()}</strong> service pages. They are split into {totalPages} pages.
               <br />
-              Covering <strong>{CITIES.length}</strong> cities with <strong>{SERVICES.length}</strong> different services across Delhi NCR.
+              We work in <strong>{CITIES.length}</strong> cities. We offer <strong>{SERVICES.length}</strong> services in Delhi NCR.
             </p>
           </div>
         </div>
