@@ -85,7 +85,41 @@ export default async function IndustryDetailPage({ params }: Props) {
       <main className={styles.main}>
         <div className={styles.contentSection}>
           <section>
-            <h2 className={styles.sectionTitle}>Key Features</h2>
+            <h2 className={styles.sectionTitle}>Specialized {industry} Security Solutions in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                {industry} in {locality}, {city} require specialized security solutions that understand the unique needs 
+                of this industry. CamHarbor provides custom CCTV and security systems designed specifically for 
+                {industry.toLowerCase()}. We have experience working with {industry.toLowerCase()} across {city} and 
+                understand the security challenges you face.
+              </p>
+              <p>
+                Our security solutions for {industry.toLowerCase()} in {locality} include high-resolution cameras, 
+                strategic placement for maximum coverage, remote monitoring capabilities, and secure data storage. 
+                We work with you to identify critical areas that need monitoring and design a system that fits your 
+                budget and requirements. Our team ensures proper installation, configuration, and training so you can 
+                use your security system effectively.
+              </p>
+              <p>
+                Whether you run a small {industry.toLowerCase()} or a large facility in {locality}, we 
+                have the right security solution. We offer flexible packages that can grow with your business. Our 
+                maintenance services keep your system running smoothly, and our 24/7 support ensures help is available 
+                when you need it. Contact us today to discuss your {industry.toLowerCase()} security needs in {locality}.
+              </p>
+            </div>
+          </section>
+
+          <section style={{ marginTop: '4rem' }}>
+            <h2 className={styles.sectionTitle}>Key Features for {industry} in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Our {industry.toLowerCase()} security solutions in {locality} come with features designed to meet the 
+                specific needs of your business. We use high-quality cameras, reliable recording systems, and advanced 
+                monitoring capabilities to ensure comprehensive coverage and protection. Our team works closely with you to 
+                understand your operational requirements and design a system that integrates seamlessly with your business 
+                processes.
+              </p>
+            </div>
             <div className={styles.featuresGrid}>
               {content.features.map((f, i) => (
                 <div key={i} className={styles.featureCard}>
@@ -96,7 +130,14 @@ export default async function IndustryDetailPage({ params }: Props) {
             </div>
           </section>
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>FAQs</h2>
+            <h2 className={styles.sectionTitle}>FAQs About {industry} Security in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Here are answers to common questions about our {industry.toLowerCase()} security solutions in {locality}, 
+                {city}. Our team is always available to discuss your specific needs and help you choose the right security 
+                system for your {industry.toLowerCase()}.
+              </p>
+            </div>
             <div className={styles.faqGrid}>
               {content.faqs.map((f, i) => (
                 <div key={i} className={styles.faqItem}>

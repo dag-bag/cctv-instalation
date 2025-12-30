@@ -93,7 +93,30 @@ export default async function RepairPage({ params }: Props) {
       <main className={styles.main}>
         <div className={styles.contentSection}>
           <section>
-            <h2 className={styles.sectionTitle}>Related Services</h2>
+            <h2 className={styles.sectionTitle}>Professional {issue.replace(/-/g,' ')} Repair Service in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                If you are facing issues with {issue.replace(/-/g,' ')} in {locality}, {city}, CamHarbor is here to help. 
+                Our expert technicians provide fast and reliable repair services for all CCTV and security system problems. 
+                We understand how important it is to have working security systems, so we offer same-day service in most areas.
+              </p>
+              <p>
+                Our team in {city} has years of experience fixing {issue.replace(/-/g,' ')} issues. We carry common spare 
+                parts and can diagnose problems quickly. Whether it is a hardware issue, software problem, or configuration 
+                error, we have the skills and tools to fix it. We serve homes, offices, shops, and factories across {locality} 
+                and nearby areas.
+              </p>
+              <p>
+                When you call us for {issue.replace(/-/g,' ')} repair in {locality}, we send a certified technician to your 
+                location. They will check your system, find the problem, and fix it on the spot when possible. We provide 
+                warranty on all repairs and use only genuine parts. Our goal is to get your security system working again 
+                quickly and reliably.
+              </p>
+            </div>
+          </section>
+
+          <section style={{ marginTop: '4rem' }}>
+            <h2 className={styles.sectionTitle}>Related Services in {locality}</h2>
             <div className={styles.featuresGrid}>
               {["CCTV Repair","DVR/NVR Configuration","Mobile View Setup","Cable Replacement"].map((s, i) => (
                 <Link key={i} href={`/services/${citySlug}/${localitySlug}/${createSlug(s)}`} className={styles.featureCard}>
@@ -104,7 +127,13 @@ export default async function RepairPage({ params }: Props) {
             </div>
           </section>
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>How We Fix It</h2>
+            <h2 className={styles.sectionTitle}>How We Fix {issue.replace(/-/g,' ')} in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Our repair process is simple and efficient. When you contact us for {issue.replace(/-/g,' ')} repair in 
+                {locality}, we follow a proven four-step method to ensure your system is fixed correctly and quickly.
+              </p>
+            </div>
             <div className={styles.stepsContainer}>
               {[
                 { n: 1, t: 'Diagnosis', d: 'Check camera feed, cables, power supply, and recorder logs.' },
@@ -124,7 +153,32 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Common FAQs</h2>
+            <h2 className={styles.sectionTitle}>Benefits of Professional Repair Service</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Choosing professional repair service for {issue.replace(/-/g,' ')} in {locality} offers several advantages. 
+                Our certified technicians have the right tools and knowledge to diagnose problems accurately the first time. 
+                This saves you time and money compared to trial-and-error fixes. We also provide warranty on our work, giving 
+                you peace of mind that the repair will last.
+              </p>
+              <p>
+                Professional repair ensures your security system is restored to optimal performance. We test all components 
+                after repair to make sure everything works together properly. Our team also provides training on how to use 
+                your system effectively and prevent future issues. With our maintenance support, you can keep your security 
+                system running smoothly for years to come.
+              </p>
+            </div>
+          </section>
+
+          <section style={{ marginTop: '4rem' }}>
+            <h2 className={styles.sectionTitle}>Common FAQs About {issue.replace(/-/g,' ')} Repair in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Here are answers to common questions about our {issue.replace(/-/g,' ')} repair service in {locality}, {city}. 
+                If you have more questions, feel free to call us anytime. We are here to help you understand our services 
+                and get your security system working again.
+              </p>
+            </div>
             <div className={styles.faqGrid}>
               {[
                 { q: 'Do you provide spare parts?', a: 'Yes, we carry common spares like BNCs, SMPS, HDDs, and tested cables.' },

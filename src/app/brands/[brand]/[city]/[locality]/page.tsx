@@ -80,7 +80,31 @@ export default async function BrandPage({ params }: Props) {
       <main className={styles.main}>
         <div className={styles.contentSection}>
           <section>
-            <h2 className={styles.sectionTitle}>Popular {brand} Services</h2>
+            <h2 className={styles.sectionTitle}>Professional {brand} Installation in {locality}, {city}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Looking for {brand} CCTV installation in {locality}, {city}? CamHarbor is your trusted partner for all 
+                {brand} security solutions. We are authorized dealers and installers of {brand} products, ensuring you 
+                get genuine equipment with full manufacturer warranty. Our team has extensive experience installing 
+                {brand} cameras, DVRs, NVRs, and access control systems across {locality} and surrounding areas.
+              </p>
+              <p>
+                When you choose {brand} from CamHarbor in {locality}, you get more than just products. We provide complete 
+                installation services, mobile app setup, remote viewing configuration, and ongoing support. Our technicians 
+                are trained on {brand} systems and know how to optimize them for your specific needs. Whether you need 
+                residential security, office surveillance, or industrial monitoring, we have the right {brand} solution.
+              </p>
+              <p>
+                We serve customers throughout {locality} and nearby areas in {city}. Our same-day installation service 
+                means you can have your {brand} security system up and running quickly. We also offer maintenance contracts 
+                to keep your system running smoothly. Contact us today for a free consultation and quote for {brand} 
+                installation in {locality}.
+              </p>
+            </div>
+          </section>
+
+          <section style={{ marginTop: '4rem' }}>
+            <h2 className={styles.sectionTitle}>Popular {brand} Services in {locality}</h2>
             <div className={styles.featuresGrid}>
               {SERVICES.slice(0,6).map((s, i) => (
                 <Link key={i} href={`/services/${citySlug}/${localitySlug}/${createSlug(s)}`} className={styles.featureCard}>
@@ -92,7 +116,14 @@ export default async function BrandPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Why Choose {brand}?</h2>
+            <h2 className={styles.sectionTitle}>Why Choose {brand} in {locality}?</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                {brand} is a leading brand in security technology, known for quality, reliability, and advanced features. 
+                When you install {brand} systems in {locality}, you get cutting-edge security solutions backed by expert 
+                installation and support from CamHarbor. Here are the key benefits of choosing {brand} for your security needs.
+              </p>
+            </div>
             <div className={styles.featuresGrid}>
               <div className={styles.featureCard}><span className={styles.checkIcon}>📷</span><span className={styles.featureText}>ColorVu / Starlight Low-Light Cameras</span></div>
               <div className={styles.featureCard}><span className={styles.checkIcon}>🧠</span><span className={styles.featureText}>AcuSense / AI Motion Detection</span></div>
@@ -104,7 +135,33 @@ export default async function BrandPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>{brand} FAQs</h2>
+            <h2 className={styles.sectionTitle}>Our {brand} Installation Process in {locality}</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                When you choose {brand} installation from CamHarbor in {locality}, we follow a comprehensive process to 
+                ensure your system is set up correctly. First, we conduct a site survey to understand your property layout 
+                and security needs. Our team then designs a customized solution using {brand} products that best fit your 
+                requirements and budget.
+              </p>
+              <p>
+                During installation, our certified technicians handle everything from camera mounting to system configuration. 
+                We ensure proper cable management, power supply setup, and network configuration for optimal performance. 
+                After installation, we configure mobile apps, remote viewing, and provide complete training so you can use 
+                your {brand} system effectively. We also offer ongoing support and maintenance to keep your system running 
+                smoothly.
+              </p>
+            </div>
+          </section>
+
+          <section style={{ marginTop: '4rem' }}>
+            <h2 className={styles.sectionTitle}>{brand} FAQs for {locality} Customers</h2>
+            <div className={styles.text} style={{ marginBottom: '2rem' }}>
+              <p>
+                Here are answers to frequently asked questions about {brand} installation and services in {locality}, 
+                {city}. If you need more information, our team is ready to help you understand all aspects of {brand} 
+                security systems and find the best solution for your property.
+              </p>
+            </div>
             <div className={styles.faqGrid}>
               {[
                 { q: `Do you provide original ${brand} products?`, a: 'Yes, we supply and install only genuine products with manufacturer warranty.' },
