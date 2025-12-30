@@ -44,19 +44,17 @@ export default function AboutPage() {
           <div className={styles.textContent}>
             <h2 className={styles.sectionTitle}>Our Story</h2>
             <p className={styles.text}>
-              CamHarbor was founded with a simple yet powerful vision: to make professional security 
-              solutions accessible to everyone. What started as a small venture has grown into one of 
-              Delhi NCR's most trusted names in CCTV installation and security services.
+              CamHarbor started with a simple goal. We want to make security easy for everyone. 
+              What began as a small business is now one of Delhi NCR's trusted security companies.
             </p>
             <p className={styles.text}>
-              Over the years, we've installed thousands of security cameras, helped hundreds of businesses 
-              protect their assets, and provided peace of mind to countless families. Our commitment to 
-              quality, transparency, and customer satisfaction has been the cornerstone of our success.
+              We have installed thousands of security cameras. We help businesses protect their property. 
+              We give families peace of mind. Quality work and honest service are what we stand for.
             </p>
             <p className={styles.text}>
-              Today, we serve customers across Delhi, Gurgaon, Noida, Ghaziabad, Faridabad, and beyond, 
-              offering comprehensive security solutions that combine cutting-edge technology with expert 
-              installation and reliable support.
+              Today, we work across Delhi, Gurgaon, Noida, Ghaziabad, and Faridabad. We offer complete 
+              security solutions. Our team uses the latest technology. We provide expert installation 
+              and reliable support.
             </p>
           </div>
         </section>
@@ -68,19 +66,17 @@ export default function AboutPage() {
               <h2 className={styles.sectionTitle}>Meet Our Founder</h2>
               <h3 className={styles.founderName}>Virender Kumar</h3>
               <p className={styles.text}>
-                Virender Kumar is the visionary founder and driving force behind CamHarbor. With years of 
-                experience in the security and technology industry, Virender recognized the need for reliable, 
-                affordable, and professional security solutions in the Delhi NCR region.
+                Virender Kumar is the founder of CamHarbor. He has years of experience in security and 
+                technology. He saw that people in Delhi NCR needed good, affordable security services.
               </p>
               <p className={styles.text}>
-                His passion for technology and commitment to customer satisfaction has shaped CamHarbor into 
-                what it is today. Under his leadership, the company has maintained a focus on quality 
-                installations, transparent pricing, and exceptional customer service.
+                Virender loves technology. He cares about making customers happy. This has made CamHarbor 
+                what it is today. The company focuses on quality work, fair prices, and great service.
               </p>
               <p className={styles.text}>
-                Virender believes that security should be accessible to everyone—from small homes to large 
-                commercial establishments. This philosophy drives our mission to provide top-quality security 
-                solutions at competitive prices, backed by reliable support and service.
+                Virender believes everyone deserves good security. This includes small homes and large 
+                businesses. We work to provide the best security at fair prices. We back it up with 
+                reliable support.
               </p>
               <div className={styles.socialLink}>
                 <a
@@ -104,18 +100,17 @@ export default function AboutPage() {
               <div className={styles.missionIcon}>🎯</div>
               <h3 className={styles.missionTitle}>Our Mission</h3>
               <p className={styles.missionText}>
-                To provide world-class security solutions that protect what matters most to our customers. 
-                We strive to make professional security accessible, affordable, and reliable for everyone 
-                across Delhi NCR.
+                We provide top security solutions. We protect what matters to our customers. We make 
+                professional security easy to get, affordable, and reliable for everyone in Delhi NCR.
               </p>
             </div>
             <div className={styles.missionCard}>
               <div className={styles.missionIcon}>👁️</div>
               <h3 className={styles.missionTitle}>Our Vision</h3>
               <p className={styles.missionText}>
-                To become the most trusted name in security solutions across India, known for innovation, 
-                quality, and unwavering commitment to customer satisfaction. We envision a future where 
-                every home and business is protected by reliable, smart security systems.
+                We want to be India's most trusted security company. We are known for new ideas, quality 
+                work, and putting customers first. We see a future where every home and business has 
+                reliable, smart security.
               </p>
             </div>
           </div>
@@ -128,38 +123,38 @@ export default function AboutPage() {
             <div className={styles.valueCard}>
               <div className={styles.valueIcon}>✅</div>
               <h3>Quality First</h3>
-              <p>We never compromise on quality. Every installation is done with precision, using genuine 
-              parts and following industry best practices.</p>
+              <p>We never cut corners on quality. Every job is done right. We use real parts and follow 
+              the best methods.</p>
             </div>
             <div className={styles.valueCard}>
               <div className={styles.valueIcon}>🤝</div>
               <h3>Customer Trust</h3>
-              <p>Building long-term relationships with our customers is our priority. We believe in 
-              transparency, honesty, and delivering on our promises.</p>
+              <p>We want to work with you for years. We believe in being open, honest, and keeping 
+              our word.</p>
             </div>
             <div className={styles.valueCard}>
               <div className={styles.valueIcon}>💡</div>
               <h3>Innovation</h3>
-              <p>We stay updated with the latest security technologies and trends to offer our customers 
-              the best solutions available in the market.</p>
+              <p>We keep up with the newest security technology. This helps us offer you the best 
+              solutions available.</p>
             </div>
             <div className={styles.valueCard}>
               <div className={styles.valueIcon}>⚡</div>
               <h3>Reliability</h3>
-              <p>When you need us, we're there. Our 24/7 support and quick response times ensure that 
-              your security systems are always operational.</p>
+              <p>When you need us, we are there. Our 24/7 support and fast response keep your security 
+              systems working.</p>
             </div>
             <div className={styles.valueCard}>
               <div className={styles.valueIcon}>💰</div>
               <h3>Affordability</h3>
-              <p>We believe quality security shouldn't break the bank. Our competitive pricing makes 
-              professional security accessible to everyone.</p>
+              <p>Good security should not cost too much. Our fair prices make professional security 
+              available to everyone.</p>
             </div>
             <div className={styles.valueCard}>
               <div className={styles.valueIcon}>🛡️</div>
               <h3>Security</h3>
-              <p>Your safety and privacy are paramount. We ensure all installations meet the highest 
-              security standards and protect your data.</p>
+              <p>Your safety and privacy come first. We make sure all installations meet high security 
+              standards. We protect your data.</p>
             </div>
           </div>
         </section>
@@ -171,38 +166,38 @@ export default function AboutPage() {
             <div className={styles.serviceCard}>
               <div className={styles.serviceIcon}>📹</div>
               <h3>CCTV Installation</h3>
-              <p>Professional installation of security cameras for homes, offices, shops, and industrial 
-              facilities. We handle everything from planning to installation and configuration.</p>
+              <p>We install security cameras for homes, offices, shops, and factories. We handle 
+              everything from planning to setup.</p>
             </div>
             <div className={styles.serviceCard}>
               <div className={styles.serviceIcon}>🔧</div>
               <h3>Repair & Maintenance</h3>
-              <p>Expert repair services for all major CCTV brands. We also offer comprehensive AMC 
-              (Annual Maintenance Contracts) to keep your systems running smoothly.</p>
+              <p>We repair all major CCTV brands. We also offer AMC plans to keep your systems 
+              working well.</p>
             </div>
             <div className={styles.serviceCard}>
               <div className={styles.serviceIcon}>🔐</div>
               <h3>Access Control</h3>
-              <p>Biometric and card-based access control systems for enhanced security. Perfect for 
-              offices, apartments, and commercial spaces.</p>
+              <p>We install biometric and card access systems. These add extra security. They work 
+              great for offices, apartments, and businesses.</p>
             </div>
             <div className={styles.serviceCard}>
               <div className={styles.serviceIcon}>🚪</div>
               <h3>Video Door Phones</h3>
-              <p>Modern video door phone systems that let you see and communicate with visitors before 
-              opening the door. Ideal for homes and apartments.</p>
+              <p>Modern video door phones let you see and talk to visitors before opening the door. 
+              Perfect for homes and apartments.</p>
             </div>
             <div className={styles.serviceCard}>
               <div className={styles.serviceIcon}>⚡</div>
               <h3>Electrical Services</h3>
-              <p>Complete electrical solutions including wiring, panel installation, and electrical 
+              <p>We provide full electrical services. This includes wiring, panel installation, and 
               repairs. All work is done by certified electricians.</p>
             </div>
             <div className={styles.serviceCard}>
               <div className={styles.serviceIcon}>📱</div>
               <h3>24/7 Support</h3>
-              <p>Round-the-clock support for emergencies. Our team is always ready to help when you 
-              need us most.</p>
+              <p>We offer 24/7 support for emergencies. Our team is always ready to help when you 
+              need us.</p>
             </div>
           </div>
         </section>
@@ -214,38 +209,38 @@ export default function AboutPage() {
             <div className={styles.whyCard}>
               <div className={styles.whyNumber}>1</div>
               <h3>Expert Technicians</h3>
-              <p>All our technicians are certified, background-verified, and have years of experience 
-              in security system installation and repair.</p>
+              <p>All our technicians are certified and verified. They have years of experience in 
+              security installation and repair.</p>
             </div>
             <div className={styles.whyCard}>
               <div className={styles.whyNumber}>2</div>
               <h3>1-Year Warranty</h3>
-              <p>We stand behind our work with a comprehensive 1-year warranty on all installations, 
-              covering both labor and parts.</p>
+              <p>We back our work with a full 1-year warranty. This covers both labor and parts 
+              on all installations.</p>
             </div>
             <div className={styles.whyCard}>
               <div className={styles.whyNumber}>3</div>
               <h3>Transparent Pricing</h3>
-              <p>No hidden charges or surprise fees. We provide clear, upfront pricing so you know 
-              exactly what you're paying for.</p>
+              <p>No hidden fees or surprises. We give clear prices upfront. You know exactly what 
+              you are paying for.</p>
             </div>
             <div className={styles.whyCard}>
               <div className={styles.whyNumber}>4</div>
               <h3>Same-Day Service</h3>
-              <p>Need urgent installation or repair? We offer same-day service for most locations across 
+              <p>Need urgent installation or repair? We offer same-day service in most areas across 
               Delhi NCR.</p>
             </div>
             <div className={styles.whyCard}>
               <div className={styles.whyNumber}>5</div>
               <h3>Genuine Parts</h3>
-              <p>We use only genuine, branded parts from authorized dealers. No compromises on quality 
-              or durability.</p>
+              <p>We use only real, branded parts from authorized dealers. We never compromise on 
+              quality or durability.</p>
             </div>
             <div className={styles.whyCard}>
               <div className={styles.whyNumber}>6</div>
               <h3>Customer Satisfaction</h3>
-              <p>With thousands of satisfied customers and a 4.9+ rating, we're committed to 
-              exceeding your expectations.</p>
+              <p>We have thousands of happy customers and a 4.9+ rating. We work hard to exceed 
+              your expectations.</p>
             </div>
           </div>
         </section>
@@ -255,7 +250,7 @@ export default function AboutPage() {
           <h2 className={styles.sectionTitle}>Our Reach</h2>
           <div className={styles.reachContent}>
             <p className={styles.text}>
-              CamHarbor proudly serves customers across the entire Delhi NCR region, including:
+              CamHarbor serves customers across the entire Delhi NCR region. This includes:
             </p>
             <div className={styles.citiesGrid}>
               <div className={styles.cityCard}>Delhi</div>
@@ -266,9 +261,8 @@ export default function AboutPage() {
               <div className={styles.cityCard}>Greater Noida</div>
             </div>
             <p className={styles.text}>
-              We cover 100+ localities across these cities, ensuring that professional security 
-              solutions are never far away. Whether you're in a residential area, commercial hub, 
-              or industrial zone, we're here to help.
+              We cover 100+ areas across these cities. Professional security is never far away. 
+              Whether you are in a home area, business area, or factory zone, we are here to help.
             </p>
           </div>
         </section>
@@ -278,8 +272,8 @@ export default function AboutPage() {
           <div className={styles.ctaCard}>
             <h2 className={styles.ctaTitle}>Ready to Secure Your Property?</h2>
             <p className={styles.ctaText}>
-              Get in touch with us today for a free consultation and quote. Our team is ready to 
-              help you find the perfect security solution.
+              Contact us today for a free consultation and quote. Our team is ready to help you 
+              find the right security solution.
             </p>
             <div className={styles.ctaButtons}>
               <Link href="/contact" className={styles.ctaButton}>

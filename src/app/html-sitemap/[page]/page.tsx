@@ -257,13 +257,23 @@ export default async function HtmlSitemapPage(props: {
   const end = start + ITEMS_PER_PAGE;
   const currentLinks = allLinks.slice(start, end);
 
+  // Group links by category for better organization
+  const linksByCategory: Record<string, typeof currentLinks> = {};
+  currentLinks.forEach((link) => {
+    if (!linksByCategory[link.category]) {
+      linksByCategory[link.category] = [];
+    }
+    linksByCategory[link.category].push(link);
+  });
+
   return (
     <div className={styles.container}>
       <main className={styles.section}>
         <div className={styles.content}>
           <h1 className={styles.sectionTitle}>Site Index - Page {page}</h1>
           <p className={styles.sectionSubtitle}>
-            Complete directory of our services across all locations.
+            Find all our CCTV and security services. Browse by city, area, or service type. 
+            We help with camera installation, repairs, and access control across Delhi NCR.
             <br />
             <span style={{ fontSize: "0.9em", opacity: 0.8 }}>
               Total URLs: {allLinks.length.toLocaleString()} | Pages:{" "}
@@ -300,26 +310,44 @@ export default async function HtmlSitemapPage(props: {
             )}
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-              gap: "1rem",
-              textAlign: "left",
-            }}
-          >
-            {currentLinks.map((link, index) => (
-              <div key={index}>
-                <Link
-                  href={link.url}
-                  className={styles.link}
-                  style={{ fontSize: "0.9rem", color: "#94a3b8" }}
-                >
-                  {link.label}
-                </Link>
+          {Object.entries(linksByCategory).map(([category, links]) => (
+            <section key={category} style={{ marginBottom: "3rem" }}>
+              <h2 style={{ 
+                fontSize: "1.5rem", 
+                fontWeight: 600, 
+                marginBottom: "1rem",
+                color: "#f8fafc",
+                borderBottom: "2px solid #3b82f6",
+                paddingBottom: "0.5rem"
+              }}>
+                {category === "Index" ? "Main Pages" : 
+                 category === "Brands" ? "CCTV Brands" :
+                 category === "Repairs" ? "Repair Services" :
+                 category === "SEO" ? "Search Pages" :
+                 `${category} Services`}
+              </h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                  gap: "1rem",
+                  textAlign: "left",
+                }}
+              >
+                {links.map((link, index) => (
+                  <div key={index}>
+                    <Link
+                      href={link.url}
+                      className={styles.link}
+                      style={{ fontSize: "0.9rem", color: "#94a3b8" }}
+                    >
+                      {link.label}
+                    </Link>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </section>
+          ))}
 
           <div
             style={{
