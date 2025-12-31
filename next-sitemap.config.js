@@ -238,6 +238,16 @@ module.exports = {
       { userAgent: '*', allow: '/' },
       { userAgent: '*', disallow: ['/api/', '/admin/'] },
     ],
+    additionalSitemaps: [
+      'https://www.camharbor.in/sitemap-0.xml',
+      'https://www.camharbor.in/sitemap-1.xml',
+      'https://www.camharbor.in/sitemap-2.xml',
+      'https://www.camharbor.in/sitemap-3.xml',
+      'https://www.camharbor.in/sitemap-4.xml',
+      'https://www.camharbor.in/sitemap-5.xml',
+      'https://www.camharbor.in/sitemap-6.xml',
+      'https://www.camharbor.in/sitemap-7.xml',
+    ],
   },
   sitemapSize: 20000,
   exclude: ['/server-sitemap.xml'], // Exclude server-side sitemap if any

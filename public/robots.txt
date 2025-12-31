@@ -12,3 +12,10 @@ Host: https://www.camharbor.in
 
 # Sitemaps
 Sitemap: https://www.camharbor.in/sitemap.xml
+Sitemap: https://www.camharbor.in/sitemap-0.xml
+Sitemap: https://www.camharbor.in/sitemap-1.xml
+Sitemap: https://www.camharbor.in/sitemap-2.xml
+Sitemap: https://www.camharbor.in/sitemap-3.xml
+Sitemap: https://www.camharbor.in/sitemap-4.xml
+Sitemap: https://www.camharbor.in/sitemap-5.xml
+Sitemap: https://www.camharbor.in/sitemap-6.xml
