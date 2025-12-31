@@ -64,59 +64,59 @@ async function getPageData(service: string, locality: string, city: string, slug
   };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   const { slug } = await params;
   
-  const queryParsed = parseQuerySlug(slug);
-  if (queryParsed) {
-    const { service, locality, city } = queryParsed;
-    const data = await getPageData(service, locality, city, slug);
-    const serviceImage = getImageUrl(service, 'service', 1200);
+//   const queryParsed = parseQuerySlug(slug);
+//   if (queryParsed) {
+//     const { service, locality, city } = queryParsed;
+//     const data = await getPageData(service, locality, city, slug);
+//     const serviceImage = getImageUrl(service, 'service', 1200);
 
-    const title = data.pattern === 'brand' && data.brandName
-      ? `${data.brandName} ${service} in ${locality}, ${city}`
-      : data.pattern === 'repair'
-      ? `${service} in ${locality}, ${city}`
-      : `${service} in ${locality}, ${city}`;
+//     const title = data.pattern === 'brand' && data.brandName
+//       ? `${data.brandName} ${service} in ${locality}, ${city}`
+//       : data.pattern === 'repair'
+//       ? `${service} in ${locality}, ${city}`
+//       : `${service} in ${locality}, ${city}`;
 
-    const description = data.pattern === 'brand' && data.brandName
-      ? `Looking for authorized ${data.brandName} ${service.toLowerCase()} in ${locality}? We offer genuine products, expert installation & full warranty. Best prices in ${city}. Call +91-87662-03976`
-      : data.pattern === 'repair'
-      ? `Need fast ${service.toLowerCase()} in ${locality}? We offer 24/7 emergency repair, 2-hour response time & same-day service. Expert technicians. Call +91-87662-03976 now!`
-      : `Looking for the best ${service.toLowerCase()} in ${locality}, ${city}? We offer top-rated installation, 500+ happy customers, same-day service & 1-year warranty. Free quote. Call +91-87662-03976`;
+//     const description = data.pattern === 'brand' && data.brandName
+//       ? `Looking for authorized ${data.brandName} ${service.toLowerCase()} in ${locality}? We offer genuine products, expert installation & full warranty. Best prices in ${city}. Call +91-87662-03976`
+//       : data.pattern === 'repair'
+//       ? `Need fast ${service.toLowerCase()} in ${locality}? We offer 24/7 emergency repair, 2-hour response time & same-day service. Expert technicians. Call +91-87662-03976 now!`
+//       : `Looking for the best ${service.toLowerCase()} in ${locality}, ${city}? We offer top-rated installation, 500+ happy customers, same-day service & 1-year warranty. Free quote. Call +91-87662-03976`;
 
-    return {
-      title,
-      description,
-      keywords: `${service}, ${locality}, ${city}, Best ${service} in ${locality}, ${service} near me, ${service.toLowerCase()} price, ${data.brandName || ''} dealer ${locality}, professional ${service.toLowerCase()}`,
-      alternates: { canonical: `https://www.camharbor.in/${slug}` },
-      openGraph: {
-        type: "website",
-        locale: "en_IN",
-        url: `https://www.camharbor.in/${slug}`,
-        title,
-        description,
-        siteName: "CamHarbor",
-        images: [{ url: serviceImage, width: 1200, height: 630, alt: `${service} in ${locality}, ${city}` }],
-      },
-      twitter: { card: "summary_large_image", title, description, images: [serviceImage] },
-      robots: {
-        index: true,
-        follow: true,
-        googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
-      },
-    };
-  }
+//     return {
+//       title,
+//       description,
+//       keywords: `${service}, ${locality}, ${city}, Best ${service} in ${locality}, ${service} near me, ${service.toLowerCase()} price, ${data.brandName || ''} dealer ${locality}, professional ${service.toLowerCase()}`,
+//       alternates: { canonical: `https://www.camharbor.in/${slug}` },
+//       openGraph: {
+//         type: "website",
+//         locale: "en_IN",
+//         url: `https://www.camharbor.in/${slug}`,
+//         title,
+//         description,
+//         siteName: "CamHarbor",
+//         images: [{ url: serviceImage, width: 1200, height: 630, alt: `${service} in ${locality}, ${city}` }],
+//       },
+//       twitter: { card: "summary_large_image", title, description, images: [serviceImage] },
+//       robots: {
+//         index: true,
+//         follow: true,
+//         googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
+//       },
+//     };
+//   }
 
-  const flatParsed = parseSlug(slug);
-  if (!flatParsed) return { title: 'Page Not Found' };
+//   const flatParsed = parseSlug(slug);
+//   if (!flatParsed) return { title: 'Page Not Found' };
 
-  const { city, locality, service } = flatParsed;
-  return {
-    title: `Redirecting to ${service} in ${locality}...`,
-    alternates: { canonical: `/services/${createSlug(city)}/${createSlug(locality)}/${createSlug(service)}` },
-  };
-}
+//   const { city, locality, service } = flatParsed;
+//   return {
+//     title: `Redirecting to ${service} in ${locality}...`,
+//     alternates: { canonical: `/services/${createSlug(city)}/${createSlug(locality)}/${createSlug(service)}` },
+//   };
+// }
 
 export default async function SlugPage({ params }: Props) {
   const { slug } = await params;
@@ -124,6 +124,7 @@ export default async function SlugPage({ params }: Props) {
   const queryParsed = parseQuerySlug(slug);
   if (queryParsed) {
     const { service, locality, city } = queryParsed;
+    permanentRedirect(`/services/${createSlug(city)}/${createSlug(locality)}/${createSlug(service)}`);
     const data = await getPageData(service, locality, city, slug);
     const citySlug = createSlug(city);
     const localitySlug = createSlug(locality);

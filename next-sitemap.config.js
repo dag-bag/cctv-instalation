@@ -352,47 +352,6 @@ module.exports = {
       }
     }
 
-    // 4. Query-Based URLs (Permutations)
-    const topServices = SERVICES.slice(0, 100); // Top 100 services
-    
-    for (const city of CITIES) {
-      const citySlug = createSlug(city);
-      const localities = localitiesData[city] || [];
-      const topLocalities = localities.slice(0, 50); // Top 50 localities per city
-      
-      for (const locality of topLocalities) {
-        const localitySlug = createSlug(locality);
-        
-        for (const service of topServices) {
-          const serviceSlug = createSlug(service);
-          
-          // Pattern 1: service-in-locality-city
-          result.push({
-            loc: `/${serviceSlug}-in-${localitySlug}-${citySlug}`,
-            changefreq: 'monthly',
-            priority: 0.75,
-            lastmod: new Date().toISOString(),
-          });
-          
-          // Pattern 2: service-locality-city
-          result.push({
-            loc: `/${serviceSlug}-${localitySlug}-${citySlug}`,
-            changefreq: 'monthly',
-            priority: 0.75,
-            lastmod: new Date().toISOString(),
-          });
-          
-          // Pattern 3: locality-service
-          result.push({
-            loc: `/${localitySlug}-${serviceSlug}`,
-            changefreq: 'monthly',
-            priority: 0.75,
-            lastmod: new Date().toISOString(),
-          });
-        }
-      }
-    }
-
     return result;
   },
 }

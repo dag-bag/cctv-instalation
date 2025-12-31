@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { CITIES, LOCALITIES, SERVICES, generateQuerySlugs } from '../../lib/seo-data';
+import { CITIES, LOCALITIES, SERVICES } from '../../lib/seo-data';
 import styles from '../page.module.css';
 
 const ITEMS_PER_PAGE = 1000;
@@ -23,7 +23,6 @@ function getTotalLinks() {
       total += INDUSTRIES.length;
     });
   });
-  total += generateQuerySlugs().length;
   return total;
 }
 
