@@ -135,14 +135,16 @@ export default function ContactForm() {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>
+              <label htmlFor="service-select-contact" className={styles.label}>
                 Service Needed <span className={styles.required}>*</span>
               </label>
               <select
+                id="service-select-contact"
                 className={styles.select}
                 value={formData.service}
                 onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                 style={{ borderColor: errors.service ? '#ef4444' : undefined }}
+                aria-label="Service Needed"
               >
                 <option value="">Select a service</option>
                 <option value="CCTV Installation">CCTV Installation</option>

@@ -638,6 +638,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
                   style={{ border: 0 }}
                   loading="lazy"
                   allowFullScreen
+                  title={`Map showing ${locality}, ${city} location`}
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(
                     locality + ", " + city
                   )}&t=&z=13&ie=UTF8&iwloc=&output=embed`}

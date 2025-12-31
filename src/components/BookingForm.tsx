@@ -88,11 +88,13 @@ export default function BookingForm({ defaultService }: Props) {
             {errors.phone && <span style={{ color: '#ef4444', fontSize: '0.8rem' }}>{errors.phone}</span>}
           </div>
           <div className={styles.formGroup}>
-            <label className={styles.label}>Service Needed</label>
+            <label htmlFor="service-select" className={styles.label}>Service Needed</label>
             <select
+              id="service-select"
               className={styles.select}
               value={formData.service}
               onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+              aria-label="Service Needed"
             >
               <option value={defaultService}>{defaultService}</option>
               <option value="other">Other Service</option>

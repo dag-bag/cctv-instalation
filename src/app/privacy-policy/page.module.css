@@ -72,12 +72,14 @@
   max-width: 80rem;
   margin: 0 auto;
   font-size: 0.875rem;
-  color: #64748b;
+  color: #cbd5e1;
 }
 
 .link {
   color: #cbd5e1;
   text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
   transition: color 0.2s;
 }
 

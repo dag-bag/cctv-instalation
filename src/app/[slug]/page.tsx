@@ -330,8 +330,8 @@ export default async function SlugPage({ params }: Props) {
                   <input className={styles.input} type="tel" placeholder="+91" />
                 </div>
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>Service</label>
-                  <select className={styles.select} defaultValue={service}>
+                  <label htmlFor="service-select-slug" className={styles.label}>Service</label>
+                  <select id="service-select-slug" className={styles.select} defaultValue={service} aria-label="Service">
                     {[service, ...related.filter(s => s !== service)].slice(0, 6).map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
