@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BUSINESS_CONFIG } from '@/config/business';
+import { getBrandRoutes, getRepairRoutes, getIndustryRoutes } from '@/lib/static-routes';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -129,6 +130,29 @@ export default function Footer() {
                 <li><Link href="/contact" className={styles.link}>Contact</Link></li>
                 <li><Link href="/html-sitemap" className={styles.link}>Site Index</Link></li>
               </ul>
+            </div>
+
+            {/* Browse by Category */}
+            <div className={styles.column}>
+              <h3>Browse by Category</h3>
+              <ul className={styles.linkList}>
+                <li><Link href="/services" className={styles.link}>All Services</Link></li>
+                <li><Link href="/brands" className={styles.link}>CCTV Brands</Link></li>
+                <li><Link href="/repairs" className={styles.link}>Repair Services</Link></li>
+                <li><Link href="/industries" className={styles.link}>Industries</Link></li>
+              </ul>
+              <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#64748b' }}>
+                <div style={{ marginBottom: '0.5rem' }}>
+                  <strong>Top Brands:</strong>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {getBrandRoutes().slice(0, 6).map((brand) => (
+                    <Link key={brand.url} href={brand.url} className={styles.link} style={{ fontSize: '0.8rem' }}>
+                      {brand.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Legal & Info */}

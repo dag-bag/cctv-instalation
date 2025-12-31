@@ -1,30 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { CITIES, LOCALITIES, SERVICES } from '../../lib/seo-data';
+import { generateAllLinks } from '../../lib/url-generator';
 import styles from '../page.module.css';
 
 const ITEMS_PER_PAGE = 1000;
-
-// Calculate total links
-function getTotalLinks() {
-  let total = 0;
-  const BRANDS = ['Hikvision','CP Plus','Dahua','Honeywell','Bosch','Panasonic','Godrej','Samsung','Sony','Tiandy','Uniview','Ezviz'];
-  const REPAIR_ISSUES = ['camera-not-working','no-signal','blur-image','recording-issue','mobile-view-setup','dvr-hard-disk-replacement','password-reset','online-configuration','cable-repair','power-supply-repair'];
-  const INDUSTRIES = ['Hospitals & Clinics','Schools & Colleges','Restaurants & Cafes','Retail Stores','Warehouses & Manufacturing','Offices & Corporate','Hotels & Guesthouses','Construction Sites','Event Venues & Auditoriums','Housing Societies','Smart Homes','Temples & Religious Places','Transport Hubs','Banks & ATMs','Gyms & Fitness Centers','Parking Lots','Car Dealerships','Co-Working Spaces','Fuel Stations & Petrol Pumps','Salons & Spas','Coaching Centers','Markets & Street Food','IT Parks & Tech Hubs','Wedding Halls & Banquets','Pharmacies & Medical Stores','Jewelry Stores','E-commerce Warehouses'];
-  CITIES.forEach((city) => {
-    total++;
-    const localities = LOCALITIES[city] || [];
-    localities.forEach(() => {
-      total++;
-      total += SERVICES.length;
-      total += BRANDS.length;
-      total += REPAIR_ISSUES.length;
-      total += INDUSTRIES.length;
-    });
-  });
-  return total;
-}
 
 export const metadata: Metadata = {
   title: 'Site Map - All CCTV Services | CamHarbor',
@@ -39,7 +19,8 @@ export const metadata: Metadata = {
 };
 
 export default function HtmlSitemapIndex() {
-  const totalLinks = getTotalLinks();
+  const allLinks = generateAllLinks();
+  const totalLinks = allLinks.length;
   const totalPages = Math.ceil(totalLinks / ITEMS_PER_PAGE);
   
   // Generate page numbers array
@@ -111,9 +92,7 @@ export default function HtmlSitemapIndex() {
             }}
           >
             <p style={{ fontSize: '0.9rem', opacity: 0.8, margin: '0' }}>
-              We have <strong>{totalLinks.toLocaleString()}</strong> service pages. They are split into {totalPages} pages.
-              <br />
-              We work in <strong>{CITIES.length}</strong> cities. We offer <strong>{SERVICES.length}</strong> services in Delhi NCR.
+              We have <strong>{totalLinks.toLocaleString()}</strong> pages. They are split into {totalPages} pages.
             </p>
           </div>
         </div>

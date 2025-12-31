@@ -123,14 +123,8 @@ export default async function HtmlSitemapPage(props: {
           {Object.entries(linksByCategory).map(([category, links], categoryIndex) => {
             // Create simple H2 heading for each page and category
             let categoryTitle = "";
-            if (category === "Index") {
-              categoryTitle = `Main Pages - Page ${page}`;
-            } else if (category === "Brands") {
-              categoryTitle = `CCTV Brands - Page ${page}`;
-            } else if (category === "Repairs") {
-              categoryTitle = `Repair Services - Page ${page}`;
-            } else if (category === "SEO") {
-              categoryTitle = `Search Pages - Page ${page}`;
+            if (category === "Static") {
+              categoryTitle = `Static Pages - Page ${page}`;
             } else {
               categoryTitle = `${category} Services - Page ${page}`;
             }
