@@ -66,6 +66,7 @@ export const metadata: Metadata = {
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SiteNavigation from "@/components/SiteNavigation";
 
 // ... imports ...
 
@@ -97,6 +98,7 @@ export default function RootLayout({
         <Header />
         {children}
         <div className="globalStickySpacer" aria-hidden="true"></div>
+        <SiteNavigation />
         <Footer />
       </body>
     </html>

@@ -132,27 +132,62 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Browse by Category */}
+            {/* Browse by Category - Services */}
             <div className={styles.column}>
-              <h3>Browse by Category</h3>
+              <h3>Services</h3>
               <ul className={styles.linkList}>
                 <li><Link href="/services" className={styles.link}>All Services</Link></li>
-                <li><Link href="/brands" className={styles.link}>CCTV Brands</Link></li>
-                <li><Link href="/repairs" className={styles.link}>Repair Services</Link></li>
-                <li><Link href="/industries" className={styles.link}>Industries</Link></li>
+                <li><Link href="/services/delhi" className={styles.link}>Services in Delhi</Link></li>
+                <li><Link href="/services/gurgaon" className={styles.link}>Services in Gurgaon</Link></li>
+                <li><Link href="/services/noida" className={styles.link}>Services in Noida</Link></li>
+                <li><Link href="/services/ghaziabad" className={styles.link}>Services in Ghaziabad</Link></li>
+                <li><Link href="/services/faridabad" className={styles.link}>Services in Faridabad</Link></li>
               </ul>
-              <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#64748b' }}>
-                <div style={{ marginBottom: '0.5rem' }}>
-                  <strong>Top Brands:</strong>
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  {getBrandRoutes().slice(0, 6).map((brand) => (
-                    <Link key={brand.url} href={brand.url} className={styles.link} style={{ fontSize: '0.8rem' }}>
+            </div>
+
+            {/* Browse by Category - Brands */}
+            <div className={styles.column}>
+              <h3>CCTV Brands</h3>
+              <ul className={styles.linkList}>
+                <li><Link href="/brands" className={styles.link}>All Brands</Link></li>
+                {getBrandRoutes().slice(0, 8).map((brand) => (
+                  <li key={brand.url}>
+                    <Link href={brand.url} className={styles.link} style={{ fontSize: '0.9rem' }}>
                       {brand.label}
                     </Link>
-                  ))}
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Browse by Category - Repairs */}
+            <div className={styles.column}>
+              <h3>Repair Services</h3>
+              <ul className={styles.linkList}>
+                <li><Link href="/repairs" className={styles.link}>All Repairs</Link></li>
+                {getRepairRoutes().slice(0, 8).map((repair) => (
+                  <li key={repair.url}>
+                    <Link href={repair.url} className={styles.link} style={{ fontSize: '0.9rem' }}>
+                      {repair.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Browse by Category - Industries */}
+            <div className={styles.column}>
+              <h3>Industries</h3>
+              <ul className={styles.linkList}>
+                <li><Link href="/industries" className={styles.link}>All Industries</Link></li>
+                {getIndustryRoutes().slice(0, 8).map((industry) => (
+                  <li key={industry.url}>
+                    <Link href={industry.url} className={styles.link} style={{ fontSize: '0.9rem' }}>
+                      {industry.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Legal & Info */}

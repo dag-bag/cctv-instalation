@@ -2,6 +2,7 @@ import React from 'react';
 import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { CITIES, LOCALITIES, createSlug, SERVICES } from '@/lib/seo-data';
+import { getBrandRoutes, getRepairRoutes, getIndustryRoutes } from '@/lib/static-routes';
 import styles from './page.module.css';
 import { CityData } from '@/types/city';
 import { getCities } from '@/lib/api';
@@ -156,6 +157,57 @@ export default async function ServicesIndexPage() {
                   </Link>
                 );
               })}
+            </div>
+          </section>
+
+          {/* Browse by Category Section */}
+          <section style={{ marginTop: '3rem', marginBottom: '2.5rem', background: 'rgba(15, 23, 42, 0.3)', padding: '2rem', borderRadius: '0.75rem' }}>
+            <h2 className={styles.sectionTitle}>Browse by Category</h2>
+            <p style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '2rem' }}>
+              Explore our services by brand, repair type, or industry
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+              <div style={{ padding: '1.5rem', background: 'rgba(30, 41, 59, 0.6)', borderRadius: '0.5rem', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem', color: '#f8fafc' }}>CCTV Brands</h3>
+                <Link href="/brands" style={{ color: '#60a5fa', textDecoration: 'none', fontWeight: 500, display: 'block', marginBottom: '0.75rem' }}>
+                  View All Brands →
+                </Link>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {getBrandRoutes().slice(0, 5).map((brand) => (
+                    <Link key={brand.url} href={brand.url} style={{ fontSize: '0.85rem', color: '#94a3b8', textDecoration: 'none' }}>
+                      {brand.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ padding: '1.5rem', background: 'rgba(30, 41, 59, 0.6)', borderRadius: '0.5rem', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem', color: '#f8fafc' }}>Repair Services</h3>
+                <Link href="/repairs" style={{ color: '#60a5fa', textDecoration: 'none', fontWeight: 500, display: 'block', marginBottom: '0.75rem' }}>
+                  View All Repairs →
+                </Link>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {getRepairRoutes().slice(0, 5).map((repair) => (
+                    <Link key={repair.url} href={repair.url} style={{ fontSize: '0.85rem', color: '#94a3b8', textDecoration: 'none' }}>
+                      {repair.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ padding: '1.5rem', background: 'rgba(30, 41, 59, 0.6)', borderRadius: '0.5rem', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem', color: '#f8fafc' }}>Industries</h3>
+                <Link href="/industries" style={{ color: '#60a5fa', textDecoration: 'none', fontWeight: 500, display: 'block', marginBottom: '0.75rem' }}>
+                  View All Industries →
+                </Link>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {getIndustryRoutes().slice(0, 5).map((industry) => (
+                    <Link key={industry.url} href={industry.url} style={{ fontSize: '0.85rem', color: '#94a3b8', textDecoration: 'none' }}>
+                      {industry.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 
