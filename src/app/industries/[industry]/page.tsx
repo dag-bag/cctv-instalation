@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { CITIES, INDUSTRIES, createSlug } from '@/lib/seo-data';
+import { CITIES, INDUSTRIES, createSlug, getIndustryContent } from '@/lib/seo-data';
 import styles from '../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
@@ -16,14 +16,19 @@ function findOriginalFromSlug(slug: string, list: string[]): string | undefined 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { industry: industrySlug } = await params;
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
-  const title = `${industry} CCTV Solutions | Cities in Delhi NCR`;
-  const description = `Browse cities where we provide ${industry} surveillance solutions.`;
+  const content = getIndustryContent(industry);
+  
+  const title = content ? `${industry} CCTV Solutions | Cities in Delhi NCR` : `${industry} CCTV Solutions | Cities in Delhi NCR`;
+  const description = content ? content.description.slice(0, 160) + '...' : `Browse cities where we provide ${industry} surveillance solutions.`;
+  
   return { title, description, alternates: { canonical: `https://www.camharbor.in/industries/${industrySlug}` } };
 }
 
 export default async function IndustryCityListPage({ params }: Props) {
   const { industry: industrySlug } = await params;
   const industry = findOriginalFromSlug(industrySlug, INDUSTRIES) || industrySlug;
+  const content = getIndustryContent(industry);
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',
     'itemListElement': [
@@ -32,12 +37,13 @@ export default async function IndustryCityListPage({ params }: Props) {
       { '@type': 'ListItem', position: 3, name: industry, item: `https://www.camharbor.in/industries/${industrySlug}` }
     ]
   };
+
   return (
     <div className={styles.container}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <header className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>{industry}</h1>
+          <h1 className={styles.title}>{industry} Security</h1>
           <p className={styles.subtitle}>Select a city to view supported localities.</p>
         </div>
       </header>
@@ -50,6 +56,23 @@ export default async function IndustryCityListPage({ params }: Props) {
       </nav>
       <main className={styles.main}>
         <div className={styles.contentSection}>
+          {content && (
+            <section className={styles.text} style={{ marginBottom: '3rem' }}>
+              <div style={{ whiteSpace: 'pre-line' }}>{content.description}</div>
+              
+              {content.features && content.features.length > 0 && (
+                <div style={{ marginTop: '2rem' }}>
+                  <h3 className={styles.subTitle}>Key Features</h3>
+                  <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '1rem' }}>
+                    {content.features.map((feature, idx) => (
+                      <li key={idx} style={{ marginBottom: '0.5rem' }}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )}
+
           <section>
             <h2 className={styles.sectionTitle}>Select City</h2>
             <div className={styles.featuresGrid}>
@@ -61,6 +84,20 @@ export default async function IndustryCityListPage({ params }: Props) {
               ))}
             </div>
           </section>
+
+          {content && content.faqs && content.faqs.length > 0 && (
+            <section style={{ marginTop: '4rem' }}>
+              <h2 className={styles.sectionTitle}>Common Questions</h2>
+              <div className={styles.faqGrid}>
+                {content.faqs.map((faq, i) => (
+                  <div key={i} className={styles.faqItem}>
+                    <h3 className={styles.faqQuestion}>{faq.question}</h3>
+                    <p className={styles.faqAnswer}>{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </div>

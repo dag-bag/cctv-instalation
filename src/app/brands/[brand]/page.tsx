@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { CITIES, createSlug } from '@/lib/seo-data';
+import { BRAND_CONTENT, PageContent } from '@/lib/content-data';
 import styles from '../../[slug]/page.module.css';
 
 export const dynamic = 'force-static';
@@ -9,25 +10,50 @@ export const revalidate = false;
 
 type Props = { params: Promise<{ brand: string }> };
 
+function getBrandContent(slug: string): PageContent | null {
+  const brandName = Object.keys(BRAND_CONTENT).find(key => createSlug(key) === slug);
+  return brandName ? BRAND_CONTENT[brandName] : null;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { brand } = await params;
-  const title = `${brand} Installation | Cities in Delhi NCR`;
-  const description = `Browse cities where we install and support ${brand} CCTV systems.`;
+  const { brand: brandSlug } = await params;
+  const content = getBrandContent(brandSlug);
+  const brandName = content ? Object.keys(BRAND_CONTENT).find(k => createSlug(k) === brandSlug) || brandSlug : brandSlug;
+  
+  const title = content ? `${content.title} | Cities in Delhi NCR` : `${brandName} Installation | Cities in Delhi NCR`;
+  const description = content ? content.description.slice(0, 160) + '...' : `Browse cities where we install and support ${brandName} CCTV systems.`;
+  
   return {
     title,
     description,
-    alternates: { canonical: `https://www.camharbor.in/brands/${brand}` },
+    alternates: { canonical: `https://www.camharbor.in/brands/${brandSlug}` },
     openGraph: { title, description, type: 'website' },
   };
 }
 
 export default async function BrandCityListPage({ params }: Props) {
-  const { brand } = await params;
+  const { brand: brandSlug } = await params;
+  const content = getBrandContent(brandSlug);
+  
+  // Fallback simple name if content not found (though it should be for known brands)
+  const brandName = content ? Object.keys(BRAND_CONTENT).find(k => createSlug(k) === brandSlug) || brandSlug : brandSlug;
+  const displayName = brandName.replace(/-/g, ' '); // simple cleanup fallback
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.camharbor.in' },
+      { '@type': 'ListItem', position: 2, name: 'Brands', item: 'https://www.camharbor.in/brands' },
+      { '@type': 'ListItem', position: 3, name: displayName, item: `https://www.camharbor.in/brands/${brandSlug}` }
+    ]
+  };
+
   return (
     <div className={styles.container}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <header className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>{brand} Installation</h1>
+          <h1 className={styles.title}>{content?.title || `${displayName} Installation`}</h1>
           <p className={styles.subtitle}>Select a city to view supported localities.</p>
         </div>
       </header>
@@ -35,22 +61,53 @@ export default async function BrandCityListPage({ params }: Props) {
         <div className={styles.breadcrumbContent}>
           <Link href="/" className={styles.link}>Home</Link> &gt;{' '}
           <Link href="/brands" className={styles.link}>Brands</Link> &gt;{' '}
-          <span className={styles.activeBreadcrumb}>{brand}</span>
+          <span className={styles.activeBreadcrumb}>{displayName}</span>
         </div>
       </nav>
       <main className={styles.main}>
         <div className={styles.contentSection}>
+          {content && (
+            <section className={styles.text} style={{ marginBottom: '3rem' }}>
+              <div style={{ whiteSpace: 'pre-line' }}>{content.description}</div>
+              
+              {content.features && content.features.length > 0 && (
+                <div style={{ marginTop: '2rem' }}>
+                  <h3 className={styles.subTitle}>Key Features</h3>
+                  <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '1rem' }}>
+                    {content.features.map((feature, idx) => (
+                      <li key={idx} style={{ marginBottom: '0.5rem' }}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )}
+
           <section>
-            <h2 className={styles.sectionTitle}>Select City</h2>
+            <h2 className={styles.sectionTitle}>Select City for Service</h2>
             <div className={styles.featuresGrid}>
               {CITIES.map((city, i) => (
-                <Link key={i} href={`/brands/${createSlug(brand)}/${createSlug(city)}`} className={styles.featureCard} aria-label={`View ${brand} installation in ${city}`}>
+                <Link key={i} href={`/brands/${brandSlug}/${createSlug(city)}`} className={styles.featureCard} aria-label={`View ${displayName} installation in ${city}`}>
                   <span className={styles.checkIcon}>📍</span>
                   <span className={styles.featureText}>{city}</span>
                 </Link>
               ))}
             </div>
           </section>
+
+          {content && content.faqs && content.faqs.length > 0 && (
+            <section style={{ marginTop: '4rem' }}>
+              <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
+              <div className={styles.faqGrid}>
+                {content.faqs.map((faq, i) => (
+                  <div key={i} className={styles.faqItem}>
+                    <h3 className={styles.faqQuestion}>{faq.question}</h3>
+                    <p className={styles.faqAnswer}>{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </div>
