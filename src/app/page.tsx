@@ -103,8 +103,10 @@ export default function Home() {
     'email': BUSINESS_CONFIG.email,
     'address': {
       '@type': 'PostalAddress',
+      'streetAddress': 'House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam',
       'addressLocality': 'Delhi',
       'addressRegion': 'Delhi',
+      'postalCode': '110045',
       'addressCountry': 'IN'
     },
     'geo': {

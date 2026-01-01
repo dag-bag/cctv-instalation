@@ -19,3 +19,4 @@ Sitemap: https://www.camharbor.in/sitemap-3.xml
 Sitemap: https://www.camharbor.in/sitemap-4.xml
 Sitemap: https://www.camharbor.in/sitemap-5.xml
 Sitemap: https://www.camharbor.in/sitemap-6.xml
+Sitemap: https://www.camharbor.in/sitemap-7.xml

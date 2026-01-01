@@ -247,6 +247,14 @@ export default async function HierarchicalServicePage({ params }: Props) {
     name: `${service} in ${locality}, ${city}`,
     description: data.metaDescription,
     url: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
+      addressLocality: "New Delhi",
+      addressRegion: "Delhi",
+      postalCode: "110045",
+      addressCountry: "IN"
+    },
     areaServed: {
       "@type": "City",
       name: `${locality}, ${city}`,
@@ -306,14 +314,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
           description: "Call for Quote",
         },
       })),
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "1250",
-      bestRating: "5",
-      worstRating: "1",
-    },
+    }
   };
 
   const breadcrumbSchema = {

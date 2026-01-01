@@ -53,6 +53,14 @@ export default async function RepairPage({ params }: Props) {
   const localBusinessSchema = {
     '@context': 'https://schema.org', '@type': 'LocalBusiness',
     'name': 'CamHarbor - CCTV Repair', 'telephone': '+91-8766203976',
+    'address': {
+      '@type': 'PostalAddress',
+      'streetAddress': 'House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam',
+      'addressLocality': 'New Delhi',
+      'addressRegion': 'Delhi',
+      'postalCode': '110045',
+      'addressCountry': 'IN'
+    },
     'areaServed': { '@type': 'City', 'name': `${locality}, ${city}` },
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }
   };
@@ -61,8 +69,7 @@ export default async function RepairPage({ params }: Props) {
     '@context': 'https://schema.org', '@type': 'Service',
     'name': `${issue.replace(/-/g,' ')} Repair`,
     'provider': { '@type': 'LocalBusiness', 'name': 'CamHarbor' },
-    'areaServed': { '@type': 'Place', 'name': `${locality}, ${city}` },
-    'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.7', 'reviewCount': '340' }
+    'areaServed': { '@type': 'Place', 'name': `${locality}, ${city}` }
   };
 
   return (

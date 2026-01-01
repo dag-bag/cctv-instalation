@@ -114,6 +114,14 @@ export default async function LocalityPage({ params }: Props) {
     '@type': 'LocalBusiness',
     'name': 'CamHarbor',
     'telephone': '+91-8766203976',
+    'address': {
+      '@type': 'PostalAddress',
+      'streetAddress': 'House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam',
+      'addressLocality': 'New Delhi',
+      'addressRegion': 'Delhi',
+      'postalCode': '110045',
+      'addressCountry': 'IN'
+    },
     'areaServed': { '@type': 'City', 'name': `${locality}, ${city}` },
     'priceRange': '₹₹',
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }
