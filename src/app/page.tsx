@@ -228,7 +228,7 @@ export default function Home() {
         {/* Featured Services */}
         <section className={styles.section}>
           <div className={styles.content}>
-            <h2 className={styles.sectionTitle}>Our Services</h2>
+            <h2 className={styles.sectionTitle}>Our CCTV & Security Services</h2>
             <p className={styles.sectionSubtitle}>
               Comprehensive CCTV and security solutions for all your needs
             </p>
@@ -251,7 +251,7 @@ export default function Home() {
         {/* Browse by Category Section */}
         <section className={styles.section} style={{ background: 'rgba(15, 23, 42, 0.5)' }}>
           <div className={styles.content}>
-            <h2 className={styles.sectionTitle}>Browse by Category</h2>
+            <h2 className={styles.sectionTitle}>Browse Security Categories</h2>
             <p className={styles.sectionSubtitle}>
               Explore our services by brand, repair type, or industry
             </p>

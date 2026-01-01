@@ -56,7 +56,7 @@ export default async function IndustryLocalityListPage({ params }: Props) {
       <main className={styles.main}>
         <div className={styles.contentSection}>
           <section>
-            <h2 className={styles.sectionTitle}>Select Locality</h2>
+            <h2 className={styles.sectionTitle}>Select {industry} Locality in {city}</h2>
             <div className={styles.featuresGrid}>
               {localities.map((locality, i) => (
                 <Link key={i} href={`/industries/${industrySlug}/${citySlug}/${createSlug(locality)}`} className={styles.featureCard} aria-label={`View ${industry} in ${locality}, ${city}`}>

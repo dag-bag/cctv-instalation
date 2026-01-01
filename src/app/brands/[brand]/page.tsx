@@ -74,7 +74,7 @@ export default async function BrandCityListPage({ params }: Props) {
               
               {content.features && content.features.length > 0 && (
                 <div style={{ marginTop: '2rem' }}>
-                  <h3 className={styles.subTitle}>Key Features</h3>
+                  <h2 className={styles.subTitle}>Key Features of {displayName} Systems</h2>
                   <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '1rem' }}>
                     {content.features.map((feature, idx) => (
                       <li key={idx} style={{ marginBottom: '0.5rem' }}>{feature}</li>
@@ -99,7 +99,7 @@ export default async function BrandCityListPage({ params }: Props) {
 
           {content && content.faqs && content.faqs.length > 0 && (
             <section style={{ marginTop: '4rem' }}>
-              <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
+              <h2 className={styles.sectionTitle}>FAQs about {displayName} CCTV</h2>
               <div className={styles.faqGrid}>
                 {content.faqs.map((faq, i) => (
                   <div key={i} className={styles.faqItem}>

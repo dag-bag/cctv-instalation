@@ -49,7 +49,7 @@ export default async function RepairLocalityListPage({ params }: Props) {
       <main className={styles.main}>
         <div className={styles.contentSection}>
           <section>
-            <h2 className={styles.sectionTitle}>Select Locality</h2>
+            <h2 className={styles.sectionTitle}>Select {issue.replace(/-/g,' ')} Locality in {city}</h2>
             <div className={styles.featuresGrid}>
               {localities.map((locality, i) => (
                 <Link key={i} href={`/repairs/${issue}/${citySlug}/${createSlug(locality)}`} className={styles.featureCard} aria-label={`View ${issue.replace(/-/g,' ')} in ${locality}, ${city}`}>

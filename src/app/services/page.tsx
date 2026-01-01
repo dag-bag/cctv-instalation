@@ -159,7 +159,7 @@ export default async function ServicesIndexPage() {
       <main className={styles.main}>
         <div className={styles.contentSection}>
           <section>
-            <h2 className={styles.sectionTitle}>Select Your City</h2>
+            <h2 className={styles.sectionTitle}>Select Your City for CCTV Services</h2>
             <div className={styles.featuresGrid}>
               {displayCities.map((city) => {
                 const citySlug = apiCityByName(city)?.slug || createSlug(city);
@@ -186,7 +186,7 @@ export default async function ServicesIndexPage() {
 
           {/* Browse by Category Section */}
           <section style={{ marginTop: '3rem', marginBottom: '2.5rem', background: 'rgba(15, 23, 42, 0.3)', padding: '2rem', borderRadius: '0.75rem' }}>
-            <h2 className={styles.sectionTitle}>Browse by Category</h2>
+            <h2 className={styles.sectionTitle}>Browse Services by Category</h2>
             <p style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '2rem' }}>
               Explore our services by brand, repair type, or industry
             </p>

@@ -62,7 +62,7 @@ export default async function IndustryCityListPage({ params }: Props) {
               
               {content.features && content.features.length > 0 && (
                 <div style={{ marginTop: '2rem' }}>
-                  <h3 className={styles.subTitle}>Key Features</h3>
+                  <h2 className={styles.subTitle}>Key Features for {industry} Surveillance</h2>
                   <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '1rem' }}>
                     {content.features.map((feature, idx) => (
                       <li key={idx} style={{ marginBottom: '0.5rem' }}>{feature}</li>
@@ -87,7 +87,7 @@ export default async function IndustryCityListPage({ params }: Props) {
 
           {content && content.faqs && content.faqs.length > 0 && (
             <section style={{ marginTop: '4rem' }}>
-              <h2 className={styles.sectionTitle}>Common Questions</h2>
+              <h2 className={styles.sectionTitle}>Common Questions about {industry} Security</h2>
               <div className={styles.faqGrid}>
                 {content.faqs.map((faq, i) => (
                   <div key={i} className={styles.faqItem}>
