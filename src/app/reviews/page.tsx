@@ -123,14 +123,7 @@ export default function ReviewsPage() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": BUSINESS_CONFIG.name,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
-      "addressLocality": "New Delhi",
-      "addressRegion": "Delhi",
-      "postalCode": "110045",
-      "addressCountry": "IN"
-    },
+    "address": BUSINESS_CONFIG.schemaAddress,
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": aggregateRating.ratingValue.toString(),
