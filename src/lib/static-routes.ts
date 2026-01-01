@@ -84,3 +84,4 @@ export function getIndustryRoutes(): StaticRoute[] {
   }));
 }
 
+
