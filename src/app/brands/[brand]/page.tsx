@@ -21,7 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const brandName = content ? Object.keys(BRAND_CONTENT).find(k => createSlug(k) === brandSlug) || brandSlug : brandSlug;
   
   const title = content ? `${content.title} | Cities in Delhi NCR` : `${brandName} Installation | Cities in Delhi NCR`;
-  const description = content ? content.description.slice(0, 160) + '...' : `Browse cities where we install and support ${brandName} CCTV systems.`;
+  const description = content 
+    ? `Authorized ${brandName} installation & support across Delhi NCR. ${content.description.slice(0, 130)}... Book certified technicians for ${brandName} CCTV systems in your city.`
+    : `Browse cities where we install and support ${brandName} CCTV systems. Expert technicians, 1-year warranty and best prices in Delhi, Gurgaon, Noida & Ghaziabad.`;
   
   return {
     title,

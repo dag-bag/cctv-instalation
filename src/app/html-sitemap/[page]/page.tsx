@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   const { page } = await params;
   const title = `Site Map Page ${page} - All Services`;
   const description =
-    `Page ${page} of our site map. Find CCTV services. Pick a city or area.`;
+    `Explore Page ${page} of our comprehensive site map for CamHarbor. Quickly find CCTV installation, repair, and security services across all major cities and localities in Delhi NCR.`;
 
   // set canonical to /html-sitemap if on page 1, else /html-sitemap/[page]
   const canonical =

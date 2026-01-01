@@ -128,9 +128,9 @@ export default async function ServicesIndexPage() {
             <li>🔍 Search by city and locality below, or browse <Link href="/repairs" style={{ color: '#0ea5e9', textDecoration: 'underline' }}>all repairs & AMC</Link></li>
           </ul>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.7rem' }}>
-            <Link href="/security" className={styles.ctaButton} aria-label="Open Security index">
+            {/* <Link href="/security" className={styles.ctaButton} aria-label="Open Security index">
               Security Index
-            </Link>
+            </Link> */}
             <Link href="/brands" className={styles.ctaButton} aria-label="Open Brands index">
               Brands
             </Link>

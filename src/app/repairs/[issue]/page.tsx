@@ -14,8 +14,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { issue } = await params;
   const content = REPAIR_CONTENT[issue];
   
-  const title = content ? `${content.title} | Locations in Delhi NCR` : `${issue.replace(/-/g, ' ')} Repair | Locations`;
-  const description = content ? content.description.slice(0, 160) + '...' : `Expert repair services for ${issue.replace(/-/g, ' ')}.`;
+  const title = content ? `${content.title} | Service Areas` : `${issue.replace(/-/g,' ')} Repair | Service Areas`;
+  const description = content
+    ? `Expert fix for ${issue.replace(/-/g,' ')} across Delhi NCR. ${content.description.slice(0, 120)}... We provide fast, affordable CCTV repair services in your city.`
+    : `Browse cities where we fix ${issue.replace(/-/g,' ')} issues for CCTV systems. Professional troubleshooting, genuine spare parts, and 24/7 support availability.`;
 
   return {
     title,
