@@ -15,14 +15,7 @@ export default function Footer() {
     "url": "https://www.camharbor.in",
     "telephone": BUSINESS_CONFIG.phone,
     "email": BUSINESS_CONFIG.email,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
-      "addressLocality": "Delhi",
-      "addressRegion": "Delhi",
-      "postalCode": "110045",
-      "addressCountry": "IN"
-    },
+    "address": BUSINESS_CONFIG.schemaAddress,
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": 28.7041,

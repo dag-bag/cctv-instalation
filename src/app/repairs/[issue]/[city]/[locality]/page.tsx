@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CITIES, LOCALITIES, createSlug } from '@/lib/seo-data';
+import { BUSINESS_CONFIG } from '@/config/business';
 import { getImageUrl, getImageAlt } from '@/config/images';
 import styles from '../../../../[slug]/page.module.css';
 export const dynamic = 'force-static';
@@ -53,14 +54,7 @@ export default async function RepairPage({ params }: Props) {
   const localBusinessSchema = {
     '@context': 'https://schema.org', '@type': 'LocalBusiness',
     'name': 'CamHarbor - CCTV Repair', 'telephone': '+91-8766203976',
-    'address': {
-      '@type': 'PostalAddress',
-      'streetAddress': 'House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam',
-      'addressLocality': 'New Delhi',
-      'addressRegion': 'Delhi',
-      'postalCode': '110045',
-      'addressCountry': 'IN'
-    },
+    'address': BUSINESS_CONFIG.schemaAddress,
     'areaServed': { '@type': 'City', 'name': `${locality}, ${city}` },
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }
   };
@@ -68,7 +62,7 @@ export default async function RepairPage({ params }: Props) {
   const serviceSchema = {
     '@context': 'https://schema.org', '@type': 'Service',
     'name': `${issue.replace(/-/g,' ')} Repair`,
-    'provider': { '@type': 'LocalBusiness', 'name': 'CamHarbor' },
+    'provider': { '@type': 'LocalBusiness', 'name': 'CamHarbor', 'address': BUSINESS_CONFIG.schemaAddress },
     'areaServed': { '@type': 'Place', 'name': `${locality}, ${city}` }
   };
 

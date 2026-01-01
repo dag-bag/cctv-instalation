@@ -6,7 +6,15 @@ export const BUSINESS_CONFIG = {
   phone: "+918766203976",
   whatsapp: "+918766203976",
   email: "info@camharbor.in",
-  address: "Delhi, India",
+  address: "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam, New Delhi, Delhi 110045",
+  schemaAddress: {
+    "@type": "PostalAddress",
+    "streetAddress": "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
+    "addressLocality": "New Delhi",
+    "addressRegion": "Delhi",
+    "postalCode": "110045",
+    "addressCountry": "IN"
+  },
   
   // SEO Configuration
   defaultDescription: "Professional CCTV installation and repair services in Delhi. 24/7 support, expert technicians, affordable rates.",

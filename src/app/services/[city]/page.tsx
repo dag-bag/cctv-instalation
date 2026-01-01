@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, createSlug } from '../../../lib/seo-data';
+import { BUSINESS_CONFIG } from '../../../config/business';
 import { getImageUrl, getImageAlt } from '../../../config/images';
 import styles from '../../[slug]/page.module.css'; // Reusing styles
 export const dynamic = 'force-static';
@@ -98,14 +99,7 @@ export default async function CityPage({ params }: Props) {
     '@type': 'LocalBusiness',
     'name': 'CamHarbor',
     'telephone': '+91-8766203976',
-    'address': {
-      '@type': 'PostalAddress',
-      'streetAddress': 'House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam',
-      'addressLocality': 'New Delhi',
-      'addressRegion': 'Delhi',
-      'postalCode': '110045',
-      'addressCountry': 'IN'
-    },
+    'address': BUSINESS_CONFIG.schemaAddress,
     'areaServed': { '@type': 'City', 'name': city },
     'priceRange': '₹₹',
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }

@@ -101,14 +101,7 @@ export default function Home() {
     'image': 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop',
     'telephone': BUSINESS_CONFIG.phone,
     'email': BUSINESS_CONFIG.email,
-    'address': {
-      '@type': 'PostalAddress',
-      'streetAddress': 'House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam',
-      'addressLocality': 'Delhi',
-      'addressRegion': 'Delhi',
-      'postalCode': '110045',
-      'addressCountry': 'IN'
-    },
+    'address': BUSINESS_CONFIG.schemaAddress,
     'geo': {
       '@type': 'GeoCoordinates',
       'latitude': '28.6139',
@@ -140,7 +133,12 @@ export default function Home() {
     },
     'about': {
       '@type': 'LocalBusiness',
-      'name': BUSINESS_CONFIG.name
+      'name': BUSINESS_CONFIG.name,
+      'address': BUSINESS_CONFIG.schemaAddress,
+      'telephone': BUSINESS_CONFIG.phone,
+      'email': BUSINESS_CONFIG.email,
+      'url': 'https://www.camharbor.in',
+      'image': 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop'
     },
     'speakable': {
       '@type': 'SpeakableSpecification',
