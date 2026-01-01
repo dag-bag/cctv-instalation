@@ -9,11 +9,11 @@ export interface PageContent {
 export const BRAND_CONTENT: Record<string, PageContent> = {
   'Hikvision': {
     title: 'Hikvision CCTV Camera Installation & Support',
-    description: `Hikvision is a world-leading provider of security products and solutions, renowned for its innovative CCTV technology and reliability. At CamHarbor, we are authorized experts in Hikvision surveillance systems, offering comprehensive installation, configuration, and maintenance services across Delhi NCR.
+    description: `Hikvision is a top global security brand. They are known for reliable CCTV technology. CamHarbor offers expert Hikvision installation and services in Delhi NCR. We handle everything from setup to maintenance.
+    
+Hikvision cameras have great features. ColorVu gives you color video at night. AcuSense uses smart tech to spot humans and cars. This stops false alarms. Whether you need 4 cameras or 64, Hikvision has a solution for you.
 
-When you choose Hikvision, you are investing in a system that offers advanced features like ColorVu for 24/7 full-color night vision, and AcuSense technology which uses deep learning algorithms to distinguish between humans, vehicles, and other moving objects, significantly reducing false alarms. Whether you need a simple 4-channel setup for your home or a complex 64-channel NVR system for a large corporate office, Hikvision's diverse product portfolio covers it all.
-
-Our certified technicians ensure that your Hikvision cameras are installed with precision. We handle everything from strategic camera placement to minimize blind spots, to neat cabling and secure conduit installation. We also configure the Hik-Connect mobile app, allowing you to monitor your property from anywhere in the world in real-time. By choosing an authorized installer, you ensure your warranty remains valid and you get genuine products with the latest firmware updates.`,
+Our team installs your cameras carefully. We hide wires and cover blind spots. We also set up the Hik-Connect app for you. This lets you watch your video on your phone from anywhere. Using an expert ensures your warranty stays valid.`,
     features: [
       'ColorVu Technology for 24/7 colorful imaging',
       'AcuSense for smart human/vehicle detection',
@@ -29,11 +29,11 @@ Our certified technicians ensure that your Hikvision cameras are installed with 
   },
   'CP Plus': {
     title: 'CP Plus CCTV Surveillance Systems',
-    description: `CP Plus is dominant in the Indian market, known for its slogan "Upar Wala Sab Dekh Raha Hai". It is a brand that offers robust, cost-effective, and user-friendly security solutions tailored specifically for Indian conditions. CamHarbor provides end-to-end CP Plus installation services, ensuring your property is secured with one of the most trusted brands in the country.
+    description: `CP Plus is a favorite brand in India. They make strong and affordable security systems. CamHarbor provides full CP Plus installation services. We make sure your home or office is safe with this trusted brand.
 
-CP Plus excels in providing affordable yet high-quality analog and IP camera systems. Their EzyKam series of WiFi cameras is particularly popular for smart homes, offering plug-and-play functionality with two-way talk and motion tracking. For businesses, their Orange range offers heavy-duty durability and superior image clarity.
+CP Plus has cameras for everyone. Their EzyKam series is great for homes. These are WiFi cameras with two-way talk. For offices, the Orange series is very durable. They give clear images and last a long time.
 
-Our installation process for CP Plus systems focuses on durability and ease of use. We ensure that your DVR/NVR is safely housed, cabling is weather-proofed, and the power supply is stable to prevent surges. We also provide training on how to use the CP Plus mobile app (gCMOB/iCMOB) so you can easily playback footage and take snapshots whenever needed.`,
+We install CP Plus systems properly. We protect the cables and power supply. This stops common errors. We also teach you how to use the mobile app. You can easily watch old videos or take snapshots on your phone.`,
     features: [
       'Cost-effective solutions for homes and SMEs',
       'EzyKam series for wireless smart home security',
@@ -49,11 +49,11 @@ Our installation process for CP Plus systems focuses on durability and ease of u
   },
   'Dahua': {
     title: 'Dahua Technology Installation Services',
-    description: `Dahua Technology is a pioneer in the video surveillance industry, famous for inventing the HDCVI technology which revolutionized analog high-definition transmission. CamHarbor brings you the best of Dahua's cutting-edge security solutions, from TiOC (Three-in-One Camera) active deterrence cameras to advanced AI-driven NVRs.
+    description: `Dahua Technology is a video security leader. They invented HDCVI, which makes analog video very clear. CamHarbor installs the best Dahua products for you. We offer everything from simple cameras to smart AI systems.
 
-Dahua's cameras are preferred for their superior image processing and low-light performance using Starlight technology. Their TiOC cameras are unique—they feature 24/7 full-color monitoring, active deterrence with strobe lights and sirens to warn off intruders, and AI for accurate alarm triggers. This makes them an excellent choice for perimeter protection in villas, factories, and warehouses.
+Dahua cameras see well in the dark. Their Starlight tech keeps images bright at night. Their TiOC cameras are very special. They have color video, alarm lights, and sirens built-in. This scares away intruders before they break in.
 
-We specialize in setting up Dahua's advanced analytics features. Our team can configure line crossing detection, intrusion detection, and face recognition features to make your security system proactive rather than just a recording device. We also integrate Dahua systems with DMSS mobile app for instant push notifications.`,
+We are experts at setting up Dahua smart features. We can set alarms for line crossing or face detection. This makes your system proactive. We also link it to the DMSS phone app. You get instant alerts if something happens.`,
     features: [
       'TiOC active deterrence with light and siren',
       'Starlight technology for superior night vision',
@@ -69,11 +69,11 @@ We specialize in setting up Dahua's advanced analytics features. Our team can co
   },
   'Honeywell': {
     title: 'Honeywell Security & Surveillance',
-    description: `Honeywell is a Fortune 100 technology company that sets the standard for industrial and commercial security. Known for premium build quality and enterprise-grade reliability, Honeywell CCTV systems are the preferred choice for banks, corporate offices, and luxury residences. CamHarbor offers certified installation of Honeywell's Impact and Performance series cameras.
+    description: `Honeywell is a big name in technology. They set the standard for top-quality security. Their cameras are perfect for offices and banks. CamHarbor installs Honeywell cameras that last for years.
 
-Honeywell systems are designed to last. They offer exceptional build quality with high IP ratings (IP66/IP67) for water and dust resistance, making them ideal for harsh outdoor environments. Their NVRs are robust, supporting high-bandwidth recording and RAID storage options for long-term data retention critical for compliance in banking and corporate sectors.
+Honeywell systems are very tough. They are waterproof and dustproof. This makes them great for outdoors. Their recorders can handle lots of data. This is key for banks that need to keep video for months.
 
-Our team is trained to handle the sophisticated setup that Honeywell systems often require. We ensure structured cabling compliance, network security configuration, and integration with other Honeywell building management systems if present. We maximize the utility of Honeywell's clear imaging and reliable hardware for critical infrastructure protection.`,
+Our team knows how to handle these pro systems. We do neat cabling and secure setup. We can also link them to other building systems. We ensure you get the best performance from your Honeywell hardware.`,
     features: [
       'Enterprise-grade reliability and build quality',
       'High IP ratings for extreme weather conditions',
@@ -89,11 +89,11 @@ Our team is trained to handle the sophisticated setup that Honeywell systems oft
   },
   'Bosch': {
     title: 'Bosch Intelligent Video Security',
-    description: `Bosch Security Systems represents the pinnacle of German engineering in the surveillance domain. Bosch cameras are not just recording devices; they are intelligent sensors that analyze data in real-time. CamHarbor provides specialized installation for Bosch security systems, catering to clients who demand the highest level of detail and analytics.
+    description: `Bosch makes high-end German security products. Their cameras are smart computers. They can spot trouble on their own. CamHarbor installs Bosch systems for clients who want the best detail.
 
-Bosch is famous for its "Video Analytics at the Edge," meaning the camera itself processes data to detect loitering, idle objects, or wrong-way motion, without needing a heavy server. This makes their systems incredibly fast and bandwidth-efficient. Their MIC IP series of rugged PTZ cameras are legendary for surviving extreme conditions, making them suitable for industrial sites and critical perimeters.
+Bosch cameras are famous for built-in analytics. They detect things like loitering instantly. They don't need a big server to do this. Their rugged cameras can survive extreme weather. This is perfect for factories and large sites.
 
-Installing Bosch systems requires a high level of technical expertise. Our technicians are skilled in configuring Bosch's Intelligent Video Analytics (IVA) to suit your specific security rules. We ensure that every alert is meaningful and that the video quality is optimized for evidentiary use, capturing minute details like license plates and faces with clarity.`,
+Installing Bosch needs skill. Our team can set up the smart rules you need. We make sure every alert matters. We ensure the video is clear enough to read license plates and faces.`,
     features: [
       'Edge Video Analytics for real-time intelligence',
       'Bandwidth reduction for efficient storage',
@@ -109,11 +109,11 @@ Installing Bosch systems requires a high level of technical expertise. Our techn
   },
   'Panasonic': {
     title: 'Panasonic i-PRO Sensing Solutions',
-    description: `Panasonic (now i-PRO) has a legacy of excellence in imaging technology. Their surveillance cameras deliver crystal-clear video with accurate color reproduction, essential for evidence collection. CamHarbor offers professional installation services for Panasonic's wide range of network cameras and recorders.
+    description: `Panasonic, now i-PRO, is known for clear video quality. Their cameras capture true colors. This is vital for evidence. CamHarbor installs Panasonic cameras for shops and offices.
 
-Panasonic cameras are known for their intelligent auto-sensing capabilities. They can automatically adjust settings based on scene dynamics—detecting if a person is moving, if there is rain, or if light levels change rapidly. Features like Face Super Dynamic ensure that faces remain clear even when backlit, which is a common problem in entrance lobbies and glass-fronted shops.
+These cameras are very smart. They adjust to light changes automatically. If a door opens, the face is still clear. This is great for lobbies. They also save space by compressing video well.
 
-We recommend Panasonic for environments where video evidence quality is paramount, such as retail counters, bank tellers, and school entrances. Our installation includes fine-tuning the focus and zoom (often motorized in Panasonic models) to capture the perfect field of view. We also configure the secure encryption features to protect your video feed from unauthorized access.`,
+We recommend Panasonic for critical spots. This includes bank counters and school entries. We focus the lens perfectly during setup. We also turn on security features to stop hackers.`,
     features: [
       'Intelligent Auto (iA) for dynamic scene adjustment',
       'Face Super Dynamic for clear facial capture',
@@ -129,11 +129,11 @@ We recommend Panasonic for environments where video evidence quality is paramoun
   },
   'Godrej': {
     title: 'Godrej Security Solutions',
-    description: `Godrej is a household name in India, synonymous with security. Godrej Security Solutions offers a range of CCTV products that are specifically designed for Indian homes and businesses, backed by a brand trust that spans decades. CamHarbor is proud to install Godrej CCTV systems, bringing peace of mind to thousands of families.
+    description: `Godrej is a trusted name in India. They make security products for local needs. CamHarbor installs Godrej CCTV systems. We help bring safety to your home and business.
 
-Godrej's strength lies in its ecosystem. Apart from CCTV, they offer video door phones, alarm systems, and safes, all of which can often be sourced and serviced under one roof. Their CCTV cameras are robust, easy to operate, and come with reliable service support across the country. The "See Thru" range offers excellent value for money with high-definition recording.
+Godrej offers a full security family. They have cameras, alarms, and video door phones. Their "See Thru" cameras are very clear and affordable. Service is also easy to find across the country.
 
-Our Godrej installation services are customer-centric. We help you choose the right mix of dome and bullet cameras for your property. We pay special attention to integrating the CCTV system with other Godrej security products you might have, creating a cohesive security layer. We also demonstrate how to use the simplistic mobile app for daily monitoring.`,
+Our installation is friendly and neat. We help you pick the right cameras. We can link your CCTV with your door phone. We also show you how to use the app. It is simple and easy for families.`,
     features: [
       'Trusted Indian brand with vast service network',
       'Comprehensive home security ecosystem',
@@ -149,11 +149,11 @@ Our Godrej installation services are customer-centric. We help you choose the ri
   },
   'Samsung': {
     title: 'Samsung (Hanwha Vision) Security',
-    description: `Samsung's security division, now known as Hanwha Vision, manufactures some of the most advanced optical and SoC (System on Chip) technologies in the world. They are a top-tier choice for projects requiring high-end specifications and cyber security. CamHarbor installs and supports the full range of Wisenet (Samsung) cameras.
+    description: `Samsung Security is now Hanwha Vision. They make advanced and secure cameras. They are used in big projects and government sites. CamHarbor installs these high-tech systems for you.
 
-Hanwha Vision stands out for its Wisenet chipsets which provide distinct features like extreme WDR (Wide Dynamic Range), defogging, and digital image stabilization. Their cameras are heavily used in government projects, city surveillance, and large enterprises due to their TAA compliance and strong cybersecurity measures against hacking.
+Hanwha cameras have powerful chips. They give clear video even in fog or bad light. They are also very safe from hackers. This makes them trusted by big companies.
 
-Installing Samsung/Hanwha systems requires precision. Our team ensures that the advanced features like "Hallway View" (creating a vertical video aspect ratio for corridors) are utilized correctly to maximize coverage. We configure the NVRs for optimal throughput and set up redundancy measures to ensure no video is lost even during drive failures.`,
+We install these systems with care. We can set up special views for long corridors. We configure the recorders for reliability. We ensure your video is safe and always recording.`,
     features: [
       'Wisenet chipsets for superior image processing',
       'Cybersecurity assurance best-in-class',
@@ -169,11 +169,11 @@ Installing Samsung/Hanwha systems requires precision. Our team ensures that the 
   },
   'Sony': {
     title: 'Sony Video Security',
-    description: `Sony is the undisputed king of image sensors. Almost every high-quality camera in the world uses a Sony STARVIS sensor. Sony's own line of security cameras leverages their broadcast-quality imaging expertise to deliver video surveillance with exceptional color fidelity and sensitivity. CamHarbor provides installation for Sony's network camera lineup.
+    description: `Sony makes the best image sensors. Their cameras capture amazing detail and color. CamHarbor installs Sony cameras for places that need perfect quality.
 
-Sony cameras are renowned for their ability to capture detail in high-contrast lighting situations using View-DR technology. While many manufacturers use Sony sensors, Sony's own image processing algorithms (ISP) extract the absolute best performance from them. This results in natural-looking colors and minimal noise even in near-darkness.
+Sony cameras work great in high contrast. If a room has bright windows and dark corners, everything still looks clear. Their night vision is also excellent. You see natural colors even in the dark.
 
-We recommend Sony cameras for clients who need "broadcast quality" surveillance—such as in casinos, jewelry stores, or critical monitoring rooms. Installation involves careful lens selection and configuration of exposure settings to match the environment. We ensure that you get the visual clarity that the Sony brand promises.`,
+We suggest Sony for high-value spots. Jewelry stores and casinos often use them. We adjust the settings to get the best picture. We make sure you get the quality you paid for.`,
     features: [
       'Legendary Sony STARVIS sensor technology',
       'View-DR for widest dynamic range',
@@ -189,11 +189,11 @@ We recommend Sony cameras for clients who need "broadcast quality" surveillance�
   },
   'Tiandy': {
     title: 'Tiandy Technologies Installation',
-    description: `Tiandy is a rising giant in the global surveillance market, focusing exclusively on full-color solutions. They are pioneers of the "Color Maker" technology which allows cameras to capture color images in extremely low light without auxiliary lights. CamHarbor offers Tiandy installation for customers looking for advanced night-time visibility.
+    description: `Tiandy focuses on full-color night vision. Their cameras can see color in the dark. CamHarbor installs Tiandy for reliable night security.
 
-Tiandy's claim to fame is its "Super Starlight" technology which can see color in conditions as dark as 0.0004 Lux. Unlike standard cameras that switch to black and white IR mode at night, Tiandy cameras stay in color mode longer, providing crucial details like the color of a car or a person's clothes. They also offer cost-effective Project-line cameras that bring high-end features to affordable price points.
+Tiandy uses "Super Starlight" tech. This lets them see color when other cameras see black and white. Detailed color is useful for evidence. They also have affordable cameras with high-end features.
 
-For installation, Tiandy cameras are excellent for outdoor perimeters, parks, and parking lots where lighting is poor. Our technicians configure the "Early Warning" systems on Tiandy cameras which can track intruders and emit laser warnings. We ensure that your property is protected by the latest in color-night-vision technology.`,
+Tiandy is great for outdoor areas. Parks and parking lots benefit from color night vision. We also set up their warning systems. These can track intruders and warn them with light or sound.`,
     features: [
       'Color Maker technology for 24/7 color',
       'Super Starlight sensitivity (0.0004 Lux)',
@@ -209,11 +209,11 @@ For installation, Tiandy cameras are excellent for outdoor perimeters, parks, an
   },
   'Uniview': {
     title: 'Uniview (UNV) Security Systems',
-    description: `Uniview (UNV) is the third-largest player in China's video surveillance market and a specialist in IP video. They are known for bringing professional IP technology to the mass market. CamHarbor installs Uniview systems for clients who want purely IP-based, future-proof security infrastructure.
+    description: `Uniview (UNV) is a leader in IP cameras. They offer modern, digital security. CamHarbor installs UNV systems for clients who want future-proof tech.
 
-UNV products are sleek, modern, and packed with smart features like U-Code (a deep compression technology that saves up to 95% storage space) and pixel-based smart functions. Their Prime and Pro series offer advanced analytics like people counting and heat mapping, which are great for retail businesses.
+UNV cameras are smart and efficient. They use U-Code to save storage space. They also have features like people counting. This is helpful for shops to track visitors.
 
-Our Uniview installations are fully IP-based, utilizing Cat6 cabling and PoE (Power over Ethernet) switches. This reduces cabling clutter and allows for easy scalability. We set up UNV's EZView app for you and configure the NVR to utilize U-Code compression, ensuring you get weeks of recording even on smaller hard drives.`,
+We install UNV systems with network cables (CAT6). This looks neat and is easy to expand. We set up the EZView app for you. We also configure the storage to make sure you get long recording times.`,
     features: [
       'Pioneers in IP video surveillance',
       'U-Code deep compression technology',
@@ -229,11 +229,11 @@ Our Uniview installations are fully IP-based, utilizing Cat6 cabling and PoE (Po
   },
   'Ezviz': {
     title: 'Ezviz Smart Home Security',
-    description: `Ezviz is the consumer-facing brand of Hikvision, designed specifically for smart homes and DIY enthusiasts. These cameras are WiFi-enabled, battery-powered (selected models), and incredibly easy to use. CamHarbor provides professional setup services for Ezviz ecosystems, ensuring optimal placement and network configuration.
+    description: `Ezviz makes smart cameras for homes. They are easy to use and look good. CamHarbor installs Ezviz systems effectively for you. We ensure they are placed right and connected well.
 
-Ezviz cameras like the C6N, C3X, and C8C are bestsellers because they pack pro features into cute, friendly designs. They feature pan-tilt capabilities, color night vision, AI human detection, and two-way talk. They connect directly to your home WiFi and store footage on SD cards or the cloud, eliminating the need for a bulky DVR/NVR box.
+Ezviz cameras are great for families. You can talk through them using two-way audio. They have features like color night vision and motion alerts. They connect to your WiFi and store video on a card or cloud.
 
-While Ezviz is "DIY", professional installation makes a difference. We mount cameras in hard-to-reach corners for better views, conceal the power cables for a clean look, and ensure your WiFi network is strong enough to support reliable streaming. We also integrate multiple Ezviz devices into a single app dashboard for your convenience.`,
+Professional installation helps a lot. We mount cameras in the best spots for a wide view. We hide the power cables for a clean look. We also check your WiFi signal to ensure smooth video streaming.`,
     features: [
       'WiFi-based smart home cameras',
       'Two-way audio talk',

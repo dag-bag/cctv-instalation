@@ -8,7 +8,7 @@ const ITEMS_PER_PAGE = 250;
 
 export const metadata: Metadata = {
   title: 'Site Map - All CCTV Services | CamHarbor',
-  description: 'Find all CCTV services. Browse by city or area. We work in Delhi NCR.',
+  description: 'Explore our complete sitemap to find CCTV installation, repair, and security system services in your area. Browse by city, locality, brand, or industry across Delhi NCR.',
   robots: 'index, follow',
   openGraph: {
     title: 'Site Map - All CCTV Services',

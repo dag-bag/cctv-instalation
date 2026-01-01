@@ -70,6 +70,38 @@ export default async function IndustryCityListPage({ params }: Props) {
                   </ul>
                 </div>
               )}
+
+              <div style={{ marginTop: '3rem' }}>
+                <h2 className={styles.subTitle}>Why Video Surveillance is Critical for {industry}</h2>
+                <p style={{ marginBottom: '1rem' }}>
+                  Security challenges in the {industry} sector are unique and demanding. Unlike standard residential setups, {industry} facilities require robust coverage, high system uptime, and often, specific intelligent analytics to function effectively.
+                  At CamHarbor, we understand that protecting your assets, staff, and visitors is not just about recording video—it is about operational continuity.
+                </p>
+                <p style={{ marginBottom: '1rem' }}>
+                  A well-designed CCTV system acts as a powerful deterrent against theft, vandalism, and unauthorized access. Beyond security, it improves operational efficiency by providing 24/7 visibility into daily workflows, ensuring compliance with safety regulations, and providing irrefutable evidence for liability claims.
+                  We tailor our {industry} solutions to address your specific pain points, whether it is inventory shrinkage, perimeter security, or crowd management.
+                </p>
+
+                <h2 className={styles.subTitle} style={{ marginTop: '2rem' }}>Our Installation Process for {industry}</h2>
+                <div style={{ display: 'grid', gap: '1rem', marginTop: '1rem' }}>
+                  <div>
+                    <strong>1. Comprehensive Site Assessment:</strong>
+                    <p>We begin with a thorough walkthrough of your premises to identify high-risk zones, potential blind spots, and lighting conditions specific to {industry} environments.</p>
+                  </div>
+                  <div>
+                    <strong>2. Custom System Design:</strong>
+                    <p>We do not use a "one size fits all" approach. We select the right mix of cameras (Dome, Bullet, PTZ, or Fisheye) and storage solutions (NVR, Cloud, or Hybrid) that match the scale and compliance needs of your operations.</p>
+                  </div>
+                  <div>
+                    <strong>3. Professional Cabling & Mounting:</strong>
+                    <p>Our tailored installation ensures aesthetics and durability. We use industrial-grade cabling and conduits to ensure longevity and resistance to environmental factors, which is crucial for busy {industry} facilities.</p>
+                  </div>
+                  <div>
+                    <strong>4. Configuration & Training:</strong>
+                    <p>We configure remote access, set up intelligent alerts (like line-crossing or intrusion detection), and train your security staff or management on how to retrieve footage efficiently during an incident.</p>
+                  </div>
+                </div>
+              </div>
             </section>
           )}
 

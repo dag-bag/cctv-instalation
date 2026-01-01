@@ -269,8 +269,8 @@ export interface IndustryContent {
 export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   'Hospitals & Clinics': {
     heroImage: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200&auto=format&fit=crop',
-    description: 'Medical-grade surveillance for patient safety, sterile zones, pharmacies, and ICUs.',
-    features: ['ICU monitoring','Pharmacy security','Visitor tracking','Emergency response'],
+    description: 'Hospitals need strict security for patient safety and hygiene. We monitor sensitive areas like ICUs and pharmacies. Our cameras help prevents theft and manage visitors. We ensure your facility stays safe and compliant with health standards.',
+    features: ['ICU & Patient Ward monitoring','Pharmacy & Drug Storage security','Visitor limits & tracking','Emergency Room response'],
     faqs: [
       { question: 'Is footage compliant with privacy?', answer: 'We configure restricted access and retention per policy.' },
       { question: 'Do cameras support low-light?', answer: 'Yes, with IR and Starlight options for wards and corridors.' }
@@ -278,8 +278,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Schools & Colleges': {
     heroImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop',
-    description: 'Campus-wide visibility for entrances, classrooms, playgrounds, and exam halls.',
-    features: ['Anti-bullying coverage','Exam integrity','Playground safety','Attendance integration'],
+    description: 'Student safety is our top priority. Our cameras cover classrooms, playgrounds, and gates. We help stop bullying and unauthorized entry. Parents and staff can feel secure knowing the campus is monitored.',
+    features: ['Anti-bullying & Discipline coverage','Exam hall integrity monitoring','Playground & Perimeter safety','Automated Attendance integration'],
     faqs: [
       { question: 'Can parents view live feeds?', answer: 'Role-based remote view is supported where policy permits.' },
       { question: 'Do you cover hostel areas?', answer: 'Yes, with access-controlled viewing and audit logs.' }
@@ -287,8 +287,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Restaurants & Cafes': {
     heroImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop',
-    description: 'Front-of-house and kitchen surveillance to improve safety, hygiene, and operations.',
-    features: ['Cash counter safety','Kitchen hygiene','Staff areas','Remote owner view'],
+    description: 'In the fast-paced food service industry, visibility is key to profitability and safety. Our surveillance solutions for restaurants and cafes cover critical zones like the cash counter to prevent pilferage, and the kitchen to ensure hygiene compliance and food safety standards. With remote viewing capabilities, owners can monitor staff performance and customer service levels from anywhere, ensuring the business runs smoothly.',
+    features: ['Cash counter & POS auditing','Kitchen hygiene & Safety','Staff performance monitoring','Remote owner visibility'],
     faqs: [
       { question: 'Can cameras resist heat/grease?', answer: 'We use enclosures rated for kitchen environments.' },
       { question: 'Do you integrate with POS?', answer: 'Yes, overlay options can align cameras with transaction points.' }
@@ -296,8 +296,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Retail Stores': {
     heroImage: 'https://images.unsplash.com/photo-1542831371-d531d36971e6?q=80&w=1200&auto=format&fit=crop',
-    description: 'Shrinkage control and customer safety with strategic aisles and checkout coverage.',
-    features: ['Aisle coverage','Checkout lanes','Entrance analytics','Parking safety'],
+    description: 'Retail businesses face constant threats from shoplifting, employee theft, and false liability claims. Our retail security solutions provide complete shrinkage control through high-definition coverage of aisles, checkout lanes, and stockrooms. Advanced options like heat-mapping and people counting can also transform your security cameras into business intelligence tools, helping you understand customer behavior and optimize store layout.',
+    features: ['Aisle & Stock coverage','Checkout & POS monitoring','Customer entry analytics','Parking lot safety'],
     faqs: [
       { question: 'Do you support people counting?', answer: 'Yes, selected cameras provide footfall analytics.' },
       { question: 'Is storage scalable?', answer: 'NVR and cloud options allow retention growth.' }
@@ -305,8 +305,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Warehouses & Manufacturing': {
     heroImage: 'https://images.unsplash.com/photo-1581092580495-0b1be1b1541a?q=80&w=1200&auto=format&fit=crop',
-    description: 'Inventory and process visibility, loading bays, and compliance monitoring.',
-    features: ['Bay monitoring','Perimeter cameras','Worker safety','Production audits'],
+    description: 'Industrial sites and warehouses require rugged, wide-area surveillance to manage inventory and safety. Our systems offer crystal-clear visibility over loading bays, production lines, and perimeter fences. By monitoring workflow and compliance with safety gear regulations, we help manufacturing hubs reduce accidents and prevent inventory loss from internal or external theft.',
+    features: ['Loading bay monitoring','Perimeter & Fence security','Worker safety compliance','Production line audits'],
     faqs: [
       { question: 'Do you support outdoor coverage?', answer: 'Yes, weatherproof PoE cameras for yards and perimeters.' },
       { question: 'Any license plate recognition?', answer: 'Optional LPR for gate entries and fleets.' }
@@ -314,8 +314,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Offices & Corporate': {
     heroImage: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop',
-    description: 'Lobby, corridors, server rooms, and access-controlled spaces for corporate security.',
-    features: ['Lobby coverage','Badge integration','Server room monitoring','Visitor logs'],
+    description: 'Corporate security demands a professional, discreet, and highly secure approach. We protect intellectual property and physical assets by monitoring high-traffic areas like lobbies, corridors, and server rooms. Our systems integrate seamlessly with access control technologies to verify visitors and maintain strict logs of who enters sensitive areas, ensuring full enterprise compliance.',
+    features: ['Lobby & Reception coverage','Employee badge integration','Server room monitoring','Visitor log management'],
     faqs: [
       { question: 'GDPR-like policies?', answer: 'We implement access scopes, audit logs, and retention rules.' },
       { question: 'Is remote view secure?', answer: 'Encrypted channels with strong authentication.' }
@@ -332,8 +332,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Construction Sites': {
     heroImage: 'https://images.unsplash.com/photo-1556909212-20d2333d66d6?q=80&w=1200&auto=format&fit=crop',
-    description: 'Site progress, material protection, and safety oversight in hazardous zones.',
-    features: ['Progress monitoring','Material protection','Hazard alerts','Gate LPR'],
+    description: 'Construction sites are vulnerable to theft of expensive materials and machinery, often in challenging outdoor conditions. Our surveillance solutions are built tough to withstand dust and weather, providing 24/7 oversight of site progress and perimeter security. We offer robust monitoring for hazard zones to ensure worker safety and prevent unauthorized access after hours.',
+    features: ['Project progress monitoring','Material & Equipment protection','Hazard zone alerts','Gate LPR & Access'],
     faqs: [
       { question: 'Power on remote sites?', answer: 'Solar and 4G options available for temporary setups.' },
       { question: 'Mobile view for managers?', answer: 'Yes, app access for multi-site dashboards.' }
@@ -350,18 +350,17 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Housing Societies': {
     heroImage: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
-    description: 'Gate control, common areas, parking and lifts for resident safety.',
-    features: ['Gate entries','Lift cameras','Play areas','Parking lanes'],
+    description: 'Gated communities and housing societies rely on surveillance to keep residents safe and manage visitor access. Our solutions cover critical common areas such as main gates, lobbies, elevators, parking basements, and play areas. With features like license plate recognition for cars and integration with visitor management systems, we create a secure and convenient living environment.',
+    features: ['Main Gate & Entry','Lift & Lobby cameras','Kids play areas','Basement Parking lanes'],
     faqs: [
       { question: 'Can RWA access dashboards?', answer: 'Yes, multi-admin role-based dashboards.' },
       { question: 'Integration with intercom?', answer: 'Supported with VDP systems.' }
     ]
-  }
-  ,
+  },
   'Smart Homes': {
     heroImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop',
-    description: 'Connected cameras, doorbells, and locks integrated with home automation.',
-    features: ['App control','Doorbell cameras','Smart locks','Cloud storage'],
+    description: 'Transform your residence into a fortress of convenience and safety with our Smart Home security solutions. We integrate high-definition WiFi cameras, smart video doorbells, and keyless biometric locks into a single unified system controlled from your smartphone. Whether you are at work or on vacation, you can check in on your property, speak to delivery agents, and receive instant alerts about any suspicious activity.',
+    features: ['App-controlled security','Video Doorbell integration','Smart Locks & Sensors','Cloud Recording options'],
     faqs: [
       { question: 'Can I control devices by phone?', answer: 'Yes, iOS/Android apps with secure login.' },
       { question: 'Do you support Alexa/Google?', answer: 'Voice assistants supported via compatible hubs.' }
@@ -369,7 +368,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Temples & Religious Places': {
     heroImage: 'https://images.unsplash.com/photo-1496317556649-f930d733eea0?q=80&w=1200&auto=format&fit=crop',
-    description: 'Crowd, donation rooms, and entry gates with respectful coverage policies.',
+    description: 'Religious places need respectful security. We monitor donation boxes, entry queues, and crowds. Our systems deter theft effectively. We ensure devotee safety without disrupting peace.',
     features: ['Donation room safety','Entry queues','Perimeter monitoring','Night coverage'],
     faqs: [
       { question: 'Is recording discreet?', answer: 'We place cameras per committee guidance and policy.' },
@@ -378,7 +377,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Transport Hubs': {
     heroImage: 'https://images.unsplash.com/photo-1525351483943-4f4b2b1b8683?q=80&w=1200&auto=format&fit=crop',
-    description: 'Stations, bus depots, and terminals with LPR and crowd analytics.',
+    description: 'Transport centers are busy and complex. We use smart cameras to read license plates and track crowds. This helps in managing flow and incidents. Authorities get clear evidence when needed.',
     features: ['Gate LPR','Platform coverage','Crowd heatmaps','Incident review'],
     faqs: [
       { question: 'Do you cover large areas?', answer: 'PTZ and multi-lens cameras for wide coverage.' },
@@ -387,7 +386,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Banks & ATMs': {
     heroImage: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200&auto=format&fit=crop',
-    description: 'Vault-adjacent zones, teller counters, entries, and ATM kiosks with audit trails.',
+    description: 'Banks require the highest level of security. We cover teller counters, vaults, and ATM kiosks. Our cameras provide clear faces and transaction details. We help you meet all legal compliance rules.',
     features: ['Teller counters','ATM kiosks','Server room','Access logs'],
     faqs: [
       { question: 'Do you meet compliance?', answer: 'We align recording and retention with policy.' },
@@ -396,8 +395,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Gyms & Fitness Centers': {
     heroImage: 'https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop',
-    description: 'Reception, workout zones, lockers, and parking with privacy-aware placement.',
-    features: ['Reception desk','Locker area entrances','Parking','Access control'],
+    description: 'Fitness centers require a delicate balance of security and privacy. Our surveillance solutions focus on protecting the facility, staff, and members without compromising personal privacy. We cover high-traffic zones like the reception, general workout floors, locker room entrances, and parking areas, helping to resolve disputes, prevent equipment theft, and ensure members feel safe during late-night workouts.',
+    features: ['Reception & Entry desk','Workout floor monitoring','Locker room entrance safety','Parking & Perimeter'],
     faqs: [
       { question: 'Are cameras in changing rooms?', answer: 'No, only at entrances respecting privacy.' },
       { question: 'Mobile view for owners?', answer: 'Yes, secure multi-user access.' }
@@ -405,8 +404,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Parking Lots': {
     heroImage: 'https://images.unsplash.com/photo-1519643398871-8f0fae8290bd?q=80&w=1200&auto=format&fit=crop',
-    description: 'Lane coverage, entries/exits, and LPR for efficient parking operations.',
-    features: ['Lane cameras','Entry/exit','LPR','Incident review'],
+    description: 'Parking areas prone to theft and scratches. We use low-light cameras to monitor every lane. License Plate Recognition tracks all vehicle entries. This creates a safer environment for all drivers.',
+    features: ['Lane & Driveway cameras','Entry/Exit LPR','Blind spot elimination','Accident evidence review'],
     faqs: [
       { question: 'Night performance?', answer: 'Color night vision/Starlight options available.' },
       { question: 'Data export?', answer: 'Clips export and logs per incident.' }
@@ -414,7 +413,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Car Dealerships': {
     heroImage: 'https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1200&auto=format&fit=crop',
-    description: 'Showrooms, yards, and delivery bays with customer-safe experience.',
+    description: 'Car showrooms hold expensive inventory. We protect huge glass fronts, open yards, and key storage. Our crisp video helps in checking car conditions on delivery. Your stock remains safe from vandalism and theft.',
     features: ['Showroom floor','Delivery bay','Yard coverage','Cash desk'],
     faqs: [
       { question: 'Do you cover test-drive lanes?', answer: 'Perimeter and entry cameras can monitor lanes.' },
@@ -423,7 +422,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Co-Working Spaces': {
     heroImage: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
-    description: 'Lobbies, hot desks, meeting rooms, and access-controlled zones.',
+    description: 'Shared offices need flexible security. We monitor lobbies, meeting rooms, and hot desks. Our systems integrate with access badges nicely. We ensure member safety while respecting workspace privacy.',
     features: ['Lobby','Access control','Meeting rooms','Server racks'],
     faqs: [
       { question: 'Badge integration?', answer: 'Supported via access control systems.' },
@@ -432,8 +431,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Fuel Stations & Petrol Pumps': {
     heroImage: 'https://images.unsplash.com/photo-1487956387771-9ff19f1f6f81?q=80&w=1200&auto=format&fit=crop',
-    description: 'Forecourt, cash counters, and ingress/egress with weatherproof cameras.',
-    features: ['Forecourt lanes','Cash counter','Ingress/egress','LPR'],
+    description: 'Petrol pumps have high risks. We use spark-proof and weatherproof cameras. We watch fuel lanes and cash counters closely. This prevents drive-offs and protects your staff.',
+    features: ['Forecourt details & LPR','Cash counter safety','Ingress/egress tracking','Safety compliance monitoring'],
     faqs: [
       { question: 'Explosion-proof gear?', answer: 'We use appropriate rated enclosures for safety.' },
       { question: 'Outdoor durability?', answer: 'Weatherproof cameras with IR for night.' }
@@ -441,8 +440,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Salons & Spas': {
     heroImage: 'https://images.unsplash.com/photo-1502773862418-c7f2a6df2eb3?q=80&w=1200&auto=format&fit=crop',
-    description: 'Reception, cash counter, and corridors with privacy-aware placement.',
-    features: ['Reception','Cash counter','Corridors','Waiting area'],
+    description: 'For salons and spas, the security system must be effective yet discreet to maintain a relaxing atmosphere. We focus on securing financial transaction areas like the reception desk and cash counter, while monitoring waiting areas and corridors for general safety. We strictly adhere to privacy norms, ensuring no cameras are placed in treatment rooms, offering peace of mind to both owners and clients.',
+    features: ['Reception & Cash desk','Waiting area safety','Corridor monitoring','Discreet camera placement'],
     faqs: [
       { question: 'Private rooms?', answer: 'No cameras inside therapy rooms; entrances only.' },
       { question: 'Owner remote view?', answer: 'Yes, secure access with audit logs.' }
@@ -450,8 +449,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Coaching Centers': {
     heroImage: 'https://images.unsplash.com/photo-1513258496099-48168024b6ff?q=80&w=1200&auto=format&fit=crop',
-    description: 'Classrooms, entrances, and exam halls to ensure discipline and safety.',
-    features: ['Classrooms','Exam halls','Entrances','Attendance integration'],
+    description: 'Educational coaching centers are bustling with students and require strict monitoring to ensure discipline and safety. Our CCTV solutions cover classrooms to review teaching quality and student behavior, as well as entrances to manage access. We can aid in resolving disputes and ensuring that the learning environment remains focused and secure for everyone.',
+    features: ['Classroom monitoring','Exam integrity','Entrance & Exit logs','Attendance aid'],
     faqs: [
       { question: 'Do you record classes?', answer: 'Optional recording per institute policy.' },
       { question: 'Can parents view feeds?', answer: 'Role-based access if permitted.' }
@@ -459,7 +458,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Markets & Street Food': {
     heroImage: 'https://images.unsplash.com/photo-1516685304081-de7947d419d6?q=80&w=1200&auto=format&fit=crop',
-    description: 'Stalls, cash points, and crowd flow with ruggedized outdoor cameras.',
+    description: 'Busy markets need tough cameras. We monitor stalls, cash points, and crowds. our outdoor cameras handle dust and heat well. This prevents theft and keeps the area organized.',
     features: ['Stall coverage','Cash points','Crowd flow','Perimeter'],
     faqs: [
       { question: 'Portable setups?', answer: 'Quick-deploy kits available for temporary stalls.' },
@@ -468,7 +467,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'IT Parks & Tech Hubs': {
     heroImage: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop',
-    description: 'Lobby, corridors, server rooms, parking—enterprise-grade deployment.',
+    description: 'Tech hubs demand enterprise-grade security. We secure lobbies, server rooms, and parking. Our system integrates with employee ID badges. We help you maintain strict data and physical security.',
     features: ['Lobby','Badge access','Server rooms','Parking'],
     faqs: [
       { question: 'GDPR-like compliance?', answer: 'Access scopes and audit trails implemented.' },
@@ -477,7 +476,7 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Wedding Halls & Banquets': {
     heroImage: 'https://images.unsplash.com/photo-1524578271613-d550eacf7ae9?q=80&w=1200&auto=format&fit=crop',
-    description: 'Entry gates, stage, dining and parking with crowd visibility.',
+    description: 'Events involve large crowds and valuable gifts. We cover entry gates, dining areas, and stages. Our cameras help manage guests and prevent theft. You get a safe venue for every celebration.',
     features: ['Stage view','Dining area','Entry gates','Parking'],
     faqs: [
       { question: 'Temporary setups?', answer: 'Yes, rapid deployments for events.' },
@@ -486,8 +485,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Pharmacies & Medical Stores': {
     heroImage: 'https://images.unsplash.com/photo-1586074296815-aef0a54fba94?q=80&w=1200&auto=format&fit=crop',
-    description: 'Counters, storage, and entrances with theft deterrence.',
-    features: ['Counter view','Storage shelves','Entrance','Audit logs'],
+    description: 'Pharmacies deal with high-value medications and cash transactions, making them targets for theft. Our security solutions provide high-definition oversight of dispensing counters, storage shelves, and customer areas. We help you monitor stock levels, prevent internal pilferage, and ensure transaction accuracy, keeping your medical store secure and profitable.',
+    features: ['Dispensing counter view','Medicine storage shelves','Entrance security','Transaction auditing'],
     faqs: [
       { question: 'Low-light areas?', answer: 'IR options for night coverage.' },
       { question: 'Billing integration?', answer: 'POS alignment possible for counters.' }
@@ -495,8 +494,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'Jewelry Stores': {
     heroImage: 'https://images.unsplash.com/photo-1516637090014-cb1ab0a62b71?q=80&w=1200&auto=format&fit=crop',
-    description: 'Counters, safes, entries with high-resolution and audit trails.',
-    features: ['High-res lenses','Safe areas','Entry gates','Audit logs'],
+    description: 'Security is the lifeline of any jewelry business. We specialize in ultra-high-definition surveillance for jewelry stores, ensuring that every transaction and item inspection is captured in minute detail. Our systems cover display counters, vaults, and entry gates, often integrated with panic buttons and alarm systems to provide a fortress-like security infrastructure.',
+    features: ['4K Detail for counters','Vault & Safe monitoring','Panic button integration','Double-door entry logs'],
     faqs: [
       { question: 'Do you support 4K?', answer: 'Yes, 4K cameras for critical zones.' },
       { question: 'Any panic integration?', answer: 'Integration with alarm systems possible.' }
@@ -504,8 +503,8 @@ export const INDUSTRY_CONTENT: Record<string, IndustryContent> = {
   },
   'E-commerce Warehouses': {
     heroImage: 'https://images.unsplash.com/photo-1587547133148-1e4fdc4f0f7b?q=80&w=1200&auto=format&fit=crop',
-    description: 'Inbound/outbound docks, racks, and packing stations with process visibility.',
-    features: ['Dock cameras','Rack aisles','Packing stations','Gate LPR'],
+    description: 'E-commerce logistics require speed and precision, and security helps maintain both. Our warehouse solutions act as a visual audit trail for every package that enters or leaves your facility. We cover loading docks, sorting conveyors, and packing stations to minimize lost packages, verify damage claims, and ensure worker safety in busy logistics environments.',
+    features: ['Inbound/Outbound docks','Sorting conveyor view','Packing station audit','Perimeter & Gate LPR'],
     faqs: [
       { question: 'Do you support analytics?', answer: 'Yes, heatmaps and motion analytics on select models.' },
       { question: 'Outdoor yards?', answer: 'Weatherproof PoE for yards.' }
