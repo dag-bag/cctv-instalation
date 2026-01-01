@@ -290,13 +290,51 @@ export default async function HierarchicalServicePage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Service",
     name: service,
+    description: data.metaDescription,
+    serviceType: "CCTV Installation and Security Services",
+    category: "Security Services",
     provider: {
       "@type": "LocalBusiness",
       name: "CamHarbor",
+      telephone: "+91-8766203976",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
+        addressLocality: "New Delhi",
+        addressRegion: "Delhi",
+        postalCode: "110045",
+        addressCountry: "IN"
+      }
     },
     areaServed: {
       "@type": "Place",
       name: `${locality}, ${city}`,
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://www.camharbor.in/services/${citySlug}/${localitySlug}/${serviceSlug}`,
+      priceCurrency: "INR",
+      price: "0",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "INR",
+        description: "Starting from competitive market prices. Contact for exact quote based on your requirements."
+      },
+      availability: "https://schema.org/InStock",
+      availableAtOrFrom: {
+        "@type": "Place",
+        name: `${locality}, ${city}`,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: city,
+          addressCountry: "IN"
+        }
+      },
+      eligibleRegion: {
+        "@type": "Place",
+        name: "Delhi NCR"
+      },
+      businessFunction: "http://purl.org/goodrelations/v1#ProvideService"
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -314,6 +352,21 @@ export default async function HierarchicalServicePage({ params }: Props) {
           description: "Call for Quote",
         },
       })),
+    },
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "tel:+91-8766203976",
+        actionPlatform: [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      result: {
+        "@type": "Reservation",
+        name: `Book ${service} Service`
+      }
     }
   };
 
@@ -420,6 +473,27 @@ export default async function HierarchicalServicePage({ params }: Props) {
     totalTime: "PT2H",
   };
 
+  // ImageObject Schema for better image search SEO
+  const imageObjectSchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "contentUrl": getImageUrl(service, 'service', 2070),
+    "caption": `Professional ${service} in ${locality}, ${city}`,
+    "description": `High-quality ${service} service provided by expert technicians in ${locality}`,
+    "name": `${service} - ${locality}, ${city}`,
+    "author": {
+      "@type": "Organization",
+      "name": "CamHarbor",
+      "url": "https://www.camharbor.in"
+    },
+    "copyrightHolder": {
+      "@type": "Organization",
+      "name": "CamHarbor"
+    },
+    "copyrightYear": new Date().getFullYear().toString(),
+    "representativeOfPage": true
+  };
+
   return (
     <div className={styles.container}>
       <script
@@ -432,6 +506,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
             faqSchema,
             productSchema,
             howToSchema,
+            imageObjectSchema,
           ]),
         }}
       />

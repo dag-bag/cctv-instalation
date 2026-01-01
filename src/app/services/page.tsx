@@ -80,12 +80,36 @@ export default async function ServicesIndexPage() {
     { slug: '/services/faridabad/sector-15/electrical-services', label: 'Electrical Services in Sector 15, Faridabad' },
   ];
 
+  // WebPage Schema for voice search optimization
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "CCTV Installation & Security Services by City & Locality",
+    "description": "Find the best CCTV installation, security camera repair, and all security services by city and locality across Delhi NCR",
+    "url": "https://www.camharbor.in/services",
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://www.camharbor.in"
+    },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".title", ".subtitle", ".sectionTitle"]
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.camharbor.in" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.camharbor.in/services" }
+      ]
+    }
+  };
+
   return (
     <div className={styles.container}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([breadcrumbSchema, itemListCitiesSchema, offerCatalogSchema]),
+          __html: JSON.stringify([breadcrumbSchema, itemListCitiesSchema, offerCatalogSchema, webPageSchema]),
         }}
       />
 

@@ -113,12 +113,36 @@ export default function WhyChooseUsPage() {
     ]
   };
 
+  // WebPage Schema for better search understanding
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Why Choose CamHarbor - Best CCTV Installation Service",
+    "description": "Discover why CamHarbor is the best choice for CCTV installation. Genuine service, expert technicians, 1-year warranty, 4.9+ rating, trusted by thousands.",
+    "url": "https://www.camharbor.in/why-choose-us",
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://www.camharbor.in"
+    },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".title", ".reasonTitle", ".sectionTitle"]
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.camharbor.in" },
+        { "@type": "ListItem", "position": 2, "name": "Why Choose Us", "item": "https://www.camharbor.in/why-choose-us" }
+      ]
+    }
+  };
+
   return (
     <div className={styles.container}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
+          __html: JSON.stringify([faqSchema, webPageSchema]),
         }}
       />
       <header className={styles.hero}>

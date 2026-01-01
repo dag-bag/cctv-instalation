@@ -19,8 +19,88 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  // Person Schema for Founder - Boosts E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Virender Kumar",
+    "jobTitle": "Founder & CEO",
+    "description": "Founder of CamHarbor, a leading CCTV installation and security services company in Delhi NCR with years of experience in security technology.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "CamHarbor",
+      "url": "https://www.camharbor.in"
+    },
+    "sameAs": [
+      "https://www.instagram.com/maihu_vicky/"
+    ],
+    "knowsAbout": [
+      "CCTV Installation",
+      "Security Systems",
+      "Surveillance Technology",
+      "Access Control Systems",
+      "Video Door Phone Installation",
+      "Security Camera Repair"
+    ],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Security Systems Specialist",
+      "occupationLocation": {
+        "@type": "City",
+        "name": "Delhi"
+      },
+      "responsibilities": "Managing CCTV installation, security system design, and customer service operations"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Security Technology Training"
+    }
+  };
+
+  // Organization Schema for the company
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CamHarbor",
+    "url": "https://www.camharbor.in",
+    "logo": "https://www.camharbor.in/logo-full.png",
+    "founder": {
+      "@type": "Person",
+      "name": "Virender Kumar"
+    },
+    "foundingDate": "2014",
+    "description": "Professional CCTV installation and security solutions provider in Delhi NCR",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
+      "addressLocality": "New Delhi",
+      "addressRegion": "Delhi",
+      "postalCode": "110045",
+      "addressCountry": "IN"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": BUSINESS_CONFIG.phone,
+      "contactType": "Customer Service",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Hindi"]
+    },
+    "sameAs": [
+      BUSINESS_CONFIG.social.facebook,
+      BUSINESS_CONFIG.social.instagram,
+      BUSINESS_CONFIG.social.twitter,
+      BUSINESS_CONFIG.social.youtube
+    ]
+  };
+
   return (
     <div className={styles.container}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([personSchema, organizationSchema]),
+        }}
+      />
       <header className={styles.hero}>
         <div className={styles.heroBackground}></div>
         <div className={styles.heroContent}>

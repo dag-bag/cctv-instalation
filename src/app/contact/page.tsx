@@ -20,8 +20,105 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  // ContactPage Schema - Improves contact page visibility in search
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact CamHarbor - CCTV Installation Services",
+    "description": "Contact us for professional CCTV installation, security camera repair, and all security services across Delhi NCR",
+    "url": "https://www.camharbor.in/contact",
+    "mainEntity": {
+      "@type": "LocalBusiness",
+      "name": "CamHarbor",
+      "telephone": BUSINESS_CONFIG.phone,
+      "email": BUSINESS_CONFIG.email,
+      "url": "https://www.camharbor.in",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "House No. 110, C2 Block, Street No. 3, Mahavir Enclave Part-1, Palam",
+        "addressLocality": "New Delhi",
+        "addressRegion": "Delhi",
+        "postalCode": "110045",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "28.6139",
+        "longitude": "77.2090"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": BUSINESS_CONFIG.phone,
+          "contactType": "Customer Service",
+          "availableLanguage": ["English", "Hindi"],
+          "areaServed": "IN",
+          "hoursAvailable": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": BUSINESS_CONFIG.hours.weekdays.split(' - ')[0],
+            "closes": BUSINESS_CONFIG.hours.weekdays.split(' - ')[1]
+          }
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": BUSINESS_CONFIG.phone,
+          "contactType": "Emergency",
+          "availableLanguage": ["English", "Hindi"],
+          "areaServed": "IN",
+          "hoursAvailable": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+          }
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": BUSINESS_CONFIG.phone,
+          "contactType": "Sales",
+          "availableLanguage": ["English", "Hindi"],
+          "areaServed": "IN"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": BUSINESS_CONFIG.phone,
+          "contactType": "Technical Support",
+          "availableLanguage": ["English", "Hindi"],
+          "areaServed": "IN"
+        }
+      ]
+    }
+  };
+
+  // BreadcrumbList for better navigation understanding
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.camharbor.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact Us",
+        "item": "https://www.camharbor.in/contact"
+      }
+    ]
+  };
+
   return (
     <div className={styles.container}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([contactPageSchema, breadcrumbSchema]),
+        }}
+      />
       <header className={styles.hero}>
         <div className={styles.heroBackground}></div>
         <div className={styles.heroContent}>

@@ -127,11 +127,38 @@ export default function Home() {
     ]
   };
 
+  // WebPage Schema with Speakable for voice search optimization
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    'name': 'CamHarbor - Professional CCTV Installation & Repair Services in Delhi NCR',
+    'description': 'Top-rated CCTV installation, security camera repair, and comprehensive security solutions for homes and businesses across Delhi NCR. 500+ happy customers, expert technicians, 24/7 support.',
+    'url': 'https://www.camharbor.in',
+    'isPartOf': {
+      '@type': 'WebSite',
+      'url': 'https://www.camharbor.in'
+    },
+    'about': {
+      '@type': 'LocalBusiness',
+      'name': BUSINESS_CONFIG.name
+    },
+    'speakable': {
+      '@type': 'SpeakableSpecification',
+      'cssSelector': ['.mainHeading', '.subheading', '.sectionTitle']
+    },
+    'relatedLink': [
+      'https://www.camharbor.in/services',
+      'https://www.camharbor.in/contact',
+      'https://www.camharbor.in/about',
+      'https://www.camharbor.in/reviews'
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, websiteSchema, localBusinessSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, websiteSchema, localBusinessSchema, webPageSchema]) }}
       />
       <div className={styles.container}>
         {/* Hero Section */}
