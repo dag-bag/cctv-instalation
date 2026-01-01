@@ -75,10 +75,10 @@ export default async function RepairCityListPage({ params }: Props) {
           )}
 
           <section>
-            <h2 className={styles.sectionTitle}>Service Availability</h2>
+            <h2 className={styles.sectionTitle}>Select City for {issue.replace(/-/g,' ')} Repair</h2>
             <div className={styles.featuresGrid}>
               {CITIES.map((city, i) => (
-                <Link key={i} href={`/repairs/${issue}/${createSlug(city)}`} className={styles.featureCard} aria-label={`View ${displayName} repair in ${city}`}>
+                <Link key={i} href={`/repairs/${issue}/${createSlug(city)}`} className={styles.featureCard} aria-label={`View ${issue.replace(/-/g,' ')} in ${city}`}>
                   <span className={styles.checkIcon}>📍</span>
                   <span className={styles.featureText}>{city}</span>
                 </Link>

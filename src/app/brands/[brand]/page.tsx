@@ -84,7 +84,7 @@ export default async function BrandCityListPage({ params }: Props) {
           )}
 
           <section>
-            <h2 className={styles.sectionTitle}>Select City for Service</h2>
+            <h2 className={styles.sectionTitle}>Select City for {displayName} Installation</h2>
             <div className={styles.featuresGrid}>
               {CITIES.map((city, i) => (
                 <Link key={i} href={`/brands/${brandSlug}/${createSlug(city)}`} className={styles.featureCard} aria-label={`View ${displayName} installation in ${city}`}>

@@ -183,7 +183,7 @@ export default async function LocalityPage({ params }: Props) {
 
           {/* Why Choose Us Section */}
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Security Services in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Security Services in {locality}, {city}</h2>
             <div className={styles.featuresGrid}>
               <div className={styles.featureCard}>
                 <span className={styles.checkIcon}>⚡</span>

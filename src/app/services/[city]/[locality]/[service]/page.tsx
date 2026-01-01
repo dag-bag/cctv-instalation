@@ -546,7 +546,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
         <div className={styles.contentSection}>
           <section>
             <h2 className={styles.sectionTitle}>
-              Why Choose Us for {service}?
+              Why Choose Us for {service} in {locality}?
             </h2>
             <div className={styles.text}>
               <p>
@@ -590,7 +590,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Pricing Table */}
           <section className={styles.pricingSection}>
-            <h3 className={styles.sectionTitle}>Transparent Pricing</h3>
+            <h3 className={styles.sectionTitle}>Transparent Pricing for {service}</h3>
             <div className={styles.pricingTable}>
               {data.pricing.map((item, index) => (
                 <div key={index} className={styles.pricingRow}>
@@ -606,7 +606,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Safety Standards */}
           <section className={styles.safetySection}>
-            <h3 className={styles.sectionTitle}>Our Safety Standards</h3>
+            <h3 className={styles.sectionTitle}>Our Safety Standards in {locality}</h3>
             <div className={styles.safetyGrid}>
               <div className={styles.safetyCard}>
                 <div className={styles.safetyIcon}>🛡️</div>
@@ -628,7 +628,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Testimonials */}
           <section className={styles.testimonialSection}>
-            <h3 className={styles.sectionTitle}>What Our Clients Say</h3>
+            <h3 className={styles.sectionTitle}>What Our {locality} Clients Say</h3>
             <div className={styles.testimonialGrid}>
               {data.testimonials.map((t, index) => (
                 <div key={index} className={styles.testimonialCard}>
@@ -692,7 +692,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
               style={{ background: "transparent", minHeight: "auto" }}
             >
               <h2 className={styles.sectionTitle}>
-                Serving {locality} & Nearby
+                Serving {locality}, {city} & Nearby
               </h2>
               <div className={styles.mapWrapper}>
                 <iframe

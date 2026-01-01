@@ -74,7 +74,7 @@ export default async function IndustryCityListPage({ params }: Props) {
           )}
 
           <section>
-            <h2 className={styles.sectionTitle}>Select City</h2>
+            <h2 className={styles.sectionTitle}>Select City for {industry} Security</h2>
             <div className={styles.featuresGrid}>
               {CITIES.map((city, i) => (
                 <Link key={i} href={`/industries/${industrySlug}/${createSlug(city)}`} className={styles.featureCard} aria-label={`View ${industry} in ${city}`}>
