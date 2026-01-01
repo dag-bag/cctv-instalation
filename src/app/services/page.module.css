@@ -204,7 +204,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #f8fafc !important; /* Force White color to fix Black title issue */
+  color: #f8fafc; /* Default white, can be overridden by inline styles */
   position: relative;
   display: inline-block;
   padding-bottom: 0.5rem;
