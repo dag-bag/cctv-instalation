@@ -73,11 +73,11 @@ export default async function ServicesIndexPage() {
   // SEO CONTENT BLOCKS
   const serviceExamples = [
     { slug: '/services/delhi/adarsh-nagar/cctv-installation', label: 'CCTV Installation in Adarsh Nagar, Delhi' },
-    { slug: '/services/gurgaon/sector-56/access-control', label: 'Access Control in Sector 56, Gurgaon' },
-    { slug: '/services/noida/sector-62/security-camera-repair', label: 'Security Camera Repair in Sector 62, Noida' },
-    { slug: '/services/ghaziabad/indirapuram/video-door-phone', label: 'Video Door Phone in Indirapuram, Ghaziabad' },
-    { slug: '/services/delhi/rohini/amc', label: 'CCTV AMC Services in Rohini, Delhi' },
-    { slug: '/services/faridabad/sector-15/electrical-services', label: 'Electrical Services in Sector 15, Faridabad' },
+    { slug: '/services/gurgaon/sector-56/access-control-system', label: 'Access Control in Sector 56, Gurgaon' },
+    { slug: '/services/noida/sector-62/cctv-camera-repair', label: 'Security Camera Repair in Sector 62, Noida' },
+    { slug: '/services/ghaziabad/indirapuram/video-door-phone-installation', label: 'Video Door Phone in Indirapuram, Ghaziabad' },
+    { slug: '/services/delhi/rohini/cctv-amc-service', label: 'CCTV AMC Services in Rohini, Delhi' },
+    { slug: '/services/faridabad/sector-15/electrical-wiring-for-cctv', label: 'Electrical Services in Sector 15, Faridabad' },
   ];
 
   // WebPage Schema for voice search optimization
