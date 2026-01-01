@@ -37,19 +37,25 @@ export function generateAllLinks(): UrlLink[] {
     const localities = LOCALITIES[city] || [];
     localities.forEach((locality) => {
       const localitySlug = createSlug(locality);
+      
+      // Create a dedicated category for this locality to group its services
+      const localityCategory = `${locality}, ${city}`;
+
+      // 1. Link to the Locality Overview Page itself
       links.push({
         url: `/services/${citySlug}/${localitySlug}`,
-        label: `${locality}, ${city}`,
-        category: city,
+        label: `Overview: ${locality} Security Services`,
+        category: localityCategory,
       });
 
-      // Service Pages (City + Locality + Service)
+      // 2. Service Pages (City + Locality + Service)
+      // Use simplified labels (Just the service name) to avoid repetitive long text
       SERVICES.forEach((service) => {
         const serviceSlug = createSlug(service);
         links.push({
           url: `/services/${citySlug}/${localitySlug}/${serviceSlug}`,
-          label: `${service} in ${locality}`,
-          category: city,
+          label: service, // Simplified Label: "CCTV Installation" instead of "CCTV Installation in Locality"
+          category: localityCategory,
         });
       });
     });

@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { generateAllLinks } from '../../lib/url-generator';
 import styles from '../page.module.css';
 
-const ITEMS_PER_PAGE = 1000;
+const ITEMS_PER_PAGE = 250;
 
 export const metadata: Metadata = {
   title: 'Site Map - All CCTV Services | CamHarbor',

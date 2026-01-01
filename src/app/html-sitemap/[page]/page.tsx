@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { generateAllLinks } from "../../../lib/url-generator";
 import styles from "../../page.module.css";
 
-const ITEMS_PER_PAGE = 1000;
+const ITEMS_PER_PAGE = 250;
 
 
 // export async function generateStaticParams() {
