@@ -350,7 +350,7 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className={styles.ctaSection}>
           <div className={styles.ctaCard}>
-            <h2 className={styles.ctaTitle}>Ready to Secure Your Property?</h2>
+            <h2 className={styles.ctaTitle}>Start Your Security Journey Today</h2>
             <p className={styles.ctaText}>
               Contact us today for a free consultation and quote. Our team is ready to help you 
               find the right security solution.

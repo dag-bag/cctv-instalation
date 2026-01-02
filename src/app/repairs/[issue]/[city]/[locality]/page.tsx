@@ -118,7 +118,7 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Related Services in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Other Services We Offer in {locality}</h2>
             <div className={styles.featuresGrid}>
               {["CCTV Repair","DVR/NVR Configuration","Mobile View Setup","Cable Replacement"].map((s, i) => (
                 <Link key={i} href={`/services/${citySlug}/${localitySlug}/${createSlug(s)}`} className={styles.featureCard}>
@@ -155,7 +155,7 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Benefits of Professional Repair Service</h2>
+            <h2 className={styles.sectionTitle}>Why Choose Professional Repair in {locality}</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 Choosing professional repair service for {issue.replace(/-/g,' ')} in {locality} offers several advantages. 
@@ -173,7 +173,7 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Common FAQs About {issue.replace(/-/g,' ')} Repair in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Frequently Asked Questions About {issue.replace(/-/g,' ')} in {locality}</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 Here are answers to common questions about our {issue.replace(/-/g,' ')} repair service in {locality}, {city}. 

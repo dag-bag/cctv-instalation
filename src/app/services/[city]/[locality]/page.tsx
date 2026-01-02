@@ -209,7 +209,7 @@ export default async function LocalityPage({ params }: Props) {
         </div>
       </main>
       <section style={{ marginTop: '4rem' }}>
-        <h2 className={styles.sectionTitle}>Nearby Localities in {city}</h2>
+        <h2 className={styles.sectionTitle}>Other Areas near {locality} in {city}</h2>
         <div className={styles.featuresGrid}>
           {(LOCALITIES[city] || [])
             .filter(l => l !== locality)
