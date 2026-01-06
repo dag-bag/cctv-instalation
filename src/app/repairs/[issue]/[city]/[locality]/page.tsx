@@ -118,7 +118,7 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Other Services We Offer in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Other Services We Offer in {locality}, {city}</h2>
             <div className={styles.featuresGrid}>
               {["CCTV Repair","DVR/NVR Configuration","Mobile View Setup","Cable Replacement"].map((s, i) => (
                 <Link key={i} href={`/services/${citySlug}/${localitySlug}/${createSlug(s)}`} className={styles.featureCard}>
@@ -129,7 +129,7 @@ export default async function RepairPage({ params }: Props) {
             </div>
           </section>
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>How We Fix {issue.replace(/-/g,' ')} in {locality}</h2>
+            <h2 className={styles.sectionTitle}>How We Fix {issue.replace(/-/g,' ')} in {locality}, {city}</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 Our repair process is simple and efficient. When you contact us for {issue.replace(/-/g,' ')} repair in 
@@ -155,7 +155,7 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Why Choose Professional Repair in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Why Choose Professional Repair in {locality}, {city}</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 Choosing professional repair service for {issue.replace(/-/g,' ')} in {locality} offers several advantages. 
@@ -173,7 +173,7 @@ export default async function RepairPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Frequently Asked Questions About {issue.replace(/-/g,' ')} in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Frequently Asked Questions About {issue.replace(/-/g,' ')} in {locality}, {city}</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 Here are answers to common questions about our {issue.replace(/-/g,' ')} repair service in {locality}, {city}. 

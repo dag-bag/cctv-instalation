@@ -107,7 +107,7 @@ export default async function BrandPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Popular {brand} Services in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Popular {brand} Services in {locality}, {city}</h2>
             <div className={styles.featuresGrid}>
               {SERVICES.slice(0,6).map((s, i) => (
                 <Link key={i} href={`/services/${citySlug}/${localitySlug}/${createSlug(s)}`} className={styles.featureCard}>
@@ -119,7 +119,7 @@ export default async function BrandPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Why Choose {brand} in {locality}?</h2>
+            <h2 className={styles.sectionTitle}>Why Choose {brand} in {locality}, {city}?</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 {brand} is a leading brand in security technology, known for quality, reliability, and advanced features. 
@@ -138,7 +138,7 @@ export default async function BrandPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>Our {brand} Installation Process in {locality}</h2>
+            <h2 className={styles.sectionTitle}>Our {brand} Installation Process in {locality}, {city}</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 When you choose {brand} installation from CamHarbor in {locality}, we follow a comprehensive process to 
@@ -157,7 +157,7 @@ export default async function BrandPage({ params }: Props) {
           </section>
 
           <section style={{ marginTop: '4rem' }}>
-            <h2 className={styles.sectionTitle}>{brand} FAQs for {locality} Customers</h2>
+            <h2 className={styles.sectionTitle}>{brand} FAQs for {locality}, {city} Customers</h2>
             <div className={styles.text} style={{ marginBottom: '2rem' }}>
               <p>
                 Here are answers to frequently asked questions about {brand} installation and services in {locality}, 

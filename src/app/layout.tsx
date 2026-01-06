@@ -62,6 +62,10 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code", // Add your Google Search Console verification code
   },
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png',
+  },
 };
 
 import Header from "@/components/Header";
@@ -78,7 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2a5298" />
         
