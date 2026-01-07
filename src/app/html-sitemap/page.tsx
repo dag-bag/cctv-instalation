@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { generateAllLinks } from '../../lib/url-generator';
 import styles from '../page.module.css';

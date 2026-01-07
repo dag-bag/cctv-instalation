@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import Link from "next/link";
+import Link from '@/components/Link';
 import { UrlLink } from "../../lib/url-generator";
 
 // Client component for the virtualized list

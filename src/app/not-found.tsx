@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import styles from './page.module.css'; // Reusing homepage styles for consistency
 
 export default function NotFound() {

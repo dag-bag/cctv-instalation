@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
+import Link from '@/components/Link';
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import {

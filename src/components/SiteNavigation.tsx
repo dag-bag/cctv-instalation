@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { getBrandRoutes, getRepairRoutes, getIndustryRoutes } from '@/lib/static-routes';
 import styles from './SiteNavigation.module.css';
 

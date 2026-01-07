@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { CITIES, INDUSTRIES, createSlug, getIndustryContent } from '@/lib/seo-data';
 import styles from '../../[slug]/page.module.css';

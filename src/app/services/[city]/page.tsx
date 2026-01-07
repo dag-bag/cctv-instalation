@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { notFound } from 'next/navigation';
 import { CITIES, LOCALITIES, createSlug } from '../../../lib/seo-data';
 import { BUSINESS_CONFIG } from '../../../config/business';

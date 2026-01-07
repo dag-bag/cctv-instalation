@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { CITIES, createSlug } from '@/lib/seo-data';
 import { REPAIR_CONTENT } from '@/lib/content-data';
