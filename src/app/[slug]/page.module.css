@@ -778,3 +778,12 @@
   content: '🔒';
   font-size: 0.8rem;
 }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.5rem 3rem;
+  }
+  .title {
+    font-size: 2.25rem;
+  }
+}

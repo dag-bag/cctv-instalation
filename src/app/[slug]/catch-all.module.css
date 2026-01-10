@@ -221,4 +221,12 @@
   .faqItem {
     padding: 1.5rem;
   }
+
+  .ctaSection {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .ctaSection h2 {
+    font-size: 1.75rem;
+  }
 }
