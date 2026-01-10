@@ -66,9 +66,37 @@ export default async function RepairPage({ params }: Props) {
     'areaServed': { '@type': 'Place', 'name': `${locality}, ${city}` }
   };
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${issue.replace(/-/g,' ')} Repair Service`,
+    description: `Professional ${issue.replace(/-/g,' ')} repair in ${locality}, ${city}`,
+    brand: {
+      "@type": "Brand",
+      name: "CamHarbor",
+    },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "INR",
+      lowPrice: "499",
+      highPrice: "2999",
+      offerCount: "5",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "CamHarbor",
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "500",
+    },
+  };
+
   return (
     <div className={styles.container}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, faqSchema, localBusinessSchema, serviceSchema]) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, faqSchema, localBusinessSchema, serviceSchema, productSchema]) }} />
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image

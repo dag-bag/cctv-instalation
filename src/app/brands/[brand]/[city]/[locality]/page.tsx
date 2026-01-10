@@ -54,9 +54,37 @@ export default async function BrandPage({ params }: Props) {
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'reviewCount': '500' }
   };
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${brand} Installation Package`,
+    description: `Authorized ${brand} CCTV installation and setup in ${locality}, ${city}`,
+    brand: {
+      "@type": "Brand",
+      name: brand,
+    },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "INR",
+      lowPrice: "1499",
+      highPrice: "49999",
+      offerCount: "12",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "CamHarbor",
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "500",
+    },
+  };
+
   return (
     <div className={styles.container}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, localBusinessSchema]) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, localBusinessSchema, productSchema]) }} />
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image

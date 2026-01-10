@@ -413,6 +413,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "INR",
+      lowPrice: "499",
+      highPrice: "9999",
+      offerCount: "10",
       availability: "https://schema.org/InStock",
       seller: {
         "@type": "Organization",

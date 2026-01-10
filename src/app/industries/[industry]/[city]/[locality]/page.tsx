@@ -57,9 +57,37 @@ export default async function IndustryDetailPage({ params }: Props) {
     'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.8', 'reviewCount': '420' }
   };
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${industry} Security Package`,
+    description: `Specialized security solutions for ${industry} in ${locality}, ${city}`,
+    brand: {
+      "@type": "Brand",
+      name: "CamHarbor",
+    },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "INR",
+      lowPrice: "9999",
+      highPrice: "199999",
+      offerCount: "8",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "CamHarbor",
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "420",
+    },
+  };
+
   return (
     <div className={styles.container}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, localBusinessSchema]) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, localBusinessSchema, productSchema]) }} />
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
