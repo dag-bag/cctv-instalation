@@ -13,7 +13,11 @@ import {
 import { BUSINESS_CONFIG } from "../../../../../config/business";
 import { getImageUrl, getImageAlt } from "../../../../../config/images";
 import styles from "../../../../[slug]/page.module.css";
-import BookingForm from "../../../../../components/BookingFormClient";
+import nextDynamic from 'next/dynamic';
+
+const BookingForm = nextDynamic(() => import("../../../../../components/BookingFormClient"), {
+  ssr: true,
+});
 
 type Props = {
   params: Promise<{

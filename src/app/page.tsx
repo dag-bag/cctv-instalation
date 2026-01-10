@@ -6,8 +6,12 @@ import { BUSINESS_CONFIG } from "@/config/business";
 import { getImageUrl, getImageAlt } from "@/config/images";
 import { getBrandRoutes, getRepairRoutes, getIndustryRoutes } from "@/lib/static-routes";
 import CTAButtons from "@/components/CTAButtons";
-import FloatingCTA from "@/components/FloatingCTA";
+import nextDynamic from 'next/dynamic';
 import styles from "./page.module.css";
+
+const FloatingCTA = nextDynamic(() => import("@/components/FloatingCTA"), {
+  ssr: true,
+});
 
 // Metadata for homepage
 export const metadata: Metadata = {

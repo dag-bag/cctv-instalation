@@ -69,8 +69,15 @@ export const metadata: Metadata = {
 };
 
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import SiteNavigation from "@/components/SiteNavigation";
+import nextDynamic from 'next/dynamic';
+
+const Footer = nextDynamic(() => import("@/components/Footer"), {
+  ssr: true,
+});
+
+const SiteNavigation = nextDynamic(() => import("@/components/SiteNavigation"), {
+  ssr: true,
+});
 
 // ... imports ...
 

@@ -3,7 +3,11 @@ import Link from '@/components/Link';
 import { Metadata } from 'next';
 import { BUSINESS_CONFIG } from '@/config/business';
 import styles from './page.module.css';
-import ContactForm from '@/components/ContactForm';
+import nextDynamic from 'next/dynamic';
+
+const ContactForm = nextDynamic(() => import('@/components/ContactForm'), {
+  ssr: true,
+});
 
 export const metadata: Metadata = {
   title: 'Contact Us - Get in Touch',
