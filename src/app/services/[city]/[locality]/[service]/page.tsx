@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from '@/components/Link';
+import Link from "@/components/Link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import {
@@ -13,11 +13,14 @@ import {
 import { BUSINESS_CONFIG } from "../../../../../config/business";
 import { getImageUrl, getImageAlt } from "../../../../../config/images";
 import styles from "../../../../[slug]/page.module.css";
-import nextDynamic from 'next/dynamic';
+import nextDynamic from "next/dynamic";
 
-const BookingForm = nextDynamic(() => import("../../../../../components/BookingFormClient"), {
-  ssr: true,
-});
+const BookingForm = nextDynamic(
+  () => import("../../../../../components/BookingFormClient"),
+  {
+    ssr: true,
+  },
+);
 
 type Props = {
   params: Promise<{
@@ -30,7 +33,7 @@ type Props = {
 // Helper to find original casing from slug
 function findOriginalFromSlug(
   slug: string,
-  list: string[]
+  list: string[],
 ): string | undefined {
   return list.find((item) => createSlug(item) === slug);
 }
@@ -169,7 +172,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   // Get SEO-friendly image for the service
-  const serviceImage = getImageUrl(service, 'service', 2070);
+  const serviceImage = getImageUrl(service, "service", 2070);
 
   // SEO Optimized Title & Description
   const title = `${service} in ${locality}, ${city} - Best Price & Quick Service`;
@@ -295,7 +298,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
       "@type": "LocalBusiness",
       name: "CamHarbor",
       telephone: "+91-8766203976",
-      address: BUSINESS_CONFIG.schemaAddress
+      address: BUSINESS_CONFIG.schemaAddress,
     },
     areaServed: {
       "@type": "Place",
@@ -309,7 +312,8 @@ export default async function HierarchicalServicePage({ params }: Props) {
       priceSpecification: {
         "@type": "PriceSpecification",
         priceCurrency: "INR",
-        description: "Starting from competitive market prices. Contact for exact quote based on your requirements."
+        description:
+          "Starting from competitive market prices. Contact for exact quote based on your requirements.",
       },
       availability: "https://schema.org/InStock",
       availableAtOrFrom: {
@@ -318,14 +322,14 @@ export default async function HierarchicalServicePage({ params }: Props) {
         address: {
           "@type": "PostalAddress",
           addressLocality: city,
-          addressCountry: "IN"
-        }
+          addressCountry: "IN",
+        },
       },
       eligibleRegion: {
         "@type": "Place",
-        name: "Delhi NCR"
+        name: "Delhi NCR",
       },
-      businessFunction: "http://purl.org/goodrelations/v1#ProvideService"
+      businessFunction: "http://purl.org/goodrelations/v1#ProvideService",
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -351,14 +355,14 @@ export default async function HierarchicalServicePage({ params }: Props) {
         urlTemplate: "tel:+91-8766203976",
         actionPlatform: [
           "http://schema.org/DesktopWebPlatform",
-          "http://schema.org/MobileWebPlatform"
-        ]
+          "http://schema.org/MobileWebPlatform",
+        ],
       },
       result: {
         "@type": "Reservation",
-        name: `Book ${service} Service`
-      }
-    }
+        name: `Book ${service} Service`,
+      },
+    },
   };
 
   const breadcrumbSchema = {
@@ -471,21 +475,21 @@ export default async function HierarchicalServicePage({ params }: Props) {
   const imageObjectSchema = {
     "@context": "https://schema.org",
     "@type": "ImageObject",
-    "contentUrl": getImageUrl(service, 'service', 2070),
-    "caption": `Professional ${service} in ${locality}, ${city}`,
-    "description": `High-quality ${service} service provided by expert technicians in ${locality}`,
-    "name": `${service} - ${locality}, ${city}`,
-    "author": {
+    contentUrl: getImageUrl(service, "service", 2070),
+    caption: `Professional ${service} in ${locality}, ${city}`,
+    description: `High-quality ${service} service provided by expert technicians in ${locality}`,
+    name: `${service} - ${locality}, ${city}`,
+    author: {
       "@type": "Organization",
-      "name": "CamHarbor",
-      "url": "https://www.camharbor.in"
+      name: "CamHarbor",
+      url: "https://www.camharbor.in",
     },
-    "copyrightHolder": {
+    copyrightHolder: {
       "@type": "Organization",
-      "name": "CamHarbor"
+      name: "CamHarbor",
     },
-    "copyrightYear": new Date().getFullYear().toString(),
-    "representativeOfPage": true
+    copyrightYear: new Date().getFullYear().toString(),
+    representativeOfPage: true,
   };
 
   return (
@@ -509,8 +513,8 @@ export default async function HierarchicalServicePage({ params }: Props) {
       <header className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src={getImageUrl(service, 'service', 2070)}
-            alt={getImageAlt(service, 'service', { city, locality, service })}
+            src={getImageUrl(service, "service", 2070)}
+            alt={getImageAlt(service, "service", { city, locality, service })}
             fill
             priority
             quality={85}
@@ -597,7 +601,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Pricing Table */}
           <section className={styles.pricingSection}>
-            <h3 className={styles.sectionTitle}>Transparent Pricing for {service}</h3>
+            <h3 className={styles.sectionTitle}>
+              Transparent Pricing for {service}
+            </h3>
             <div className={styles.pricingTable}>
               {data.pricing.map((item, index) => (
                 <div key={index} className={styles.pricingRow}>
@@ -613,7 +619,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Safety Standards */}
           <section className={styles.safetySection}>
-            <h3 className={styles.sectionTitle}>Our Safety Standards in {locality}</h3>
+            <h3 className={styles.sectionTitle}>
+              Our Safety Standards in {locality}
+            </h3>
             <div className={styles.safetyGrid}>
               <div className={styles.safetyCard}>
                 <div className={styles.safetyIcon}>🛡️</div>
@@ -635,7 +643,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Testimonials */}
           <section className={styles.testimonialSection}>
-            <h3 className={styles.sectionTitle}>What Our {locality} Clients Say</h3>
+            <h3 className={styles.sectionTitle}>
+              What Our {locality} Clients Say
+            </h3>
             <div className={styles.testimonialGrid}>
               {data.testimonials.map((t, index) => (
                 <div key={index} className={styles.testimonialCard}>
@@ -658,7 +668,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
               className={styles.container}
               style={{ background: "transparent", minHeight: "auto" }}
             >
-              <h2 className={styles.sectionTitle}>How {service} Works in {locality}</h2>
+              <h2 className={styles.sectionTitle}>
+                How {service} Works in {locality}
+              </h2>
               <div className={styles.stepsGrid}>
                 <div className={styles.howStepCard}>
                   <div className={styles.howStepNumber}>1</div>
@@ -710,7 +722,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
                   allowFullScreen
                   title={`Map showing ${locality}, ${city} location`}
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                    locality + ", " + city
+                    locality + ", " + city,
                   )}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
                 ></iframe>
               </div>
@@ -739,7 +751,9 @@ export default async function HierarchicalServicePage({ params }: Props) {
 
           {/* Related Problems We Fix */}
           <section>
-            <h2 className={styles.sectionTitle}>Related {service} Problems We Fix in {locality}</h2>
+            <h2 className={styles.sectionTitle}>
+              Related {service} Problems We Fix in {locality}
+            </h2>
             <div className={styles.featuresGrid}>
               {[
                 "CCTV No Signal Fix",
@@ -750,7 +764,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
                 <Link
                   key={i}
                   href={`/repairs/${createSlug(issue)}/${createSlug(
-                    city
+                    city,
                   )}/${createSlug(locality)}`}
                   className={styles.featureCard}
                 >
@@ -775,7 +789,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
               {SERVICES.slice(0, 5).map((s, i) => {
                 if (s === service) return null;
                 const slug = `/services/${createSlug(city)}/${createSlug(
-                  locality
+                  locality,
                 )}/${createSlug(s)}`;
                 return (
                   <li key={i}>
@@ -794,7 +808,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
             <ul className={styles.relatedList}>
               {nearbyLocalities.map((loc, i) => {
                 const slug = `/services/${createSlug(city)}/${createSlug(
-                  loc
+                  loc,
                 )}/${createSlug(service)}`;
                 return (
                   <li key={i}>
@@ -843,5 +857,7 @@ export default async function HierarchicalServicePage({ params }: Props) {
     </div>
   );
 }
-export const dynamic = "force-static";
-export const revalidate = false;
+// export const dynamic = "force-static";
+// export const revalidate = false;
+export const dynamicParams = false;
+export const dynamic = "force-dynamic";
