@@ -1,4 +1,9 @@
+// export const dynamic = "force-static";
+// export const revalidate = false;
+export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
+
 
 export async function GET() {
   return new NextResponse(

@@ -7,8 +7,10 @@ import { BUSINESS_CONFIG } from '@/config/business';
 import { getImageUrl, getImageAlt } from '@/config/images';
 import styles from '../../../../[slug]/page.module.css';
 
-export const dynamic = 'force-static';
-export const revalidate = false;
+// export const dynamic = 'force-static';
+// export const revalidate = false;
+export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ industry: string; city: string; locality: string }> };
 

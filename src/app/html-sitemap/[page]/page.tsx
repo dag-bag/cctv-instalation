@@ -198,5 +198,7 @@ export default async function HtmlSitemapPage(props: {
     </div>
   );
 }
-export const dynamic = "force-static";
-export const revalidate = false;
+// export const dynamic = "force-static";
+// export const revalidate = false;
+export const dynamicParams = false;
+export const dynamic = "force-dynamic";

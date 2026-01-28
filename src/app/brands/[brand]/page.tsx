@@ -5,8 +5,10 @@ import { CITIES, createSlug } from '@/lib/seo-data';
 import { BRAND_CONTENT, PageContent } from '@/lib/content-data';
 import styles from '../../[slug]/page.module.css';
 
-export const dynamic = 'force-static';
-export const revalidate = false;
+// export const dynamic = 'force-static';
+// export const revalidate = false;
+export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ brand: string }> };
 

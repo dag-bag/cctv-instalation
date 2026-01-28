@@ -4,8 +4,10 @@ import { Metadata } from 'next';
 import { CITIES, LOCALITIES, INDUSTRIES, createSlug } from '@/lib/seo-data';
 import styles from '../../../[slug]/page.module.css';
 
-export const dynamic = 'force-static';
-export const revalidate = false;
+// export const dynamic = 'force-static';
+// export const revalidate = false;
+export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ industry: string; city: string }> };
 
